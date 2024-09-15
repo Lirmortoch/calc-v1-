@@ -6,7 +6,7 @@ html {
     --min-grid-column-width: 4vw;
     --max-grid-column-width: calc(var(--min-grid-column-width) * 3);
 
-    --min-grid-row-height: 2vh;
+    --min-grid-row-height: 3vh;
     --max-grid-row-height: calc(var(--min-grid-row-height) * 3);
 
     /* for dark theme */
@@ -77,6 +77,7 @@ body {
 
 .nav__link {
     color: var(--font-color-for-dark);
+    font-weight: 500;
     border-radius: 8px;
     padding: 5px 15px;
     margin: 0 10px 0 0;
@@ -114,14 +115,13 @@ body {
 
 .button {
     cursor: pointer;
-    
+    color: var(--font-color-for-dark);
     transition: 450ms;
     border-radius: 5px;
 }
 
 .action-buttons__button {
     background-color: var(--dark-back-btn-color);
-    color: var(--font-color-for-dark);
 }
 .action-buttons__button:hover {
     background-color: var(--dark-back-hover-color);
