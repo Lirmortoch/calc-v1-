@@ -77,16 +77,17 @@ body {
 
 .nav__link {
     color: var(--font-color-for-dark);
-    border-radius: 7px;
-    padding: 10px 5px;
+    border-radius: 8px;
+    padding: 5px 15px;
     margin: 0 10px 0 0;
     transition: 450ms;
+    background-color: var(--dark-back-hover-color);
 }
 .nav__link:last-child {
     margin: 0;
 }
 .nav__link:hover {
-    background-color: var(--dark-back-btn-color);
+    border-radius: 0;
 }
 
 .main {
