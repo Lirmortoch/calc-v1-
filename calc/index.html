@@ -27,55 +27,89 @@
         </header>
         <main class="main">
             <section class="calculator">
-                <input class="calculator__input" type="number" name="calc__input" id="calc__input" placeholder="0">
+                <section class="calculator__action-part action-part">
+                    <input class="calculator__input" type="number" name="calc__input" id="calc__input" placeholder="0">
 
-                <div class="memory-control">
-                    <button class="mem-ctrl__clearAll button">MC</button>
-                    <button class="mem-ctrl__recall button">MR</button>
-                    <button class="mem-ctrl__add button">M+</button>
-                    <button class="mem-ctrl__subtract button">M-</button>
-                    <button class="mem-ctrl__store button">MS</button>
-                </div>
+                    <div class="calculator__memory-control memory-control">
+                        <div class="memory-control__wrap">
+                            <button class="mem-ctrl__clearAll button mem-ctrl-btn">MC</button>
 
-                <div class="action-buttons">
-                    <button class="action-buttons__button button">1</button>
-                    <button class="action-buttons__button button">2</button>
-                    <button class="action-buttons__button button">3</button>
-                    <button class="action-buttons__button button">4</button>
-                    <button class="action-buttons__button button">5</button>
-                    <button class="action-buttons__button button">6</button>
-                    <button class="action-buttons__button button">7</button>
-                    <button class="action-buttons__button button">8</button>
-                    <button class="action-buttons__button button">9</button>
-                    <button class="action-buttons__button button">10</button>
-                    <button class="action-buttons__button button">11</button>
-                    <button class="action-buttons__button button">12</button>
-                    <button class="action-buttons__button button">13</button>
-                    <button class="action-buttons__button button">14</button>
-                    <button class="action-buttons__button button">15</button>
-                    <button class="action-buttons__button button">16</button>
-                    <button class="action-buttons__button button">17</button>
-                    <button class="action-buttons__button button">18</button>
-                    <button class="action-buttons__button button">19</button>
-                    <button class="action-buttons__button button">20</button>
-                    <button class="action-buttons__button button">21</button>
-                    <button class="action-buttons__button num-btn button">22</button>
-                    <button class="action-buttons__button num-btn button">23</button>
-                    <button class="action-buttons__button num-btn button">24</button>
-                    <button class="action-buttons__button button">25</button>
-                    <button class="action-buttons__button button">26</button>
-                    <button class="action-buttons__button num-btn button">27</button>
-                    <button class="action-buttons__button num-btn button">28</button>
-                    <button class="action-buttons__button num-btn button">29</button>
-                    <button class="action-buttons__button button">30</button>
-                    <button class="action-buttons__button button">31</button>
-                    <button class="action-buttons__button num-btn button">32</button>
-                    <button class="action-buttons__button num-btn button">33</button>
-                    <button class="action-buttons__button num-btn button">34</button>
-                    <button class="action-buttons__button equal-sign button">35</button>
-                </div>
+                            <button class="mem-ctrl__recall button mem-ctrl-btn">MR</button>
+
+                            <button class="mem-ctrl__add button mem-ctrl-btn">M+</button>
+
+                            <button class="mem-ctrl__subtract button mem-ctrl-btn">M-</button>
+                            
+                            <button class="mem-ctrl__store button mem-ctrl-btn">MS</button>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="action-buttons__button button">1</button>
+                        <button class="action-buttons__button button">2</button>
+                        <button class="action-buttons__button button">3</button>
+                        <button class="action-buttons__button button">4</button>
+                        <button class="action-buttons__button button">5</button>
+                        <button class="action-buttons__button button">6</button>
+                        <button class="action-buttons__button button">7</button>
+                        <button class="action-buttons__button button">8</button>
+                        <button class="action-buttons__button button">9</button>
+                        <button class="action-buttons__button button">10</button>
+                        <button class="action-buttons__button button">11</button>
+                        <button class="action-buttons__button button">12</button>
+                        <button class="action-buttons__button button">13</button>
+                        <button class="action-buttons__button button">14</button>
+                        <button class="action-buttons__button button">15</button>
+                        <button class="action-buttons__button button">16</button>
+                        <button class="action-buttons__button button">17</button>
+                        <button class="action-buttons__button button">18</button>
+                        <button class="action-buttons__button button">19</button>
+                        <button class="action-buttons__button button">20</button>
+                        <button class="action-buttons__button button">21</button>
+                        <button class="action-buttons__button num-btn button">22</button>
+                        <button class="action-buttons__button num-btn button">23</button>
+                        <button class="action-buttons__button num-btn button">24</button>
+                        <button class="action-buttons__button button">25</button>
+                        <button class="action-buttons__button button">26</button>
+                        <button class="action-buttons__button num-btn button">27</button>
+                        <button class="action-buttons__button num-btn button">28</button>
+                        <button class="action-buttons__button num-btn button">29</button>
+                        <button class="action-buttons__button button">30</button>
+                        <button class="action-buttons__button button">31</button>
+                        <button class="action-buttons__button num-btn button">32</button>
+                        <button class="action-buttons__button num-btn button">33</button>
+                        <button class="action-buttons__button num-btn button">34</button>
+                        <button class="action-buttons__button equal-sign button">35</button>
+                    </div>
+                </section>
+
+                <section class="calculator__history-part history-part">
+                    <div class="history-part__active-part-switcher history-buttons">
+                        <button class="history-buttons__history active button">
+                            History
+                        </button>
+
+                        <button class="history-buttons__memory button">
+                            Memory
+                        </button>
+                    </div>
+                    <div class="history-part__active-part">
+
+                    </div>
+                </section>
             </section>
         </main>
+        <footer class="footer">
+            <ul class="footer__links links">
+                <li class="links__link">
+                    <a href="#">About</a>
+                </li>
+                
+                <li class="links__link">
+                    <a rel="noopener noreferrer" target="_blank" href="https://github.com/Lirmortoch">GitHub</a>
+                </li>
+            </ul>
+        </footer>
     </div>
 
     <script src="script.js"></script>

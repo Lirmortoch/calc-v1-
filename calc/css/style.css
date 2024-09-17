@@ -1,14 +1,7 @@
 /* import fonts */
 @import url('fonts.css');
 
-
 html {
-    --min-grid-column-width: 4vw;
-    --max-grid-column-width: calc(var(--min-grid-column-width) * 3);
-
-    --min-grid-row-height: 3vh;
-    --max-grid-row-height: calc(var(--min-grid-row-height) * 3);
-
     /* for dark theme */
     --dark-back-color: #253040;
     --dark-back-btn-color: #2e3c50;
@@ -32,7 +25,6 @@ body {
     color: var(--font-color-for-dark);
     background-color: var(--dark-back-color);
     min-height: 100vh;
-    position: relative;
     padding: 10px;
 }
 
@@ -51,6 +43,10 @@ body {
 
 .title {
     font-size: 2.5em;
+}
+
+.small-title {
+    font-size: 1em;
 }
 
 .header__logo {
@@ -78,7 +74,7 @@ body {
 .nav__link {
     color: var(--font-color-for-dark);
     font-weight: 500;
-    border-radius: 8px;
+    border-radius: 10px; /* 8px */
     padding: 5px 15px;
     margin: 0 10px 0 0;
     transition: 450ms;
@@ -92,24 +88,77 @@ body {
 }
 
 .main {
-
+    margin: 4em 0;
 }
 
 .calculator {
-    max-width: 1000px;
-    margin: 4em auto 0;
+    width: 100%;
+
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 5px;
+}
+
+.calculator__action-part {
+    width: 75%;
+}
+.calculator__history-part {
+    width: 25%;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-inner-spin-button, 
+input::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+.memory-control {
+}
+
+.calculator__memory-control {
+    border-bottom: 1px solid var(--font-color-for-dark);
+    margin-bottom: 15px;
+}
+
+.memory-control__wrap {
+    margin-bottom: 5px;
+
+}
+.mem-ctrl-btn {
+    background-color: transparent;
+    padding: 2vh 2.1vw;
+}
+
+.mem-ctrl-btn:hover {
+    background-color: var(--dark-back-hover-color);
+}
+
+.calculator__input {
+    margin-bottom: 20px;
+    background-color: inherit;
+    color: inherit;
+    font-size: 2em;
+    text-align: right;
+    width: 100%;
+}
+
+.calculator__input::placeholder {
+    color: inherit;
 }
 
 .action-buttons {
-    margin-top: 20px;
     display: grid;
-    grid-template-rows: repeat(7, minmax(var(--min-grid-row-height), var(--max-grid-row-height)));
-    grid-template-columns: repeat(5, minmax(var(--min-grid-column-width), var(--max-grid-column-width)));
+    grid-auto-rows: 75px;
+    grid-auto-columns: 315px;
 
-    grid-auto-rows: minmax(var(--min-grid-row-height), var(--max-grid-row-height));
-    grid-auto-columns: minmax(var(--min-grid-column-width), var(--max-grid-column-width));
+    grid-template-columns: repeat(5, 1fr);
 
-    grid-auto-flow: row;
+    grid-auto-flow: dense;
     gap: 3px;
 }
 
