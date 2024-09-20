@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="wrap">
-        <header class="main__header header">
+        <header class="header">
             <div class="header__logo">
                 <img src="img/Gojo-and-gojo-cat.jfif" alt="Calc's logo">
             </div>
@@ -28,27 +28,21 @@
                 <button class="header__theme-switcher button">Dark</button>
             </nav>
         </header>
+
         <main class="main">
             <section class="calculator">
-                <section class="calculator__action-part action-part">
+                <section class="calculator__action-section action-section">
                     <input class="calculator__input" type="number" name="calc__input" id="calc__input" placeholder="0">
                     
-                    <div class="calculator__science-functions science-functions">
-                        <button class="science-functions__angle-value button functionality-btn">Deg</button>
-                        <button class="science-functions__f-e button functionality-btn">F-e</button>
-                    </div>
-
-                    <div class="calculator__memory-control memory-control">
-                        <div class="memory-control__wrap">
-                            <button class="mem-ctrl__clearAll button functionality-btn">mc</button>
-
-                            <button class="mem-ctrl__recall button functionality-btn">mr</button>
-
-                            <button class="mem-ctrl__add button functionality-btn">m+</button>
-
-                            <button class="mem-ctrl__subtract button functionality-btn">m-</button>
-                            
-                            <button class="mem-ctrl__store button functionality-btn">ms</button>
+                    <div class="calculator__upper-buttons upper-buttons">
+                        <div class="upper-buttons__grid">
+                            <button class="upper-buttons__angle-value button  science-functions">Deg</button>
+                            <button class="upper-buttons__f-e button  science-functions">F-e</button>
+                            <button class="upper-buttons__clearAll button  memory-control">mc</button>
+                            <button class="upper-buttons__recall button  memory-control">mr</button>
+                            <button class="upper-buttons__add button  memory-control">m+</button>
+                            <button class="upper-buttons__subtract button  memory-control">m-</button>
+                            <button class="upper-buttons__store button  memory-control">ms</button>
                         </div>
                     </div>
 
@@ -96,8 +90,8 @@
                     </div>
                 </section>
 
-                <section class="calculator__history-part history-part">
-                    <div class="history-part__active-part-switcher history-buttons">
+                <section class="calculator__history-section history-section">
+                    <div class="history-section__active-part-switcher history-buttons">
                         <button class="history-buttons__history current button">
                             History
                         </button>
@@ -106,11 +100,11 @@
                             Memory
                         </button>
                     </div>
-                    <div class="history-part__active-part active-part">
+                    <div class="history-section__active-part active-part">
                         <div class="active-part__item">
-                            <span class="active-part__expression">
+                            <span class="active-part__expression expression">
                                 1 + 1 =
-                            </span> <br> 2
+                            </span> <br> <span class="active-part__result result">2</span>
                         </div>
                     </div>
                 </section>

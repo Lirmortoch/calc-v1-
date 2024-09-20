@@ -24,15 +24,15 @@ body {
     font-size: 1em;
     font-weight: 400;
     color: var(--font-color-for-dark);
+    background-color: var(--dark-back-color);
 }
 
 .wrap {
-    background-color: var(--dark-back-color);
     min-height: 100vh;
     padding: 10px;
 }
 
-.main__header {
+.header {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -53,8 +53,8 @@ body {
 }
 
 .header__logo {
-    width: 100px;
-    height: 100px;
+    width: 100px; /* 10.625vh */
+    height: 100px; /* 10.625vh */
     overflow: hidden;
     border-radius: 25%;
     border: 1px solid var(--dark-back-hover-color);
@@ -104,14 +104,15 @@ body {
     gap: 5px;
 }
 
-.calculator__action-part {
+.calculator__action-section {
     width: 75%;
 }
-.calculator__history-part {
+.calculator__history-section {
     width: 25%;
 }
 
-/* Chrome, Safari, Edge, Opera */
+/* Hide buttons in input
+   Chrome, Safari, Edge, Opera */
 input::-webkit-inner-spin-button, 
 input::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -122,23 +123,44 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.calculator__memory-control {
+/* Memory and sone value buttons */
+.calculator__upper-buttons {
     border-bottom: 1px solid var(--font-color-for-dark);
     margin-bottom: 5px;
 }
-.calculator__memory-control button {
-    text-transform: uppercase;
-}
 
-.memory-control__wrap {
+.upper-buttons__grid {
+    display: grid;
+    grid-auto-rows: 8vh;
+    grid-auto-columns: 5.1vw;
+
+    grid-auto-flow: dense;
+    gap: 15px;
     margin-bottom: 5px;
 }
 
+.science-functions {
+    grid-row: 1;
+}
+.memory-control {
+    grid-row: 2;
+}
+
+.calculator__upper-buttons button {
+    background-color: transparent;
+    text-transform: uppercase;
+}
+.calculator__upper-buttons button:hover {
+    background-color: var(--dark-back-hover-color);
+}
+
+/* Functions buttons */
 .functionality-btn {
     background-color: transparent;
     padding: 3.3vh 2vw;
     margin: 0 5px 0 0;
 }
+
 .functionality-btn:last-of-type {
     margin: 0;
 }
@@ -153,13 +175,16 @@ input[type=number] {
     color: inherit;
     font-size: 2em;
     text-align: right;
+    vertical-align: middle;
     width: 100%;
+    height: 3em;
 }
 
 .calculator__input::placeholder {
     color: inherit;
 }
 
+/* Main buttons */
 .action-buttons {
     display: grid;
     grid-auto-rows: 75px;
@@ -199,22 +224,23 @@ input[type=number] {
     background-color: var(--dark-equal-hover-color);
 }
 
-.calculator__history-part {
+.calculator__history-section {
 }
 
-.calculator__history-part button {
+.calculator__history-section button {
     background-color: transparent;
     margin: 5px 10px;
 }
 
-.calculator__history-part button:hover {
+.calculator__history-section button:hover {
     opacity: 0.8;
 }
 
-.history-part {
+/* History and memory section */
+.history-section {
 }
 
-.history-part__active-part-switcher {
+.history-section__active-part-switcher {
     margin: 0 0 5px 0;
 }
 
@@ -241,7 +267,7 @@ input[type=number] {
 .history-buttons__memory {
 }
 
-.history-part__active-part {
+.history-section__active-part {
     width: 100%;
 }
 
@@ -258,7 +284,7 @@ input[type=number] {
     background-color: var(--dark-history-item-hover-color);
 }
 
-.active-part__expression {
+.expression {
     font-size: 0.74em;
     color: var(--dark-expression-color);
 }
@@ -278,12 +304,6 @@ input[type=number] {
 
 .calculator__science-functions {
     
-}
-.calculator__science-functions button {
-    text-transform: uppercase;
-}
-
-.science-functions {
 }
 
 .science-functions__angle-value {
