@@ -7,8 +7,12 @@ html {
     --dark-back-btn-color: #2e3c50;
     --dark-back-hover-color: #40536e;
     --font-color-for-dark: #f6f4ef;
-    --dark-equal-color: #586270;
-    --dark-equal-hover-color: #424953;
+    --dark-equal-color: #586270; /* fv: #4e5e74*/
+    --dark-equal-hover-color: #424953; /* fv: #323c4b */
+    --dark-expression-color: #8db2e9;
+    --dark-history-item-hover-color: #3a495f; /* v1: #445670 */
+    --dark-current-item-selection: #00aeff;
+
     /* for light theme */
     --third-color: #f4e8e2;
     --fourth-color: #e9aeaf;
@@ -19,10 +23,10 @@ body {
     font-family: 'Montserrat';
     font-size: 1em;
     font-weight: 400;
+    color: var(--font-color-for-dark);
 }
 
 .wrap {
-    color: var(--font-color-for-dark);
     background-color: var(--dark-back-color);
     min-height: 100vh;
     padding: 10px;
@@ -40,13 +44,12 @@ body {
 .header__title {
     margin: 0 0 0 0.5em;
 }
+.header__title a {
+    cursor: default;
+}
 
 .title {
     font-size: 2.5em;
-}
-
-.small-title {
-    font-size: 1em;
 }
 
 .header__logo {
@@ -68,9 +71,6 @@ body {
     right: 0;
 }
 
-.nav {
-}
-
 .nav__link {
     color: var(--font-color-for-dark);
     font-weight: 500;
@@ -80,15 +80,20 @@ body {
     transition: 450ms;
     background-color: var(--dark-back-hover-color);
 }
-.nav__link:last-child {
+.nav__link:last-of-type {
     margin: 0;
 }
 .nav__link:hover {
     border-radius: 0;
 }
 
+.header__theme-switcher {
+    margin: 0 0 0 80px;
+    background-color: transparent;
+}
+
 .main {
-    margin: 4em 0;
+    margin: 4em 0 0 0;
 }
 
 .calculator {
@@ -117,29 +122,33 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.memory-control {
-}
-
 .calculator__memory-control {
     border-bottom: 1px solid var(--font-color-for-dark);
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+}
+.calculator__memory-control button {
+    text-transform: uppercase;
 }
 
 .memory-control__wrap {
     margin-bottom: 5px;
-
 }
-.mem-ctrl-btn {
+
+.functionality-btn {
     background-color: transparent;
-    padding: 2vh 2.1vw;
+    padding: 3.3vh 2vw;
+    margin: 0 5px 0 0;
+}
+.functionality-btn:last-of-type {
+    margin: 0;
 }
 
-.mem-ctrl-btn:hover {
+.functionality-btn:hover {
     background-color: var(--dark-back-hover-color);
 }
 
 .calculator__input {
-    margin-bottom: 20px;
+    margin: 0px 5px 20px 0px;
     background-color: inherit;
     color: inherit;
     font-size: 2em;
@@ -164,7 +173,7 @@ input[type=number] {
 
 .button {
     cursor: pointer;
-    color: var(--font-color-for-dark);
+    color: inherit;
     transition: 450ms;
     border-radius: 5px;
 }
@@ -188,4 +197,99 @@ input[type=number] {
 }
 .equal-sign:hover {
     background-color: var(--dark-equal-hover-color);
+}
+
+.calculator__history-part {
+}
+
+.calculator__history-part button {
+    background-color: transparent;
+    margin: 5px 10px;
+}
+
+.calculator__history-part button:hover {
+    opacity: 0.8;
+}
+
+.history-part {
+}
+
+.history-part__active-part-switcher {
+    margin: 0 0 5px 0;
+}
+
+.history-buttons {
+}
+
+.history-buttons__history {
+}
+
+.current {
+    position: relative;
+}
+
+.current::after {
+    display: block;
+    content: '';
+    width: 25px;
+    height: 5px;
+    margin: 10px auto 0;
+    border-radius: 200px;
+    background-color: var(--dark-current-item-selection);
+}
+
+.history-buttons__memory {
+}
+
+.history-part__active-part {
+    width: 100%;
+}
+
+.active-part__item {
+    transition: 450ms;
+    border-radius: 5px;
+    text-align: right;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    margin: 0 0 5px 0;
+}
+
+.active-part__item:hover {
+    background-color: var(--dark-history-item-hover-color);
+}
+
+.active-part__expression {
+    font-size: 0.74em;
+    color: var(--dark-expression-color);
+}
+
+.calculator__functions {
+    margin-bottom: 5px;
+}
+
+.functions {
+}
+
+.functions_trigonometry {
+}
+
+.functions_others {
+}
+
+.calculator__science-functions {
+    
+}
+.calculator__science-functions button {
+    text-transform: uppercase;
+}
+
+.science-functions {
+}
+
+.science-functions__angle-value {
+    
+}
+
+.science-functions__f-e {
+    
 }

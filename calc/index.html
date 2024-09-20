@@ -17,31 +17,44 @@
             </div>
 
             <h1 class="header__title title">
-                Gojo's Calculator
+                <a rel="noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v=qXvdQiAXUZE">Gojo's</a> Calculator
             </h1>
 
             <nav class="header__nav nav">
                 <a href="#" class="nav__link">About</a>
+                
                 <a rel="noopener noreferrer" target="_blank" href="https://github.com/Lirmortoch" class="nav__link">GitHub</a>
+
+                <button class="header__theme-switcher button">Dark</button>
             </nav>
         </header>
         <main class="main">
             <section class="calculator">
                 <section class="calculator__action-part action-part">
                     <input class="calculator__input" type="number" name="calc__input" id="calc__input" placeholder="0">
+                    
+                    <div class="calculator__science-functions science-functions">
+                        <button class="science-functions__angle-value button functionality-btn">Deg</button>
+                        <button class="science-functions__f-e button functionality-btn">F-e</button>
+                    </div>
 
                     <div class="calculator__memory-control memory-control">
                         <div class="memory-control__wrap">
-                            <button class="mem-ctrl__clearAll button mem-ctrl-btn">MC</button>
+                            <button class="mem-ctrl__clearAll button functionality-btn">mc</button>
 
-                            <button class="mem-ctrl__recall button mem-ctrl-btn">MR</button>
+                            <button class="mem-ctrl__recall button functionality-btn">mr</button>
 
-                            <button class="mem-ctrl__add button mem-ctrl-btn">M+</button>
+                            <button class="mem-ctrl__add button functionality-btn">m+</button>
 
-                            <button class="mem-ctrl__subtract button mem-ctrl-btn">M-</button>
+                            <button class="mem-ctrl__subtract button functionality-btn">m-</button>
                             
-                            <button class="mem-ctrl__store button mem-ctrl-btn">MS</button>
+                            <button class="mem-ctrl__store button functionality-btn">ms</button>
                         </div>
+                    </div>
+
+                    <div class="calculator__functions functions">
+                        <button class="functions_trigonometry button functionality-btn">Trigonometry</button>
+                        <button class="functions_others button functionality-btn">Functions</button>
                     </div>
 
                     <div class="action-buttons">
@@ -85,7 +98,7 @@
 
                 <section class="calculator__history-part history-part">
                     <div class="history-part__active-part-switcher history-buttons">
-                        <button class="history-buttons__history active button">
+                        <button class="history-buttons__history current button">
                             History
                         </button>
 
@@ -93,23 +106,16 @@
                             Memory
                         </button>
                     </div>
-                    <div class="history-part__active-part">
-
+                    <div class="history-part__active-part active-part">
+                        <div class="active-part__item">
+                            <span class="active-part__expression">
+                                1 + 1 =
+                            </span> <br> 2
+                        </div>
                     </div>
                 </section>
             </section>
         </main>
-        <footer class="footer">
-            <ul class="footer__links links">
-                <li class="links__link">
-                    <a href="#">About</a>
-                </li>
-                
-                <li class="links__link">
-                    <a rel="noopener noreferrer" target="_blank" href="https://github.com/Lirmortoch">GitHub</a>
-                </li>
-            </ul>
-        </footer>
     </div>
 
     <script src="script.js"></script>
