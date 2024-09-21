@@ -29,7 +29,7 @@ body {
 
 .wrap {
     min-height: 100vh;
-    padding: 10px;
+    padding: 20px;
 }
 
 .header {
@@ -53,8 +53,8 @@ body {
 }
 
 .header__logo {
-    width: 100px; /* 10.625vh */
-    height: 100px; /* 10.625vh */
+    width: 10.41666627vh; /* pv: 100px */
+    height: 10.41666627vh; /* pv: 100px */
     overflow: hidden;
     border-radius: 25%;
     border: 1px solid var(--dark-back-hover-color);
@@ -75,7 +75,7 @@ body {
     color: var(--font-color-for-dark);
     font-weight: 500;
     border-radius: 10px; /* 8px */
-    padding: 5px 15px;
+    padding: 0.313em 0.938em;
     margin: 0 10px 0 0;
     transition: 450ms;
     background-color: var(--dark-back-hover-color);
@@ -105,10 +105,11 @@ body {
 }
 
 .calculator__action-section {
-    width: 75%;
+    width: 70%; /* v1: 75% */
+    flex: 1 1 auto;
 }
 .calculator__history-section {
-    width: 25%;
+    width: 30%; /* v1: 25% */
 }
 
 /* Hide buttons in input
@@ -312,4 +313,106 @@ input[type=number] {
 
 .science-functions__f-e {
     
+}
+
+@media screen and (min-width: 3820px) {
+    body {
+        font-size: 2em;
+    }
+    .wrap {
+        width: 95%;
+        margin: 0 auto;
+        padding: 80px; /* v1: 100px */
+    }
+    .action-buttons {
+        grid-auto-rows: 135px;
+    }
+}
+
+@media screen and (min-width: 2540px) {
+    body {
+        font-size: 1.4em;
+    }
+    .wrap {
+        padding: 40px;
+    }
+    .action-buttons {
+        grid-auto-rows: 105px;
+    }
+}
+
+@media screen and (max-width: 1400px) {
+    .upper-buttons__grid {
+        grid-auto-rows: 8vh;
+        grid-auto-columns: 8vw;
+    }
+}
+
+/* --------------------------------------------------------------------------------------- */
+
+@media screen and (max-width: 1100px) {
+    .header__nav {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    body {
+        font-size: 0.8em;
+    }
+    .calculator__history-section {
+        display: none;
+    }
+    .upper-buttons__grid {
+        grid-auto-rows: 6vh;
+        grid-auto-columns: 12vw;
+    }
+    .functionality-btn {
+        background-color: transparent;
+        padding: 3.3vh 2vw;
+        margin: 0 5px 0 0;
+    }
+    .action-buttons {
+        grid-auto-rows: 70px;
+    }
+    .functionality-btn {
+        padding: 2.2vh 2vw;
+    }
+    .main {
+        margin: 3em 0 0 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .title {
+        font-size: 2em;
+    }
+    .action-buttons {
+        grid-auto-rows: 60px;
+    }
+}
+
+/* --------------------------------------------------------------------------------------- */
+@media screen and (max-height: 900px) {
+    .action-buttons {
+        grid-auto-rows: 55px;
+    }
+}
+
+@media screen and (max-height: 850px) {
+    .action-buttons {
+        grid-auto-rows: 50px;
+    }
+}
+
+@media screen and (max-height: 800px) {
+    .action-buttons {
+        grid-auto-rows: 40px;
+    }
+}
+
+@media screen and (max-height: 700px) {
+    .action-buttons {
+        grid-auto-rows: 33px;
+    }
 }
