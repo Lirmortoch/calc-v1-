@@ -2,7 +2,7 @@
 @import url('fonts.css');
 
 html {
-    /* for dark mode */
+    /* for dark (main) mode */
     --back-color: #253040;
 
     --back-btn-color: #2e3c50;
@@ -110,8 +110,6 @@ body {
 .header__theme-switcher {
     width: 2vw;
     height: 2vw;
-
-    position: relative;
     
     min-height: 30px;
     min-width: 30px;
@@ -121,7 +119,7 @@ body {
     cursor: pointer;
     background-color: transparent;
 
-    transition: 0.45s;
+    transition: all 0.3s ease 0s;
 }
 
 .header__theme-switcher svg {
@@ -129,9 +127,22 @@ body {
     height: 100%;
 }
 
+#first-layer {
+    fill: var(--font-color);
+    stroke: var(--font-color);
+}
+
 .header__theme-switcher:hover {
     transform: scale(1.2);
 }
+
+.header__theme-switcher:disabled:hover {
+    transform: none;
+}
+
+.header__theme-switcher:active {
+    transform: scale(1);
+} 
 
 #switcher-gradient {
     opacity: 0.0;
@@ -144,6 +155,14 @@ body {
 
 #switcher-gradient:hover {
     opacity: 1.0;
+}
+
+.header__theme-switcher:disabled #switcher-gradient:hover {
+    opacity: 0.0;
+}
+
+#switcher-gradient:active {
+    opacity: 0.0;
 }
 
 .main {
@@ -176,6 +195,27 @@ input::-webkit-outer-spin-button {
 /* Firefox */
 input[type=number] {
     -moz-appearance: textfield;
+}
+
+.calculator__input {
+    margin: 0px 5px 20px 0px;
+    background-color: inherit;
+    color: inherit;
+    font-size: 2em;
+    text-align: right;
+    vertical-align: middle;
+    width: 100%;
+    height: 3em;
+    padding: 5px;
+}
+
+.calculator__input:focus {
+    border: 1px solid var(--font-color);
+    border-radius: 8px;
+}
+
+.calculator__input::placeholder {
+    color: inherit;
 }
 
 /* Memory and sone value buttons */
@@ -224,21 +264,6 @@ input[type=number] {
     background-color: var(--back-hover-color);
 }
 
-.calculator__input {
-    margin: 0px 5px 20px 0px;
-    background-color: inherit;
-    color: inherit;
-    font-size: 2em;
-    text-align: right;
-    vertical-align: middle;
-    width: 100%;
-    height: 3em;
-}
-
-.calculator__input::placeholder {
-    color: inherit;
-}
-
 /* Main buttons */
 .action-buttons {
     display: grid;
@@ -254,7 +279,7 @@ input[type=number] {
 .button {
     cursor: pointer;
     color: inherit;
-    transition: 0.45s;
+    transition: all 0.3s ease 0s;
     border-radius: 5px;
 }
 
@@ -285,6 +310,7 @@ input[type=number] {
 .calculator__history-section button {
     background-color: transparent;
     margin: 5px 10px;
+    padding: 5px 10px;
 }
 
 .calculator__history-section button:hover {
@@ -327,7 +353,7 @@ input[type=number] {
 }
 
 .active-part__item {
-    transition: 0.45s;
+    transition: all 0.3s ease 0s;
     border-radius: 5px;
     text-align: right;
     padding: 10px 20px;

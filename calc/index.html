@@ -29,12 +29,12 @@
                     <?xml version="1.0" ?>
                     <svg class="switch-img" fill="white" stroke="white" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                         <defs>
-                            <linearGradient id="linear-gradient1" gradientTransform="rotate(90)">
+                            <linearGradient id="linear-gradient-1" gradientTransform="rotate(90)">
                                 <stop offset="0" stop-color="#e4ba5b" />
                                 <stop offset="0.92" stop-color="#b71d1a" />
                             </linearGradient>
 
-                            <linearGradient id="linear-gradient2" gradientUnits="userSpaceOnUse" gradientTransform="rotate(90)">
+                            <linearGradient id="linear-gradient-2" gradientUnits="userSpaceOnUse" gradientTransform="rotate(90)">
                                 <stop offset="0" stop-color="#fcf9f6" />
                                 <stop offset="0.09090909090909091" stop-color="#e1d4cf" />
                                 <stop offset="0.18181818181818182" stop-color="#c7aeae" />
@@ -55,8 +55,8 @@
                         </defs>
 
                         <g mask="url(#switcher-mask)">
-                            <rect x="0" y="0" width="24" height="24" fill="white" />
-                            <rect id="switcher-gradient" x="0" y="0" width="24" height="24" fill="url(#linear-gradient1)" stroke="url(#linear-gradient1)" />
+                            <rect id="first-layer" x="0" y="0" width="24" height="24" />
+                            <rect id="switcher-gradient" x="0" y="0" width="24" height="24" fill="url(#linear-gradient-1)" stroke="url(#linear-gradient-1)" />
                         </g>
                     </svg>
                 </button>
@@ -102,9 +102,9 @@
                         <button class="action-buttons__button button">14</button>
                         <button class="action-buttons__button button">15</button>
                         <button class="action-buttons__button button">16</button>
-                        <button class="action-buttons__button button">17</button>
-                        <button class="action-buttons__button button">18</button>
-                        <button class="action-buttons__button button">19</button>
+                        <button class="action-buttons__button num-btn button">17</button>
+                        <button class="action-buttons__button num-btn button">18</button>
+                        <button class="action-buttons__button num-btn button">19</button>
                         <button class="action-buttons__button button">20</button>
                         <button class="action-buttons__button button">21</button>
                         <button class="action-buttons__button num-btn button">22</button>
@@ -146,8 +146,6 @@
         </main>
     </div>
 
-    <script src="script.js">
-        
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
