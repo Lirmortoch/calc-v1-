@@ -51,7 +51,11 @@ if (currentTheme === 'light') {
 themeSwitcher.addEventListener('click', switchTheme);
 
 /* History switch */
-const historyBlock = document.querySelector('.history-section__active-part-switcher');
+const historyBlock = document.querySelector('.history-section');
+const historyActivePart = historyBlock.querySelector('.active-part');
+const history = [];
+const memory = [];
+
 let currentHistoryMode = localStorage.getItem('history-mode');
 
 function switchHistoryMode(event) {
@@ -62,11 +66,15 @@ function switchHistoryMode(event) {
 
     event.target.classList.add('current-history-mode');
     localStorage.setItem('history-mode', event.target.value);
+
+    historyActivePart.style.display = 'block';
 }
 
 function turnOnHistoryMode(currentMode) {
     const element = historyBlock.querySelector(`button[value=${currentMode}]`);
     element.classList.add('current-history-mode');
+
+    historyActivePart.style.display = 'block';
 }
 
 if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
@@ -74,6 +82,9 @@ if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 historyBlock.addEventListener('click', switchHistoryMode);
 
 
+// function switchTheme(switchToLight, switchToMain, currentMode) {
+//     currentMode !== 'light' ? switchToLight() : switchToMain();
+// }
 
 // class Calculator { 
 //     #body = document.querySelector('body');

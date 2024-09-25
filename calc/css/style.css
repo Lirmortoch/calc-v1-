@@ -200,21 +200,27 @@ input[type=number] {
     -moz-appearance: textfield;
 }
 
-.calculator__input {
+.calculator__input-wrap {
     margin: 0px 5px 20px 0px;
+}
+
+.calculator__input-prev {
+    width: 100%;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 1.5em;
+    height: 1em;
+}
+
+.calculator__input {
     background-color: inherit;
     color: inherit;
     font-size: 2em;
     text-align: right;
     vertical-align: middle;
     width: 100%;
-    height: 3em;
+    margin: 5px 0 0 0;
     padding: 5px;
-}
-
-.calculator__input:focus {
-    border: 1px solid var(--font-color);
-    border-radius: 8px;
 }
 
 .calculator__input::placeholder {
@@ -352,8 +358,10 @@ input[type=number] {
 .history-buttons__memory {
 }
 
+/* ДОРАБОТАТЬ */
 .history-section__active-part {
     width: 100%;
+    display: none; /* Доработать (взять из видео) */
 }
 
 .active-part__item {
@@ -442,7 +450,7 @@ input[type=number] {
 
 @media screen and (max-width: 800px) {
     body {
-        font-size: 0.8em;
+        font-size: 0.9em;
     }
     .calculator__history-section {
         display: none;
