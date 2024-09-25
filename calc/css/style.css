@@ -16,7 +16,7 @@ html {
     --expression-color: #8db2e9;
     
     --history-item-hover-color: #3a495f; 
-    --current-item-selection: #00aeff;
+    --current-history-item: #00aeff;
 }
 
 .light-theme {
@@ -34,7 +34,7 @@ html {
     --expression-color: #3c4c64;
 
     --history-item-hover-color: #8aade2; 
-    --current-item-selection: #003750;
+    --current-history-item: #003750;
 }
 
 body {
@@ -105,6 +105,9 @@ body {
 }
 .nav__link:hover {
     border-radius: 0;
+}
+.nav__link:active {
+    border-radius: 20px;
 }
 
 .header__theme-switcher {
@@ -309,12 +312,13 @@ input[type=number] {
 
 .calculator__history-section button {
     background-color: transparent;
-    margin: 5px 10px;
+    transition: all 0.5s ease 0s;
     padding: 5px 10px;
 }
 
 .calculator__history-section button:hover {
     opacity: 0.8;
+    transform: scale(1.1);
 }
 
 /* History and memory section */
@@ -331,18 +335,18 @@ input[type=number] {
 .history-buttons__history {
 }
 
-.current {
+.current-history-mode {
     position: relative;
 }
 
-.current::after {
+.current-history-mode::after {
     display: block;
     content: '';
     width: 25px;
     height: 5px;
     margin: 10px auto 0;
     border-radius: 200px;
-    background-color: var(--current-item-selection);
+    background-color: var(--current-history-item);
 }
 
 .history-buttons__memory {
