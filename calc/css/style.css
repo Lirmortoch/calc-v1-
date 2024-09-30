@@ -169,7 +169,7 @@ body {
 }
 
 .main {
-    margin: 4em 0 0 0;
+    margin: 2em 0 0 0;
 }
 
 .calculator {
@@ -276,7 +276,7 @@ input[type=number] {
 /* Main buttons */
 .action-buttons {
     display: grid;
-    grid-auto-rows: 75px;
+    grid-auto-rows: 4vmax;
     grid-auto-columns: 315px;
 
     grid-template-columns: repeat(5, 1fr);
@@ -417,7 +417,7 @@ input[type=number] {
         padding: 80px; 
     }
     .action-buttons {
-        grid-auto-rows: 135px;
+        grid-auto-rows: 3.3vmax;
     }
 }
 
@@ -428,9 +428,7 @@ input[type=number] {
     .wrap {
         padding: 40px;
     }
-    .action-buttons {
-        grid-auto-rows: 105px;
-    }
+    
 }
 
 @media screen and (max-width: 1400px) {
@@ -440,11 +438,12 @@ input[type=number] {
     }
 }
 
-/* --------------------------------------------------------------------------------------- */
-
 @media screen and (max-width: 1100px) {
     .header__nav {
         display: none;
+    }
+    .action-buttons {
+        grid-auto-rows: 5.45vmax;
     }
 }
 
@@ -464,9 +463,7 @@ input[type=number] {
         padding: 3.3vh 2vw;
         margin: 0 5px 0 0;
     }
-    .action-buttons {
-        grid-auto-rows: 70px;
-    }
+    
     .functionality-btn {
         padding: 2.2vh 2vw;
     }
@@ -478,33 +475,5 @@ input[type=number] {
 @media screen and (max-width: 600px) {
     .title {
         font-size: 2em;
-    }
-    .action-buttons {
-        grid-auto-rows: 60px;
-    }
-}
-
-/* --------------------------------------------------------------------------------------- */
-@media screen and (max-height: 900px) {
-    .action-buttons {
-        grid-auto-rows: 55px;
-    }
-}
-
-@media screen and (max-height: 850px) {
-    .action-buttons {
-        grid-auto-rows: 50px;
-    }
-}
-
-@media screen and (max-height: 800px) {
-    .action-buttons {
-        grid-auto-rows: 40px;
-    }
-}
-
-@media screen and (max-height: 700px) {
-    .action-buttons {
-        grid-auto-rows: 30px;
     }
 }
