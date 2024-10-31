@@ -1,14 +1,14 @@
 {
-  "name": "calc-v1",
+  "name": "calc",
   "version": "1.0.0",
-  "description": "Simple calc with math.js libary",
-  "main": "script.js",
+  "description": "simple js calculator",
+  "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Lir",
   "license": "ISC",
   "dependencies": {
-    "mathjs": "^13.0.3"
+    "mathjs": "^13.2.0"
   }
 }
