@@ -9,6 +9,8 @@
   "author": "Lir",
   "license": "ISC",
   "dependencies": {
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
     "mathjs": "^13.2.0"
   }
 }
