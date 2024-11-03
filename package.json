@@ -4,13 +4,19 @@
   "description": "simple js calculator",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
   },
   "author": "Lir",
   "license": "ISC",
   "dependencies": {
     "fs": "^0.0.1-security",
     "http": "^0.0.1-security",
-    "mathjs": "^13.2.0"
+    "mathjs": "^13.2.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4"
   }
 }
