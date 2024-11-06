@@ -181,15 +181,19 @@ body {
 }
 
 .calculator__mode-switcher {
-    height: 60px;
+    height: 50px;
     width: 100px;
+    background-color: var(--back-color);
+    margin: 0 0 0 20px;
+    border: 2px solid white;
 }
 
 .calculator__action-section {
-    width: 70%;
     flex: 1 1 auto;
+    width: 70%;
 }
 .calculator__history-section {
+    flex: 1 1 auto;
     width: 30%; 
 }
 
@@ -443,10 +447,13 @@ input[type=number] {
     }
 }
 
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 1300px) {
     .header__nav {
         display: none;
     }
+}
+
+@media screen and (max-width: 1100px) {
     .action-buttons {
         grid-auto-rows: 5.45vmax;
     }
