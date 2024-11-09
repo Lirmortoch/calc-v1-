@@ -97,9 +97,3 @@ function turnOnHistoryMode(currentMode) {
 if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 
 historyBlock.addEventListener('click', switchHistoryMode);
-
-function initCalc() {
-    
-}
-
-initCalc();

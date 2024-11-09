@@ -180,12 +180,41 @@ body {
     gap: 5px;
 }
 
-.calculator__mode-switcher {
+button.calculator__mode-switcher {
     height: 50px;
     width: 100px;
     background-color: var(--back-color);
     margin: 0 0 0 20px;
-    border: 2px solid white;
+}
+
+.calculator__mode-switcher:hover {
+    background-color: var(--back-btn-color);
+    border-radius: 10px;
+}
+
+.dropdown {
+    position: relative;
+
+}
+
+.dropdown__menu {
+    position: absolute;
+    left: 0;
+    top: calc(100% - .25rem);
+    background-color: var(--back-btn-color);
+    padding: .75rem;
+    border-radius: .25rem;
+    box-shadow: 0 2px 5px 0 rgba(255, 255, 255, .1);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 150ms ease-in-out, transform 150ms ease-in-out;
+    pointer-events: none;
+}
+
+.dropdown > .button:focus + .dropdown__menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
 }
 
 .calculator__action-section {
