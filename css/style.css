@@ -23,13 +23,13 @@ html {
     /* for light mode */
     --back-color:#f6f4ef;
     
-    --back-btn-color: #7497c7;
-    --back-hover-color: #89b3ec;
+    --back-btn-color: #80b4fd; /* #7497c7; #78a9ee; */
+    --back-hover-color: #a4c2ec;
 
     --font-color: #11171f; /* #253040, #1a222e,  */
 
-    --equal-color: #a5b7cf; 
-    --equal-hover-color: #b2c6e0; 
+    --equal-color: #b9cde7; 
+    --equal-hover-color: #d2dbe7; 
 
     --expression-color: #3c4c64;
 
@@ -180,21 +180,21 @@ body {
     gap: 5px;
 }
 
-button.calculator__mode-switcher {
+.calculator__mode-switcher {
     height: 50px;
     width: 100px;
-    background-color: var(--back-color);
+    background-color: inherit;
     margin: 0 0 0 20px;
+    border-radius: 10px;
 }
 
 .calculator__mode-switcher:hover {
     background-color: var(--back-btn-color);
-    border-radius: 10px;
 }
 
 .dropdown {
     position: relative;
-
+    font-size: 1em;
 }
 
 .dropdown__menu {
