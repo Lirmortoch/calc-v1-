@@ -104,16 +104,20 @@ function keepOpenDropMenu(e) {
     if (!isDropDownButton && e.target.closest('[data-dropdown]') != null) return;
 
     let currentDropDown;
+    
 
     if (isDropDownButton) {
         currentDropDown = e.target.closest('[data-dropdown]');
         currentDropDown.classList.toggle('active');
+        
     }
 
     document.querySelectorAll('[data-dropdown].active').forEach(dropDown => {
         if (dropDown === currentDropDown) return;
         dropDown.classList.remove('active');
+       
     });
+
 }
 
 body.addEventListener('click', keepOpenDropMenu);
