@@ -1,6 +1,6 @@
 'use strict'
 
-import {evaluate} from './node_modules/mathjs';
+// import math from './node_modules/mathjs';
 
 const body = document.querySelector('body');
 
