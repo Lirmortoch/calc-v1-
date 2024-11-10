@@ -175,8 +175,8 @@ body {
 .calculator {
     width: 100%;
 
-    display: flex;
-    flex-flow: row nowrap;
+    display: grid;
+    grid-template-columns: 70% 30%;
     gap: 5px;
 }
 
@@ -195,6 +195,7 @@ body {
 .dropdown {
     position: relative;
     font-size: 1em;
+    grid-row: 1 / 2;
 }
 
 .dropdown__menu {
@@ -211,19 +212,20 @@ body {
     pointer-events: none;
 }
 
-.dropdown > .button:focus + .dropdown__menu {
+.dropdown.active > .button + .dropdown__menu {
     opacity: 1;
     transform: translateY(0);
     pointer-events: auto;
 }
 
 .calculator__action-section {
-    flex: 1 1 auto;
-    width: 70%;
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+   
 }
 .calculator__history-section {
-    flex: 1 1 auto;
-    width: 30%; 
+    grid-row: 2 / 3;
+    grid-column: 2 / 3;
 }
 
 /* Hide buttons in input
@@ -494,6 +496,9 @@ input[type=number] {
     }
     .calculator__history-section {
         display: none;
+    }
+    .calculator {
+        grid-template-columns: 100%;
     }
     .upper-buttons__grid {
         grid-auto-rows: 6vh;
