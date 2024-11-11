@@ -13,8 +13,9 @@ const inputMainPart = input.lastElementChild;
 const buttons = body.querySelector('.action-buttons');
 
 const calcMode = 'standard';
-const buttonsMainOps = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+'];
+const buttonsMainOps = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+', '+/-'];
 const scientificButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
+
 const numberButtons = [];
 const scientificTopButtons = ['Trigonometry', 'Functions'];
 
@@ -98,18 +99,22 @@ if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 
 historyBlock.addEventListener('click', switchHistoryMode);
 
+/* Mode switch */
 function keepOpenDropMenu(e) {
     const isDropDownButton = e.target.matches('[data-dropdown-button]');
 
     if (!isDropDownButton && e.target.closest('[data-dropdown]') != null) return;
 
     let currentDropDown;
-    
 
     if (isDropDownButton) {
         currentDropDown = e.target.closest('[data-dropdown]');
         currentDropDown.classList.toggle('active');
-        
+
+        const dropDownMenu = currentDropDown.querySelector('.dropdown__menu');
+        const dropDownButton = currentDropDown.querySelector('.mode-switcher');
+
+        dropDownMenu.style.left = `${Math.round((dropDownButton.clientWidth / 2) - (dropDownMenu.offsetWidth / 2))}px`;
     }
 
     document.querySelectorAll('[data-dropdown].active').forEach(dropDown => {
@@ -120,5 +125,14 @@ function keepOpenDropMenu(e) {
 
 }
 
-body.addEventListener('click', keepOpenDropMenu);
+function switchCalcMode() {
 
+}
+
+function initCalc() {
+
+}
+
+
+
+body.addEventListener('click', keepOpenDropMenu);
