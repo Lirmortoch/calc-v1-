@@ -100,6 +100,10 @@ if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 historyBlock.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
+function switchCalcMode() {
+
+}
+
 function keepOpenDropMenu(e) {
     const isDropDownButton = e.target.matches('[data-dropdown-button]');
 
@@ -122,10 +126,6 @@ function keepOpenDropMenu(e) {
         dropDown.classList.remove('active');
        
     });
-
-}
-
-function switchCalcMode() {
 
 }
 

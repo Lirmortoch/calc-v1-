@@ -192,6 +192,7 @@ body {
 }
 
 .dropdown {
+    width: fit-content;
     position: relative;
     margin: 0 0 0 20px;
     font-size: 1em;
@@ -204,7 +205,6 @@ body {
     top: calc(100% + .25rem);
     
     background-color: var(--back-btn-color);
-    color: var(--font-color);
     padding: .75rem;
     border-radius: .25rem;
 
