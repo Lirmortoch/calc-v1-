@@ -65,12 +65,12 @@
 
         <main class="main">
             <section class="calculator">
-                <div class="dropdown" data-dropdown>
-                    <button class="calculator__mode-switcher mode-switcher button" data-dropdown-button>
+                <div class="dropdown mode-switcher" data-dropdown>
+                    <button class="mode-switcher__button button current-calc-mode" value="standard" data-dropdown-button>
                         Standard
                     </button> 
     
-                    <button class="dropdown__menu button">
+                    <button class="mode-switcher__menu dropdown__menu button dropdown-content" value="scientific">
                         Scientific
                     </button>
                 </div>
@@ -107,7 +107,7 @@
                     </div> -->
 
                     <div class="action-buttons">
-                        <button class="action-buttons__button button">1</button>
+                        <button class="action-buttons__button button" data-operator_+>1</button>
                         <button class="action-buttons__button button">2</button>
                         <button class="action-buttons__button button">3</button>
                         <button class="action-buttons__button button">4</button>

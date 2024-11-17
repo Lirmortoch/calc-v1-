@@ -5,15 +5,17 @@
 const body = document.querySelector('body');
 
 /* Main functionality */
-const input = body.querySelector('.input');
+// const input = body.querySelector('.input');
 
-const inputPrev = input.firstElementChild;
-const inputMainPart = input.lastElementChild;
+// const inputPrev = input.firstElementChild;
+// const inputMainPart = input.lastElementChild;
 
-const buttons = body.querySelector('.action-buttons');
+// const buttons = body.querySelector('.action-buttons');
 
+const calculator = body.querySelector('.calculator');
 const calcMode = 'standard';
-const buttonsMainOps = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+', '+/-'];
+
+const buttonsMainOps = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+', '+/-', ','];
 const scientificButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
 
 const numberButtons = [];
@@ -100,8 +102,21 @@ if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 historyBlock.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
-function switchCalcMode() {
+function switchCalcMode(e) {
+    if (e.target.tagName !== 'BUTTON' && !e.target.classList.contains('mode-switcher__button')) return;
 
+    if (e.target.value === 'scientific') {
+        calcMode = 'scientific';
+        calculator.classList.add('scientific');
+        localStorage.setItem('calc-mode', 'scientific');
+    }
+}
+
+function dropContentOnMiddle(currentDropDown) {
+    const dropDownButton = currentDropDown.querySelector('[data-dropdown-button]');
+    const dropDownContent = currentDropDown.querySelector('.dropdown-content');
+
+    dropDownContent.style.left = `${Math.round((dropDownButton.clientWidth / 2) - (dropDownContent.offsetWidth / 2))}px`;
 }
 
 function keepOpenDropMenu(e) {
@@ -115,10 +130,7 @@ function keepOpenDropMenu(e) {
         currentDropDown = e.target.closest('[data-dropdown]');
         currentDropDown.classList.toggle('active');
 
-        const dropDownMenu = currentDropDown.querySelector('.dropdown__menu');
-        const dropDownButton = currentDropDown.querySelector('.mode-switcher');
-
-        dropDownMenu.style.left = `${Math.round((dropDownButton.clientWidth / 2) - (dropDownMenu.offsetWidth / 2))}px`;
+        dropContentOnMiddle(currentDropDown);
     }
 
     document.querySelectorAll('[data-dropdown].active').forEach(dropDown => {
@@ -128,6 +140,10 @@ function keepOpenDropMenu(e) {
     });
 
 }
+
+const dropDownSwitcher = body.querySelector('.mode-switcher');
+
+
 
 function initCalc() {
 

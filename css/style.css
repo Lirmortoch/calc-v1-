@@ -180,14 +180,14 @@ body {
     gap: 5px;
 }
 
-.calculator__mode-switcher {
+.mode-switcher__button {
     height: 50px;
     width: 100px;
     background-color: inherit;
     border-radius: 10px;
 }
 
-.calculator__mode-switcher:hover {
+.mode-switcher__button:hover {
     background-color: var(--back-btn-color);
 }
 
