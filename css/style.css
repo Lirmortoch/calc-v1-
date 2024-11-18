@@ -23,10 +23,10 @@ html {
     /* for light mode */
     --back-color:#f6f4ef;
     
-    --back-btn-color: #80b4fd; /* #7497c7; #78a9ee; */
+    --back-btn-color: #80b4fd;
     --back-btn-hover-color: #a4c2ec;
 
-    --font-color: #11171f; /* #253040, #1a222e,  */
+    --font-color: #11171f;
 
     --equal-color: #b9cde7; 
     --equal-hover-color: #d2dbe7; 

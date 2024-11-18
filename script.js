@@ -13,13 +13,13 @@ const body = document.querySelector('body');
 // const buttons = body.querySelector('.action-buttons');
 
 const calculator = body.querySelector('.calculator');
-const calcMode = 'standard';
+let calcMode = 'standard';
 
-const buttonsMainOps = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+', '+/-', ','];
-const scientificButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
+const mainButtons = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+', '+/-', ','];
+const scientificMainButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
 
 const numberButtons = [];
-const scientificTopButtons = ['Trigonometry', 'Functions'];
+const scientificUpperButtons = ['Trigonometry', 'Functions'];
 
 const history = [];
 const memory = [];
@@ -102,14 +102,53 @@ if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 historyBlock.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
+let toRegularCase = str => str[0].toUpperCase() + str.slice(1);
+
+function turnOnScienceMode(memoryControl) {
+    const upperButtons = calculator.querySelector('.upper-buttons');
+
+    upperButtons.firstElementChild.insertAdjacentHTML('afterbegin', '<button class="upper-buttons__angle-value button science-functions scientific">Deg</button> <button class="upper-buttons__f-e button science-functions scientific">F-e</button>');
+
+    upperButtons.insertAdjacentHTML('afterend', '<div class="calculator__functions functions scientific"> <button class="functions_trigonometry button functionality-btn">Trigonometry</button> <button class="functions_others button functionality-btn">Functions</button> </div>');
+
+    memoryControl.forEach(elem => elem.style.gridRow = '2');
+}
+
+function turnOffScienceMode(memoryControl) {
+    const scientificFuncs = calculator.querySelectorAll('.scientific');
+
+    scientificFuncs.forEach(elem => elem.remove());
+    memoryControl.forEach(elem => elem.style = '');
+}
+
 function switchCalcMode(e) {
-    if (e.target.tagName !== 'BUTTON' && !e.target.classList.contains('mode-switcher__button')) return;
+    if (e.target.tagName !== 'BUTTON' || e.target.classList.contains('current-calc-mode')) return;
+
+    const memoryControl = calculator.querySelectorAll('.memory-control');
+    const btn = dropDownSwitcher.querySelector('.current-calc-mode');
+
+    localStorage.setItem('prev-calc-mode', calcMode);
 
     if (e.target.value === 'scientific') {
         calcMode = 'scientific';
-        calculator.classList.add('scientific');
-        localStorage.setItem('calc-mode', 'scientific');
+        calculator.classList.add(calcMode);
+        turnOnScienceMode(memoryControl);
     }
+    else {
+        calcMode = 'standard';
+        calculator.classList.remove('scientific');
+        turnOffScienceMode(memoryControl);
+    }
+
+    const prevCalcMode = localStorage.getItem('prev-calc-mode');
+
+    btn.innerText = toRegularCase(calcMode);
+    btn.value = calcMode;
+
+    e.target.innerText = toRegularCase(prevCalcMode);
+    e.target.value = prevCalcMode;
+
+    localStorage.setItem('calc-mode', calcMode);
 }
 
 function dropContentOnMiddle(currentDropDown) {
@@ -143,12 +182,10 @@ function keepOpenDropMenu(e) {
 
 const dropDownSwitcher = body.querySelector('.mode-switcher');
 
-
+dropDownSwitcher.addEventListener('click', switchCalcMode);
 
 function initCalc() {
 
 }
-
-
 
 body.addEventListener('click', keepOpenDropMenu);
