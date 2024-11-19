@@ -33,11 +33,11 @@ const themeSwitcherGradient = document.getElementById('switcher-gradient');
 
 let currentTheme = localStorage.getItem('theme');
 
-function deactivateBtnForTime() {
-    themeSwitcher.setAttribute("disabled", "");
+function deactivateBtnForTime(btn) {
+    btn.setAttribute("disabled", "");
 
     setTimeout(() => {
-        themeSwitcher.removeAttribute("disabled", "");
+        btn.removeAttribute("disabled", "");
     }, '2000');
 }
 
@@ -48,7 +48,7 @@ function switchToLightMode() {
     themeSwitcherGradient.style.fill = 'url(#linear-gradient-2)';
     themeSwitcherGradient.style.stroke = 'url(#linear-gradient-2)';
 
-    deactivateBtnForTime();
+    deactivateBtnForTime(themeSwitcher);
 }
 
 function switchToMainMode() {
@@ -58,7 +58,7 @@ function switchToMainMode() {
     themeSwitcherGradient.style.fill = 'url(#linear-gradient-1)';
     themeSwitcherGradient.style.stroke = 'url(#linear-gradient-1)';
 
-    deactivateBtnForTime();
+    deactivateBtnForTime(themeSwitcher);
 }
 
 function switchTheme() {
@@ -151,13 +151,11 @@ function switchCalcMode(e) {
     localStorage.setItem('calc-mode', calcMode);
 }
 
-function dropContentOnMiddle(currentDropDown) {
-    const dropDownButton = currentDropDown.querySelector('[data-dropdown-button]');
-    const dropDownContent = currentDropDown.querySelector('.dropdown-content');
+const dropDownSwitcher = body.querySelector('.mode-switcher');
 
-    dropDownContent.style.left = `${Math.round((dropDownButton.clientWidth / 2) - (dropDownContent.offsetWidth / 2))}px`;
-}
+dropDownSwitcher.addEventListener('click', switchCalcMode);
 
+/* Functions for dropdowns */
 function keepOpenDropMenu(e) {
     const isDropDownButton = e.target.matches('[data-dropdown-button]');
 
@@ -180,12 +178,12 @@ function keepOpenDropMenu(e) {
 
 }
 
-const dropDownSwitcher = body.querySelector('.mode-switcher');
+function dropContentOnMiddle(currentDropDown) {
+    const dropDownButton = currentDropDown.querySelector('[data-dropdown-button]');
+    const dropDownContent = currentDropDown.querySelector('.dropdown-content');
 
-dropDownSwitcher.addEventListener('click', switchCalcMode);
-
-function initCalc() {
-
+    dropDownContent.style.left = `${Math.round((dropDownButton.clientWidth / 2) - (dropDownContent.offsetWidth / 2))}px`;
 }
 
 body.addEventListener('click', keepOpenDropMenu);
+

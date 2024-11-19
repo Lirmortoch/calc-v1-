@@ -47,7 +47,7 @@ body {
 
 .wrap {
     min-height: 100vh;
-    padding: 20px;
+    padding: 20px; /* padding: 20px 40px; */
 }
 
 .header {
@@ -180,6 +180,12 @@ body {
     gap: 5px;
 }
 
+.mode-switcher {
+    margin: 0 0 0 20px;
+    font-size: 1em;
+    grid-row: 1 / 2;
+}
+
 .mode-switcher__button {
     height: 50px;
     width: 100px;
@@ -194,9 +200,7 @@ body {
 .dropdown {
     width: fit-content;
     position: relative;
-    margin: 0 0 0 20px;
     font-size: 1em;
-    grid-row: 1 / 2;
 }
 
 .dropdown__menu {
@@ -295,7 +299,7 @@ input[type=number] {
     grid-row: 1;
 }
 .memory-control {
-    grid-row: 1; /* For scientific mode: grid-row: 2; */
+    grid-row: 1;
 }
 
 .calculator__upper-buttons button {
@@ -434,12 +438,16 @@ input[type=number] {
 }
 
 .functions {
+    width: fit-content;
+    display: flex;
+    gap: 10px;
 }
 
-.functions_trigonometry {
+.functions__trigonometry {
+
 }
 
-.functions_others {
+.functions__others {
 }
 
 .calculator__science-functions {
@@ -528,5 +536,21 @@ input[type=number] {
 @media screen and (max-width: 600px) {
     .title {
         font-size: 2em;
+    }
+    .mode-switcher {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .header {
+        width: 100%;
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .title {
+        font-size: 1.5em;
     }
 }
