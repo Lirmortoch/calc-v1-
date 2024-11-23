@@ -66,8 +66,10 @@
         <main class="main">
             <section class="calculator">
                 <div class="dropdown mode-switcher" data-dropdown>
-                    <button class="mode-switcher__button button current-calc-mode" value="standard" data-dropdown-button>
+                    <button class="mode-switcher__button button current-calc-mode dropdown__button" value="standard" data-dropdown-button>
                         Standard
+
+                        <span class="dropdown__caret caret"></span>
                     </button> 
     
                     <button class="mode-switcher__menu dropdown__menu button dropdown-content" value="scientific">
@@ -100,20 +102,31 @@
                     </div>
 
                     <div class="calculator__functions functions">
-                        <div class="functions__trigonometry-wrap functions-wrap">
-                            <button class="functions__trigonometry button functionality-btn">
+                        <div class="functions__trigonometry-wrap functions-wrap dropdown" data-dropdown>
+                            <button class="functions__trigonometry button functionality-btn dropdown__button" data-dropdown-button>
                                 Trigonometry
+
+                                <span class="dropdown__caret caret"></span>
                             </button>
 
 
                         </div>
 
-                        <div class="functions__trigonometry-wrap functions-wrap">
-                            <button class="functions__others button functionality-btn">
+                        <div class="functions__trigonometry-wrap functions-wrap dropdown" data-dropdown>
+                            <button class="functions__others button functionality-btn dropdown__button others-funcs" data-dropdown-button>
                                 Functions
+
+                                <span class="dropdown__caret caret"></span>
                             </button>
 
-                            
+                            <div class="others-funcs__wrap dropdown__menu dropdown-content">
+                                <button class="others-funcs__btn button">1</button>
+                                <button class="others-funcs__btn button">2</button>
+                                <button class="others-funcs__btn button">3</button>
+                                <button class="others-funcs__btn button">4</button>
+                                <button class="others-funcs__btn button">5</button>
+                                <button class="others-funcs__btn button">6</button>
+                            </div>
                         </div>
                     </div> 
 
@@ -143,7 +156,8 @@
                         <button class="action-buttons__button num-btn button">23</button>
                         <button class="action-buttons__button equal-sign button">24</button>
                         
-                        <!-- For scientific mode: <button class="action-buttons__button button">1</button>
+                        <!-- For scientific mode: 
+                        <button class="action-buttons__button button">1</button>
                         <button class="action-buttons__button button">2</button>
                         <button class="action-buttons__button button">3</button>
                         <button class="action-buttons__button button">4</button>

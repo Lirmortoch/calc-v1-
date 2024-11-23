@@ -142,7 +142,7 @@ function switchCalcMode(e) {
 
     const prevCalcMode = localStorage.getItem('prev-calc-mode');
 
-    btn.innerText = toRegularCase(calcMode);
+    btn.innerHTML = toRegularCase(calcMode) + '<span class="dropdown__caret caret caret__rotate"></span>';
     btn.value = calcMode;
 
     e.target.innerText = toRegularCase(prevCalcMode);
@@ -166,6 +166,7 @@ function keepOpenDropMenu(e) {
     if (isDropDownButton) {
         currentDropDown = e.target.closest('[data-dropdown]');
         currentDropDown.classList.toggle('active');
+        currentDropDown.querySelector('.caret').classList.toggle('caret__rotate');
 
         dropContentOnMiddle(currentDropDown);
     }
@@ -173,7 +174,7 @@ function keepOpenDropMenu(e) {
     document.querySelectorAll('[data-dropdown].active').forEach(dropDown => {
         if (dropDown === currentDropDown) return;
         dropDown.classList.remove('active');
-       
+        dropDown.querySelector('.caret').classList.toggle('caret__rotate');
     });
 
 }
