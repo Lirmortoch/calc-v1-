@@ -180,10 +180,17 @@ function keepOpenDropMenu(e) {
 }
 
 function dropContentOnMiddle(currentDropDown) {
-    const dropDownButton = currentDropDown.querySelector('[data-dropdown-button]');
-    const dropDownContent = currentDropDown.querySelector('.dropdown-content');
+    //Drop down elements
+    const button = currentDropDown.querySelector('[data-dropdown-button]');
+    const content = currentDropDown.querySelector('.dropdown-content');
+    
+    const buttonPosition = button.getBoundingClientRect();
 
-    dropDownContent.style.left = `${Math.round((dropDownButton.clientWidth / 2) - (dropDownContent.offsetWidth / 2))}px`;
+    content.style.left = `${
+        content.offsetWidth / buttonPosition.x < buttonPosition.x 
+            ? Math.round((button.clientWidth / 2) - (content.offsetWidth / 2)) 
+            : 0
+    }px`;
 }
 
 body.addEventListener('click', keepOpenDropMenu);

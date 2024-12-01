@@ -505,6 +505,14 @@ input[type=number] {
     background-color: var(--back-btn-hover-color);
 }
 
+.others-funcs__switcher {
+    grid-column: 1;
+}
+
+.trigonometry {
+    grid-auto-flow: column;
+}
+
 .calculator__science-functions {
     
 }
@@ -576,7 +584,7 @@ input[type=number] {
     }
     .functionality-btn {
         background-color: transparent;
-        padding: 2vh 1vw;
+        padding: 2vh 1.5vw;
         margin: 0 5px 0 0;
     }
     
