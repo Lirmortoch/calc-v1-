@@ -2,9 +2,6 @@
 
 // import math from './node_modules/mathjs';
 
-const body = document.querySelector('body');
-
-/* Main functionality */
 // const input = body.querySelector('.input');
 
 // const inputPrev = input.firstElementChild;
@@ -12,26 +9,36 @@ const body = document.querySelector('body');
 
 // const buttons = body.querySelector('.action-buttons');
 
+/* Variables */
+const body = document.querySelector('body');
+
 const calculator = body.querySelector('.calculator');
-let calcMode = 'standard';
-
-const mainButtons = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+', '+/-', ','];
-const scientificMainButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
-
-const numberButtons = [];
-const scientificUpperButtons = ['Trigonometry', 'Functions'];
-
-const history = [];
-const memory = [];
-
-/* Theme switch */
-const themeSwitcherIcons = ['<circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>', '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'];
 
 const themeSwitcher = document.querySelector('.header__theme-switcher');
 const themeSwitcherIcon = document.getElementById('switcher-mask');
 const themeSwitcherGradient = document.getElementById('switcher-gradient');
 
+const historyActivePart = body.querySelector('.active-part');
+
+const themeSwitcherIcons = ['<circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>', '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'];
+
+const scientificUpperButtons = ['Trigonometry', 'Functions'];
+
+const mainButtons = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+', '+/-', ','];
+
+const scientificMainButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
+
+const numberButtons = [];
+
+const history = [];
+const memory = [];
+
 let currentTheme = localStorage.getItem('theme');
+let calcMode = 'standard';
+let currentHistoryMode = localStorage.getItem('history-mode');
+
+/* Functions */
+let toRegularCase = str => str[0].toUpperCase() + str.slice(1);
 
 function deactivateBtnForTime(btn) {
     btn.setAttribute("disabled", "");
@@ -41,6 +48,7 @@ function deactivateBtnForTime(btn) {
     }, '2000');
 }
 
+/* Theme switch */
 function switchToLightMode() {
     body.classList.add('light-theme');
     localStorage.setItem('theme', 'light');
@@ -73,9 +81,6 @@ if (currentTheme === 'light') {
 themeSwitcher.addEventListener('click', switchTheme);
 
 /* History switch */
-const historyActivePart = body.querySelector('.active-part');
-
-let currentHistoryMode = localStorage.getItem('history-mode');
 
 function switchHistoryMode(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.parentElement.classList.contains('history-buttons')) return;
@@ -101,7 +106,6 @@ if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 body.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
-let toRegularCase = str => str[0].toUpperCase() + str.slice(1);
 
 function turnOnScienceMode(memoryControl) {
     const upperButtons = body.querySelector('.upper-buttons');
