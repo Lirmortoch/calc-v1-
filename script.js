@@ -73,25 +73,24 @@ if (currentTheme === 'light') {
 themeSwitcher.addEventListener('click', switchTheme);
 
 /* History switch */
-const historyBlock = document.querySelector('.history-section');
-const historyActivePart = historyBlock.querySelector('.active-part');
+const historyActivePart = body.querySelector('.active-part');
 
 let currentHistoryMode = localStorage.getItem('history-mode');
 
-function switchHistoryMode(event) {
-    if (event.target.tagName !== 'BUTTON') return;
+function switchHistoryMode(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.parentElement.classList.contains('history-buttons')) return;
     
-    const prevBtn = historyBlock.querySelector('.current-history-mode');
+    const prevBtn = body.querySelector('.current-history-mode');
     if (prevBtn) prevBtn.classList.remove('current-history-mode');
 
-    event.target.classList.add('current-history-mode');
-    localStorage.setItem('history-mode', event.target.value);
+    e.target.classList.add('current-history-mode');
+    localStorage.setItem('history-mode', e.target.value);
 
     historyActivePart.style.display = 'block';
 }
 
 function turnOnHistoryMode(currentMode) {
-    const element = historyBlock.querySelector(`button[value=${currentMode}]`);
+    const element = body.querySelector(`button[value=${currentMode}]`);
     element.classList.add('current-history-mode');
 
     historyActivePart.style.display = 'block';
@@ -99,13 +98,13 @@ function turnOnHistoryMode(currentMode) {
 
 if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 
-historyBlock.addEventListener('click', switchHistoryMode);
+body.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
 let toRegularCase = str => str[0].toUpperCase() + str.slice(1);
 
 function turnOnScienceMode(memoryControl) {
-    const upperButtons = calculator.querySelector('.upper-buttons');
+    const upperButtons = body.querySelector('.upper-buttons');
 
     upperButtons.firstElementChild.insertAdjacentHTML('afterbegin', '<button class="upper-buttons__angle-value button science-functions scientific">Deg</button> <button class="upper-buttons__f-e button science-functions scientific">F-e</button>');
 
@@ -115,17 +114,17 @@ function turnOnScienceMode(memoryControl) {
 }
 
 function turnOffScienceMode(memoryControl) {
-    const scientificFuncs = calculator.querySelectorAll('.scientific');
+    const scientificFuncs = body.querySelectorAll('.scientific');
 
     scientificFuncs.forEach(elem => elem.remove());
     memoryControl.forEach(elem => elem.style = '');
 }
 
 function switchCalcMode(e) {
-    if (e.target.tagName !== 'BUTTON' || e.target.classList.contains('current-calc-mode')) return;
+    if (e.target.tagName !== 'BUTTON' || e.target.classList.contains('current-calc-mode') || !e.target.parentElement.classList.contains('mode-switcher')) return;
 
-    const memoryControl = calculator.querySelectorAll('.memory-control');
-    const btn = dropDownSwitcher.querySelector('.current-calc-mode');
+    const memoryControl = body.querySelectorAll('.memory-control');
+    const btn = e.target.parentElement.querySelector('.current-calc-mode');
 
     localStorage.setItem('prev-calc-mode', calcMode);
 
@@ -151,9 +150,7 @@ function switchCalcMode(e) {
     localStorage.setItem('calc-mode', calcMode);
 }
 
-const dropDownSwitcher = body.querySelector('.mode-switcher');
-
-dropDownSwitcher.addEventListener('click', switchCalcMode);
+body.addEventListener('click', switchCalcMode);
 
 /* Functions for dropdowns */
 function keepOpenDropMenu(e) {
@@ -194,6 +191,8 @@ function dropContentOnMiddle(currentDropDown) {
 }
 
 body.addEventListener('click', keepOpenDropMenu);
+
+/* Calculator functionality */
 
 function clickedTrinogometrySwitcher(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('others-funcs__switcher')) return;
