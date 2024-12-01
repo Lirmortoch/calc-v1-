@@ -506,11 +506,22 @@ input[type=number] {
 }
 
 .others-funcs__switcher {
+    height: 100%;
+
     grid-column: 1;
+    grid-row: 1 / 3;
 }
 
 .trigonometry {
     grid-auto-flow: column;
+}
+
+.active-science-switcher {
+    background-color: var(--current-history-item);
+    color: var(--back-color);
+}
+.active-science-switcher:hover {
+    color: var(--font-color);
 }
 
 .calculator__science-functions {

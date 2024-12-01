@@ -195,3 +195,10 @@ function dropContentOnMiddle(currentDropDown) {
 
 body.addEventListener('click', keepOpenDropMenu);
 
+function clickedTrinogometrySwitcher(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('others-funcs__switcher')) return;
+
+    e.target.classList.toggle('active-science-switcher');
+}
+
+body.addEventListener('click', clickedTrinogometrySwitcher)
