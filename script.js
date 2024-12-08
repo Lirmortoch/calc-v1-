@@ -1,13 +1,6 @@
 'use strict'
 
-// import math from './node_modules/mathjs';
-
-// const input = body.querySelector('.input');
-
-// const inputPrev = input.firstElementChild;
-// const inputMainPart = input.lastElementChild;
-
-// const buttons = body.querySelector('.action-buttons');
+//import {evaluate} from './node_modules/mathjs';
 
 /* Variables */
 const body = document.querySelector('body');
@@ -18,18 +11,19 @@ const themeSwitcher = document.querySelector('.header__theme-switcher');
 const themeSwitcherIcon = document.getElementById('switcher-mask');
 const themeSwitcherGradient = document.getElementById('switcher-gradient');
 
+const input = body.querySelector('.input');
+
+const inputPrev = input.firstElementChild;
+const inputMainPart = input.lastElementChild;
+
 const historyActivePart = body.querySelector('.active-part');
 
-const themeSwitcherIcons = ['<circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>', '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'];
-
-const scientificUpperButtons = ['Trigonometry', 'Functions'];
-
-const mainButtons = ['%', 'CE', 'C', '⌫', '⅟x', 'x²', '²√x', '÷', 'X', '-', '+', '+/-', ','];
+const themeSwitcherIcons = [
+    '<circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>', '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
+];
 
 const scientificMainButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
-
-const numberButtons = [];
-
+ 
 const history = [];
 const memory = [];
 
@@ -140,7 +134,7 @@ function switchCalcMode(e) {
     else {
         calcMode = 'standard';
         calculator.classList.remove('scientific');
-        turnOffScienceMode(memoryControl);
+        turnOffScienceMode(memoryControl); 
     }
 
     const prevCalcMode = localStorage.getItem('prev-calc-mode');
@@ -201,7 +195,25 @@ body.addEventListener('click', keepOpenDropMenu);
 function clickedTrinogometrySwitcher(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('others-funcs__switcher')) return;
 
-    e.target.classList.toggle('active-science-switcher');
+    e.target.classList.toggle('active-switcher');
 }
 
-body.addEventListener('click', clickedTrinogometrySwitcher)
+body.addEventListener('click', clickedTrinogometrySwitcher);
+
+function printNumber(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
+
+    inputMainPart.value += e.target.value;
+}
+
+body.addEventListener('click', printNumber);
+
+function clearAll(e) {
+    if (e.target.tagName !== 'BUTTON' || e.target.value !== 'C') return;
+
+    console.log('C');
+    inputMainPart.value = '';
+    inputPrev.value = '';
+}
+
+body.addEventListener('clicked', clearAll);

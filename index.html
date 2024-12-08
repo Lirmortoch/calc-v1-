@@ -84,7 +84,7 @@
                                 1 +
                             </span>
                         </div>
-                        <input class="input__main-part" type="number" name="calc__input" id="calc__input" placeholder="0">
+                        <input class="input__main-part" type="number" name="calc__input" id="calc__input" placeholder="0" autofocus>
                     </div>
                     
                     <div class="calculator__upper-buttons upper-buttons">
@@ -139,30 +139,36 @@
                     </div> 
 
                     <div class="action-buttons">
-                        <button class="action-buttons__button button">1</button>
-                        <button class="action-buttons__button button">2</button>
-                        <button class="action-buttons__button button">3</button>
-                        <button class="action-buttons__button button">4</button>
-                        <button class="action-buttons__button button">5</button>
-                        <button class="action-buttons__button button">6</button>
-                        <button class="action-buttons__button button">7</button>
-                        <button class="action-buttons__button button">8</button>
-                        <button class="action-buttons__button num-btn button">9</button>
-                        <button class="action-buttons__button num-btn button">10</button>
-                        <button class="action-buttons__button num-btn button">11</button>
-                        <button class="action-buttons__button button">12</button>
-                        <button class="action-buttons__button num-btn button">13</button>
-                        <button class="action-buttons__button num-btn button">14</button>
-                        <button class="action-buttons__button num-btn button">15</button>
-                        <button class="action-buttons__button button">16</button>
-                        <button class="action-buttons__button num-btn button">17</button>
-                        <button class="action-buttons__button num-btn button">18</button>
-                        <button class="action-buttons__button num-btn button">19</button>
-                        <button class="action-buttons__button button">20</button>
-                        <button class="action-buttons__button num-btn button">21</button>
-                        <button class="action-buttons__button num-btn button">22</button>
-                        <button class="action-buttons__button num-btn button">23</button>
-                        <button class="action-buttons__button equal-sign button">24</button>
+                        <button class="action-buttons__button action-button button binary-operator" value="%">%</button>
+                        <button class="action-buttons__button action-button button unary-operator" value="CE">CE</button>
+                        <button class="action-buttons__button action-button button unary-operator" value="C">C</button>
+                        <button class="action-buttons__button action-button button unary-operator" value="⌫">⌫</button>
+                        <button class="action-buttons__button action-button button unary-operator" value="1/x">
+                            <sup>1</sup><span>/</span><sub>x</sub>
+                        </button>
+                        <button class="action-buttons__button action-button button unary-operator" value="x^2">
+                            <span>x</span><sup>2</sup>
+                        </button>
+                        <button class="action-buttons__button action-button button unary-operator" value="²√x">²√x</button>
+                        <button class="action-buttons__button action-button button binary-operator big-sign" value="÷">÷</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="7">7</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="8">8</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="9">9</button>
+                        <button class="action-buttons__button action-button button binary-operator big-sign" value="x">x</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="4">4</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="5">5</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="6">6</button>
+                        <button class="action-buttons__button action-button button binary-operator big-sign" value="-">-</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="1">1</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="2">2</button>
+                        <button class="action-buttons__button main-btn num-btn button" value="3">3</button>
+                        <button class="action-buttons__button action-button button binary-operator big-sign" value="+">+</button>
+                        <button class="action-buttons__button main-btn button unary-operator" value="+-">
+                            <sup class="superscript">+</sup><span class="middle">/</span><sub class="subscript">-</sub>
+                        </button>
+                        <button class="action-buttons__button main-btn num-btn button" value="0">0</button>
+                        <button class="action-buttons__button main-btn button big-sign" value=".">,</button>
+                        <button class="action-buttons__button equal-sign button unary-operator big-sign" value="=">=</button>
                         
                         <!-- For scientific mode: 
                         <button class="action-buttons__button button">1</button>
@@ -181,24 +187,24 @@
                         <button class="action-buttons__button button">14</button>
                         <button class="action-buttons__button button">15</button>
                         <button class="action-buttons__button button">16</button>
-                        <button class="action-buttons__button num-btn button">17</button>
-                        <button class="action-buttons__button num-btn button">18</button>
-                        <button class="action-buttons__button num-btn button">19</button>
+                        <button class="action-buttons__button main-btn button">17</button>
+                        <button class="action-buttons__button main-btn button">18</button>
+                        <button class="action-buttons__button main-btn button">19</button>
                         <button class="action-buttons__button button">20</button>
                         <button class="action-buttons__button button">21</button>
-                        <button class="action-buttons__button num-btn button">22</button>
-                        <button class="action-buttons__button num-btn button">23</button>
-                        <button class="action-buttons__button num-btn button">24</button>
+                        <button class="action-buttons__button main-btn button">22</button>
+                        <button class="action-buttons__button main-btn button">23</button>
+                        <button class="action-buttons__button main-btn button">24</button>
                         <button class="action-buttons__button button">25</button>
                         <button class="action-buttons__button button">26</button>
-                        <button class="action-buttons__button num-btn button">27</button>
-                        <button class="action-buttons__button num-btn button">28</button>
-                        <button class="action-buttons__button num-btn button">29</button>
+                        <button class="action-buttons__button main-btn button">27</button>
+                        <button class="action-buttons__button main-btn button">28</button>
+                        <button class="action-buttons__button main-btn button">29</button>
                         <button class="action-buttons__button button">30</button>
                         <button class="action-buttons__button button">31</button>
-                        <button class="action-buttons__button num-btn button">32</button>
-                        <button class="action-buttons__button num-btn button">33</button>
-                        <button class="action-buttons__button num-btn button">34</button>
+                        <button class="action-buttons__button main-btn button">32</button>
+                        <button class="action-buttons__button main-btn button">33</button>
+                        <button class="action-buttons__button main-btn button">34</button>
                         <button class="action-buttons__button equal-sign button">35</button> -->
                     </div>
                 </section>

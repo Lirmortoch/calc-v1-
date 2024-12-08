@@ -8,10 +8,13 @@ html {
     --back-btn-color: #2e3c50;
     --back-btn-hover-color: #40536e;
 
+    --back-btn-clicked-color: #2e3c50;
+
     --font-color: #f6f4ef;
     
     --equal-color: #586270; 
     --equal-hover-color: #424953; 
+    --equal-clicked-color: #3a4149; 
     
     --expression-color: #8db2e9;
     
@@ -28,11 +31,14 @@ html {
     
     --back-btn-color: #80b4fd;
     --back-btn-hover-color: #a4c2ec;
+    
+    --back-btn-clicked-color: #96b1d6;
 
     --font-color: #11171f;
 
     --equal-color: #b9cde7; 
     --equal-hover-color: #d2dbe7; 
+    --equal-clicked-color: #a3b5cc;
 
     --expression-color: #3c4c64;
 
@@ -377,10 +383,10 @@ input[type=number] {
     background-color: var(--back-btn-hover-color);
 }
 
-.num-btn {
+.main-btn {
     background-color: var(--back-btn-hover-color);
 }
-.num-btn:hover {
+.main-btn:hover {
     background-color: var(--back-btn-color);
 }
 
@@ -403,6 +409,10 @@ input[type=number] {
 .calculator__history-section button:hover {
     opacity: 0.8;
     transform: scale(1.1);
+}
+
+.calculator__history-section button:active {
+    transform: scale(1);
 }
 
 /* History and memory section */
@@ -516,11 +526,11 @@ input[type=number] {
     grid-auto-flow: column;
 }
 
-.active-science-switcher {
+.active-switcher {
     background-color: var(--current-history-item);
     color: var(--back-color);
 }
-.active-science-switcher:hover {
+.active-switcher:hover {
     color: var(--font-color);
 }
 
@@ -534,6 +544,32 @@ input[type=number] {
 
 .science-functions__f-e {
     
+}
+
+.superscript {
+    font-size: 1.35em;
+}
+.middle {
+    font-size: 0.85em;
+}
+.subscript {
+    font-size: 1.35em;
+}
+
+.big-sign {
+    font-size: 1.4em;
+}
+
+.action-section button:active {
+    background-color: var(--back-btn-clicked-color);
+}
+
+.action-section .main-btn:active {
+    background-color: var(--back-btn-hover-color);
+}
+
+.action-section .equal-sign:active {
+    background-color: var(--equal-clicked-color);
 }
 
 @media screen and (min-width: 3820px) {
