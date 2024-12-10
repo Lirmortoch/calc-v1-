@@ -13,7 +13,7 @@ const themeSwitcherGradient = document.getElementById('switcher-gradient');
 
 const input = body.querySelector('.input');
 
-const inputPrev = input.firstElementChild;
+const inputPrevPartPart = input.firstElementChild.firstElementChild; // Переделать
 const inputMainPart = input.lastElementChild;
 
 const historyActivePart = body.querySelector('.active-part');
@@ -203,17 +203,88 @@ body.addEventListener('click', clickedTrinogometrySwitcher);
 function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
 
-    inputMainPart.value += e.target.value;
+    if (inputMainPart.value === '0') inputMainPart.value = e.target.value;
+    // else if (inputMainPart.value.includes('.0') && e.target.value !== '0') {
+    //     inputMainPart.value = `${inputMainPart.value.split('.')[0]}.${e.target.value}`;
+    // }
+    else inputMainPart.value += e.target.value;    
 }
 
 body.addEventListener('click', printNumber);
 
-function clearAll(e) {
-    if (e.target.tagName !== 'BUTTON' || e.target.value !== 'C') return;
+function clearOperators(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('clear-funcs')) return;
 
-    console.log('C');
-    inputMainPart.value = '';
-    inputPrev.value = '';
+    if (e.target.value === 'C') {
+        inputMainPart.value = null;
+        inputPrevPartPart.textContent = '';
+    }
+    else if (e.target.value === 'CE') {
+        inputMainPart.value = null;
+    }
+    else if (e.target.value === 'backspace') {
+        let temp = inputMainPart.value.slice(0, -1);
+        inputMainPart.value = temp;
+    }
 }
 
-body.addEventListener('clicked', clearAll);
+body.addEventListener('click', clearOperators);
+
+function unaryOperators(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('unary-operator')) return;
+
+    let temp;
+
+    if (e.target.value === '1/x') {
+        temp = 1 / inputMainPart.value;
+        inputPrevPartPart.textContent = `1 / (${inputMainPart.value})`;
+    }
+    else if (e.target.value === 'x^2') {
+        temp = inputMainPart.value ** 2;
+        inputPrevPartPart.textContent = `sqr(${inputMainPart.value})`;
+    }
+    else if (e.target.value === 'sqrt2') {
+        temp = Math.sqrt(inputMainPart.value);
+        inputPrevPartPart.textContent = `sqrt(${inputMainPart.value})`;
+    }
+
+    inputMainPart.value = temp;
+}
+
+body.addEventListener('click', unaryOperators);
+
+function auxiliaryOperators(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('aux-ops')) return;
+
+    let temp;
+
+    if (e.target.value === '+-') {
+        temp = -inputMainPart.value;
+    }
+    else if (e.target.value === '.') {
+        // temp = `${inputMainPart.value}.0`;
+    }
+
+    inputMainPart.value = temp;
+}
+
+body.addEventListener('click', auxiliaryOperators);
+
+function binaryOperators(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
+
+    let temp;
+
+    if (e.target.value === '%') {
+
+    }
+    
+}
+
+function equal(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
+
+    
+}
+
+body.addEventListener('click', binaryOperators);
