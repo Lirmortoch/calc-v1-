@@ -308,7 +308,7 @@ input[type=number] {
 }
 
 .input__main-part::placeholder {
-    color: inherit;
+    color: gray;
 }
 
 /* Memory and sone value buttons */

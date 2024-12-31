@@ -204,9 +204,6 @@ function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
 
     if (inputMainPart.value === '0') inputMainPart.value = e.target.value;
-    // else if (inputMainPart.value.includes('.0') && e.target.value !== '0') {
-    //     inputMainPart.value = `${inputMainPart.value.split('.')[0]}.${e.target.value}`;
-    // }
     else inputMainPart.value += e.target.value;    
 }
 
@@ -262,7 +259,7 @@ function auxiliaryOperators(e) {
         temp = -inputMainPart.value;
     }
     else if (e.target.value === '.') {
-        // temp = `${inputMainPart.value}.0`;
+        
     }
 
     inputMainPart.value = temp;
@@ -288,3 +285,5 @@ function equal(e) {
 }
 
 body.addEventListener('click', binaryOperators);
+
+// ^[\.\s\+]||[\w\[\]\{\},]
