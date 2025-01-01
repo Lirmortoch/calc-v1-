@@ -1,6 +1,6 @@
 'use strict'
 
-//import {evaluate} from './node_modules/mathjs';
+import {evaluate} from './node_modules/mathjs';
 
 /* Variables */
 const body = document.querySelector('body');
@@ -13,8 +13,8 @@ const themeSwitcherGradient = document.getElementById('switcher-gradient');
 
 const input = body.querySelector('.input');
 
-const inputPrevPartPart = input.firstElementChild.firstElementChild; // Переделать
 const inputMainPart = input.lastElementChild;
+const inputPrevPart = body.querySelector('.input__prev-part').firstElementChild;
 
 const historyActivePart = body.querySelector('.active-part');
 
@@ -203,8 +203,13 @@ body.addEventListener('click', clickedTrinogometrySwitcher);
 function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
 
-    if (inputMainPart.value === '0') inputMainPart.value = e.target.value;
-    else inputMainPart.value += e.target.value;    
+    if (!inputPrevPart.classList.contains('binary-operator-clicked')) {
+        inputMainPart.value += e.target.value;
+    }
+    else {
+        inputMainPart.value = e.target.value;
+        inputPrevPart.classList.remove('binary-operator-clicked');
+    }    
 }
 
 body.addEventListener('click', printNumber);
@@ -214,7 +219,7 @@ function clearOperators(e) {
 
     if (e.target.value === 'C') {
         inputMainPart.value = null;
-        inputPrevPartPart.textContent = '';
+        inputPrevPart.textContent = '';
     }
     else if (e.target.value === 'CE') {
         inputMainPart.value = null;
@@ -230,21 +235,18 @@ body.addEventListener('click', clearOperators);
 function unaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('unary-operator')) return;
 
-    let temp;
+    let temp, mathExpr;
+    let number = inputMainPart.value;
 
-    if (e.target.value === '1/x') {
-        temp = 1 / inputMainPart.value;
-        inputPrevPartPart.textContent = `1 / (${inputMainPart.value})`;
+    if (/x/.test(e.target.value)) {
+        mathExpr = `${e.target.value.replace(/x/, number)}`;
     }
-    else if (e.target.value === 'x^2') {
-        temp = inputMainPart.value ** 2;
-        inputPrevPartPart.textContent = `sqr(${inputMainPart.value})`;
-    }
-    else if (e.target.value === 'sqrt2') {
-        temp = Math.sqrt(inputMainPart.value);
-        inputPrevPartPart.textContent = `sqrt(${inputMainPart.value})`;
+    else {
+        mathExpr = `${e.target.value}(${number})`;
     }
 
+    temp = evaluate(mathExpr);
+    inputPrevPart.textContent = mathExpr;
     inputMainPart.value = temp;
 }
 
@@ -254,12 +256,10 @@ function auxiliaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('aux-ops')) return;
 
     let temp;
+    let number = Number(inputMainPart.value);
 
     if (e.target.value === '+-') {
-        temp = -inputMainPart.value;
-    }
-    else if (e.target.value === '.') {
-        
+        temp = -number;
     }
 
     inputMainPart.value = temp;
@@ -270,12 +270,21 @@ body.addEventListener('click', auxiliaryOperators);
 function binaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
 
-    let temp;
+    let temp, mathExpr;
+    let number = inputMainPart.value;
 
-    if (e.target.value === '%') {
-
+    if (!inputPrevPart.classList.contains('binary-operator-clicked')) {
+        temp = number;
+        inputPrevPart.textContent = `${number} ${e.target.value} `;
+        inputPrevPart.classList.add('binary-operator-clicked');
+    }
+    else {
+        mathExpr = inputPrevPart + number;
+        inputPrevPart.classList.remove('binary-operator-clicked');
+        temp = evaluate(mathExpr);
     }
     
+    inputMainPart.value = temp;
 }
 
 function equal(e) {
@@ -286,4 +295,13 @@ function equal(e) {
 
 body.addEventListener('click', binaryOperators);
 
-// ^[\.\s\+]||[\w\[\]\{\},]
+// validate input;
+function replacer(match) {
+    if (match === '..') return '.';
+    else return '';
+}
+
+inputMainPart.addEventListener('input', () => {
+    let inputValue = inputMainPart.value.replace(/^[\.\s\+\/x\*\^%\-\\=]|[a-z\[\]\{\\}\$;]+|\.{2,}/gmi, replacer);
+    inputMainPart.value = inputValue;
+});

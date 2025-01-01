@@ -81,10 +81,9 @@
                     <div class="calculator__input input">
                         <div class="input__prev-part">
                             <span class="active-part__expression expression">
-                                1 +
                             </span>
                         </div>
-                        <input class="input__main-part" type="text" name="calc__input" id="calc__input" step="any" pattern="" placeholder="0">
+                        <input class="input__main-part" type="text" name="calc__input" id="calc__input" step="any" pattern="^[\.\s\+\/x\*\^%\-\\]|[a-z\[\]\{\\}\$;]+" placeholder="0">
                     </div>
                     
                     <div class="calculator__upper-buttons upper-buttons">
@@ -149,8 +148,8 @@
                         <button class="action-buttons__button action-button button unary-operator" value="x^2">
                             <span>x</span><sup>2</sup>
                         </button>
-                        <button class="action-buttons__button action-button button unary-operator" value="sqrt2">²√x</button>
-                        <button class="action-buttons__button action-button button binary-operator big-sign" value="÷">÷</button>
+                        <button class="action-buttons__button action-button button unary-operator" value="sqrt">²√x</button>
+                        <button class="action-buttons__button action-button button binary-operator big-sign" value="/">÷</button>
                         <button class="action-buttons__button main-btn num-btn button" value="7">7</button>
                         <button class="action-buttons__button main-btn num-btn button" value="8">8</button>
                         <button class="action-buttons__button main-btn num-btn button" value="9">9</button>
@@ -231,6 +230,6 @@
         </main>
     </div>
 
-    <script defer src="script.js" type="module"></script>
+    <script defer src="dist/index_bundle.js" type="module"></script>
 </body>
 </html>
