@@ -104,9 +104,9 @@ body.addEventListener('click', switchHistoryMode);
 function turnOnScienceMode(memoryControl) {
     const upperButtons = body.querySelector('.upper-buttons');
 
-    upperButtons.firstElementChild.insertAdjacentHTML('afterbegin', '<button class="upper-buttons__angle-value button science-functions scientific">Deg</button> <button class="upper-buttons__f-e button science-functions scientific">F-e</button>');
+    upperButtons.firstElementChild.insertAdjacentHTML('afterbegin', '<button class="upper-buttons__angle-value button science-functions scientific">Deg</button><button class="upper-buttons__f-e button science-functions scientific">F-e</button>');
 
-    upperButtons.insertAdjacentHTML('afterend', '<div class="calculator__functions functions scientific"> <button class="functions_trigonometry button functionality-btn">Trigonometry</button> <button class="functions_others button functionality-btn">Functions</button> </div>');
+    upperButtons.insertAdjacentHTML('afterend', '');
 
     memoryControl.forEach(elem => elem.style.gridRow = '2');
 }
@@ -279,9 +279,7 @@ function binaryOperators(e) {
         inputPrevPart.classList.add('binary-operator-clicked');
     }
     else {
-        mathExpr = inputPrevPart + number;
-        inputPrevPart.classList.remove('binary-operator-clicked');
-        temp = evaluate(mathExpr);
+;
     }
     
     inputMainPart.value = temp;
@@ -290,8 +288,17 @@ function binaryOperators(e) {
 function equal(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
 
-    
+    if (inputPrevPart.classList.contains('binary-operator-clicked')) {
+        let mathExpr = inputPrevPart.textContent + inputMainPart.value;
+        let temp = evaluate(mathExpr);
+
+        inputMainPart.value = temp;
+        inputPrevPart.textContent = mathExpr;
+        inputPrevPart.classList.remove('binary-operator-clicked');
+    }
 }
+
+document.addEventListener('click', equal);
 
 body.addEventListener('click', binaryOperators);
 
@@ -301,7 +308,16 @@ function replacer(match) {
     else return '';
 }
 
-inputMainPart.addEventListener('input', () => {
+function validator() {
+    let inputValue = inputMainPart.value.replace(/^[\.\s\+\/x\*\^%\-\\=]|[a-z\[\]\{\\}\$;]+|\.{2,}/gmi, replacer);
+    inputMainPart.value = inputValue;
+}
+
+inputMainPart.addEventListener('input', validator);
+
+document.addEventListener('click', (e) => {
+    if (!e.target.classList.contains('num-btn')) return;
+
     let inputValue = inputMainPart.value.replace(/^[\.\s\+\/x\*\^%\-\\=]|[a-z\[\]\{\\}\$;]+|\.{2,}/gmi, replacer);
     inputMainPart.value = inputValue;
 });
