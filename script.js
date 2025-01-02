@@ -31,6 +31,9 @@ let currentTheme = localStorage.getItem('theme');
 let calcMode = 'standard';
 let currentHistoryMode = localStorage.getItem('history-mode');
 
+const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
+//inputMainPart.pattern = validatorRegExp.toString(10).replace(/^\/|\/[a-z]+$/gmi, '');
+
 /* Functions */
 let toRegularCase = str => str[0].toUpperCase() + str.slice(1);
 
@@ -203,6 +206,10 @@ body.addEventListener('click', clickedTrinogometrySwitcher);
 function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
 
+    if (e.target.value === '.') { 
+        if (inputMainPart.value.length === 0) return;
+    }
+
     if (!inputPrevPart.classList.contains('binary-operator-clicked')) {
         inputMainPart.value += e.target.value;
     }
@@ -238,6 +245,7 @@ function unaryOperators(e) {
     let temp, mathExpr;
     let number = inputMainPart.value;
 
+    // Можно улучшить внешний вид выражения в прев парт 
     if (/x/.test(e.target.value)) {
         mathExpr = `${e.target.value.replace(/x/, number)}`;
     }
@@ -259,6 +267,7 @@ function auxiliaryOperators(e) {
     let number = Number(inputMainPart.value);
 
     if (e.target.value === '+-') {
+        inputPrevPart.textContent = `negate${number}`
         temp = -number;
     }
 
@@ -278,10 +287,7 @@ function binaryOperators(e) {
         inputPrevPart.textContent = `${number} ${e.target.value} `;
         inputPrevPart.classList.add('binary-operator-clicked');
     }
-    else {
-;
-    }
-    
+ 
     inputMainPart.value = temp;
 }
 
@@ -303,21 +309,19 @@ document.addEventListener('click', equal);
 body.addEventListener('click', binaryOperators);
 
 // validate input;
-function replacer(match) {
-    if (match === '..') return '.';
-    else return '';
+function replacer(match, p1, p2, p3, offset, string) {
+    if (/.[\.\-+*=\/]/.test(match)) {
+        return match.slice(0, 1);
+    }
+    else {
+        return '';
+    }
 }
 
-function validator() {
-    let inputValue = inputMainPart.value.replace(/^[\.\s\+\/x\*\^%\-\\=]|[a-z\[\]\{\\}\$;]+|\.{2,}/gmi, replacer);
+function validator(e) {
+    let inputValue = inputMainPart.value.replace(validatorRegExp, replacer);
     inputMainPart.value = inputValue;
 }
 
 inputMainPart.addEventListener('input', validator);
 
-document.addEventListener('click', (e) => {
-    if (!e.target.classList.contains('num-btn')) return;
-
-    let inputValue = inputMainPart.value.replace(/^[\.\s\+\/x\*\^%\-\\=]|[a-z\[\]\{\\}\$;]+|\.{2,}/gmi, replacer);
-    inputMainPart.value = inputValue;
-});
