@@ -32,6 +32,8 @@ let calcMode = 'standard';
 let currentHistoryMode = localStorage.getItem('history-mode');
 
 const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
+const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
+
 //inputMainPart.pattern = validatorRegExp.toString(10).replace(/^\/|\/[a-z]+$/gmi, '');
 
 /* Functions */
@@ -194,7 +196,6 @@ function dropContentOnMiddle(currentDropDown) {
 body.addEventListener('click', keepOpenDropMenu);
 
 /* Calculator functionality */
-
 function clickedTrinogometrySwitcher(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('others-funcs__switcher')) return;
 
@@ -221,20 +222,24 @@ function printNumber(e) {
 
 body.addEventListener('click', printNumber);
 
-function clearOperators(e) {
-    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('clear-funcs')) return;
-
-    if (e.target.value === 'C') {
+function clearInput(value) {
+    if (value === 'C') {
         inputMainPart.value = null;
         inputPrevPart.textContent = '';
     }
-    else if (e.target.value === 'CE') {
+    else if (value === 'CE') {
         inputMainPart.value = null;
     }
-    else if (e.target.value === 'backspace') {
+    else if (value === 'backspace') {
         let temp = inputMainPart.value.slice(0, -1);
         inputMainPart.value = temp;
     }
+}
+
+function clearOperators(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('clear-funcs')) return;
+
+    clearInput(e.target.value)
 }
 
 body.addEventListener('click', clearOperators);
@@ -250,7 +255,7 @@ function unaryOperators(e) {
         mathExpr = `${e.target.value.replace(/x/, number)}`;
     }
     else {
-        mathExpr = `${e.target.value}(${number})`;
+        mathExpr = `${e.target.value}( ${number} )`;
     }
 
     temp = evaluate(mathExpr);
@@ -282,25 +287,39 @@ function binaryOperators(e) {
     let temp, mathExpr;
     let number = inputMainPart.value;
 
-    if (!inputPrevPart.classList.contains('binary-operator-clicked')) {
+    if (!inputPrevPart.classList.contains('binary-operator-clicked') && inputPrevPart.textContent.length === 0) {
         temp = number;
-        inputPrevPart.textContent = `${number} ${e.target.value} `;
-        inputPrevPart.classList.add('binary-operator-clicked');
     }
- 
+    else if (!inputPrevPart.textContent.includes(number) && inputPrevPart.textContent.length !== 0) {
+        mathExpr = `${inputPrevPart.textContent}${number}`;
+        temp = evaluate(mathExpr);
+    }
+    else return;
+
+    inputPrevPart.classList.add('binary-operator-clicked');
+    inputPrevPart.textContent = `${temp} ${e.target.value} `;
     inputMainPart.value = temp;
 }
 
 function equal(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
 
-    if (inputPrevPart.classList.contains('binary-operator-clicked')) {
+    if (inputMainPart.length !== 0) {
         let mathExpr = inputPrevPart.textContent + inputMainPart.value;
         let temp = evaluate(mathExpr);
 
         inputMainPart.value = temp;
-        inputPrevPart.textContent = mathExpr;
+        inputPrevPart.textContent = mathExpr + ' = ';
         inputPrevPart.classList.remove('binary-operator-clicked');
+    }
+
+    if (mathExpressionRegExp.test(inputPrevPart.textContent)) {
+        if (calculator.classList.contains('scientific')) {
+            clearInput('CE');
+        }
+        else {
+            clearInput('C');
+        }
     }
 }
 
@@ -324,4 +343,3 @@ function validator(e) {
 }
 
 inputMainPart.addEventListener('input', validator);
-
