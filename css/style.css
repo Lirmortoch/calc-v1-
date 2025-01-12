@@ -282,6 +282,10 @@ body {
     background-color: var(--back-btn-hover-color);
 }
 
+.calculator__button-show-history svg {
+    fill: var(--back-color);
+}
+
 .calculator__action-section {
     grid-row: 2 / 3;
     grid-column: 1 / 2;
