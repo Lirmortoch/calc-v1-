@@ -269,7 +269,7 @@ function auxiliaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('aux-ops')) return;
 
     let temp;
-    let number = Number(inputMainPart.value);
+    let number = inputMainPart.value;
 
     if (e.target.value === '+-') {
         inputPrevPart.textContent = `negate${number}`
@@ -287,15 +287,14 @@ function binaryOperators(e) {
     let temp, mathExpr;
     let number = inputMainPart.value;
 
-    if (!inputPrevPart.classList.contains('binary-operator-clicked') && inputPrevPart.textContent.length === 0) {
+    if (inputPrevPart.textContent.length === 0 || inputPrevPart.textContent.includes('=') && inputMainPart.value.length !== 0) {
         temp = number;
     }
-    else if (!inputPrevPart.textContent.includes(number) && inputPrevPart.textContent.length !== 0) {
+    else if (inputPrevPart.textContent.length !== 0) {
         mathExpr = `${inputPrevPart.textContent}${number}`;
         temp = evaluate(mathExpr);
     }
-    else return;
-
+    
     inputPrevPart.classList.add('binary-operator-clicked');
     inputPrevPart.textContent = `${temp} ${e.target.value} `;
     inputMainPart.value = temp;
@@ -304,22 +303,13 @@ function binaryOperators(e) {
 function equal(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
 
-    if (inputMainPart.length !== 0) {
+    if (inputMainPart.value.length !== 0 && !inputPrevPart.textContent.includes('=')) {
         let mathExpr = inputPrevPart.textContent + inputMainPart.value;
         let temp = evaluate(mathExpr);
 
         inputMainPart.value = temp;
         inputPrevPart.textContent = mathExpr + ' = ';
         inputPrevPart.classList.remove('binary-operator-clicked');
-    }
-
-    if (mathExpressionRegExp.test(inputPrevPart.textContent)) {
-        if (calculator.classList.contains('scientific')) {
-            clearInput('CE');
-        }
-        else {
-            clearInput('C');
-        }
     }
 }
 
