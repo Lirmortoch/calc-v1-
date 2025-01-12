@@ -81,8 +81,8 @@ body {
 .header__logo {
     width: 10.41666627vh; 
     height: 10.41666627vh; 
-    min-width: 100px;
-    min-height: 100px;
+    min-width: 50px;
+    min-height: 50px;
     overflow: hidden;
     border-radius: 25%;
     border: 1px solid var(--back-btn-hover-color);
@@ -200,7 +200,10 @@ body {
 .mode-switcher {
     margin: 0 0 0 20px;
     font-size: 1em;
+
     grid-row: 1 / 2;
+    grid-column: 1 / 2;
+    align-self: center;
 }
 
 .mode-switcher__button {
@@ -271,11 +274,19 @@ body {
 }
 
 .calculator__button-show-history {
-    grid-column: 2 / 3;
     grid-row: 1 / 2;
+    grid-column: 1 / 2;
+
+    width: 30px;
+    height: 30px;
+
+    align-self: center;
+    justify-self: end;
 
     background-color: transparent;
     text-transform: uppercase;
+
+    display: none;
 }
 
 .calculator__button-show-history:hover {
@@ -640,6 +651,9 @@ input[type=number] {
     .calculator__history-section {
         display: none;
     }
+    .calculator__button-show-history {
+        display: block;
+    }
     .calculator {
         grid-template-columns: 100%;
     }
@@ -657,10 +671,10 @@ input[type=number] {
     }
 }
 
-/* @media screen and (max-width: 739px) {
+@media screen and (max-width: 739px) {
     .nav__icon {
         display: block;
-        z-index: 4;
+        z-index: 5;
         position: relative;
         width: 30px;
         height: 18px;
@@ -669,10 +683,16 @@ input[type=number] {
     .nav__icon::before, .nav__icon::after, .nav__icon span {
         position: absolute;
         left: 0;
+
         height: 10%;
+        min-height: 2px;
         width: 100%;
+
         transition: all 0.3s ease 0s;
+
         background-color: #fff;
+
+        border-radius: 10px;
     }
     .nav__icon::before, .nav__icon::after {
         content: '';
@@ -689,7 +709,7 @@ input[type=number] {
     }
     .nav__body {
         position: fixed;
-        z-index: 3;
+        z-index: 2;
         top: 0;
         left: 0;
         width: 100%;
@@ -700,20 +720,37 @@ input[type=number] {
 
         display: grid;
 
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: repeat(2, max-content);
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(3, max-content);
 
         gap: 2em;
 
         grid-template-areas:
-            'switcher switcher'
-            'button-first button-second';
+            'switcher'
+            'button-first' 
+            'button-second';
 
 
         overflow: auto;
     }
+    .nav__body::before {
+        content: '';
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+
+        height: 16vh;
+        min-height: 90px;
+
+        background-color: var(--back-color);
+        z-index: 3;
+    }
+    .nav__body.active {
+        left: 100%;
+    }
     .nav__link {
-        font-size: 2em;
+        font-size: 1em;
         margin: 0;
         text-align: center;
     }
@@ -723,18 +760,22 @@ input[type=number] {
     .nav__link:last-child {
         grid-area: button-second;
     }
-    .header__title, .header__logo {
-        z-index: 4;
+    body {
+        overflow-y: hidden;
     }
+    .header__title, .header__logo {
+        z-index: 5;
+    }
+  
     .header__theme-switcher {
        grid-area: switcher;
        justify-self: end;
 
-        width: 4em;
-        height: 4em;
+        width: 11vw;
+        height: 11vw;
         margin: 0;
     }
-} */
+} 
 
 @media screen and (max-width: 600px) {
     .title {
