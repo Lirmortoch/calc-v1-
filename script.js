@@ -31,7 +31,7 @@ let currentTheme = localStorage.getItem('theme');
 let calcMode = 'standard';
 let currentHistoryMode = localStorage.getItem('history-mode');
 
-const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
+const validatorRegExp = /^[\.\s\+\/*\^%=0]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
 const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
 
 //inputMainPart.pattern = validatorRegExp.toString(10).replace(/^\/|\/[a-z]+$/gmi, '');
@@ -211,12 +211,17 @@ function printNumber(e) {
         if (inputMainPart.value.length === 0) return;
     }
 
+    if (inputPrevPart.classList.contains('full-expr')) {
+        inputPrevPart.className = 'active-part__expression expression';
+        clearInput('C');
+    }
+
     if (!inputPrevPart.classList.contains('binary-operator-clicked')) {
         inputMainPart.value += e.target.value;
     }
     else {
         inputMainPart.value = e.target.value;
-        inputPrevPart.classList.remove('binary-operator-clicked');
+        inputPrevPart.className = 'active-part__expression expression';
     }    
 }
 
@@ -226,6 +231,7 @@ function clearInput(value) {
     if (value === 'C') {
         inputMainPart.value = null;
         inputPrevPart.textContent = '';
+        inputPrevPart.className = 'active-part__expression expression';
     }
     else if (value === 'CE') {
         inputMainPart.value = null;
@@ -261,6 +267,7 @@ function unaryOperators(e) {
     temp = evaluate(mathExpr);
     inputPrevPart.textContent = mathExpr;
     inputMainPart.value = temp;
+    inputPrevPart.classList.add('full-expr');
 }
 
 body.addEventListener('click', unaryOperators);
@@ -283,19 +290,25 @@ body.addEventListener('click', auxiliaryOperators);
 
 function binaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
-
-    let temp, mathExpr;
+    
+    let temp, mathExpr, prevNumber;
     let number = inputMainPart.value;
 
-    if (inputPrevPart.textContent.length === 0 || inputPrevPart.textContent.includes('=') && inputMainPart.value.length !== 0) {
+    if (inputPrevPart.textContent.length === 0 || inputPrevPart.textContent.includes('=') && inputMainPart.value !== '') {
         temp = number;
     }
     else if (inputPrevPart.textContent.length !== 0) {
+        prevNumber = inputPrevPart.textContent.split(' ')[0];
         mathExpr = `${inputPrevPart.textContent}${number}`;
         temp = evaluate(mathExpr);
     }
+
+    if (prevNumber === number) {
+        return;
+    }
     
     inputPrevPart.classList.add('binary-operator-clicked');
+    inputPrevPart.classList.remove('full-expr');
     inputPrevPart.textContent = `${temp} ${e.target.value} `;
     inputMainPart.value = temp;
 }
@@ -309,7 +322,8 @@ function equal(e) {
 
         inputMainPart.value = temp;
         inputPrevPart.textContent = mathExpr + ' = ';
-        inputPrevPart.classList.remove('binary-operator-clicked');
+
+        inputPrevPart.classList.add('full-expr');
     }
 }
 
