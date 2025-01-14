@@ -31,8 +31,9 @@ let currentTheme = localStorage.getItem('theme');
 let calcMode = 'standard';
 let currentHistoryMode = localStorage.getItem('history-mode');
 
-const validatorRegExp = /^[\.\s\+\/*\^%=0]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
+const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
 const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
+const replaceBinaryOpsRegEx = /[\+\-\*\/]/gm;
 
 //inputMainPart.pattern = validatorRegExp.toString(10).replace(/^\/|\/[a-z]+$/gmi, '');
 
@@ -222,6 +223,7 @@ function printNumber(e) {
     else {
         inputMainPart.value = e.target.value;
         inputPrevPart.className = 'active-part__expression expression';
+        inputPrevPart.classList.add('inputted-same-number');
     }    
 }
 
@@ -303,14 +305,21 @@ function binaryOperators(e) {
         temp = evaluate(mathExpr);
     }
 
-    if (prevNumber === number) {
+    if (prevNumber === number && !inputPrevPart.classList.contains('inputted-same-number')) {
+        if (replaceBinaryOpsRegEx.test(inputPrevPart.textContent) && !inputPrevPart.textContent.includes(e.target.value)) {
+            inputPrevPart.textContent = inputPrevPart.textContent.replace(replaceBinaryOpsRegEx, e.target.value);
+            // alert('AVE CAESAR');
+        }
         return;
     }
     
     inputPrevPart.classList.add('binary-operator-clicked');
     inputPrevPart.classList.remove('full-expr');
+
     inputPrevPart.textContent = `${temp} ${e.target.value} `;
     inputMainPart.value = temp;
+
+    inputPrevPart.classList.remove('inputted-same-number');
 }
 
 function equal(e) {
@@ -324,6 +333,8 @@ function equal(e) {
         inputPrevPart.textContent = mathExpr + ' = ';
 
         inputPrevPart.classList.add('full-expr');
+
+        inputPrevPart.classList.remove('inputted-same-number');
     }
 }
 
