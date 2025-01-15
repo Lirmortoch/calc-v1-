@@ -7,9 +7,7 @@ const body = document.querySelector('body');
 
 const calculator = body.querySelector('.calculator');
 
-const themeSwitcher = document.querySelector('.header__theme-switcher');
 const themeSwitcherIcon = document.getElementById('switcher-mask');
-const themeSwitcherGradient = document.getElementById('switcher-gradient');
 
 const input = body.querySelector('.input');
 
@@ -49,36 +47,36 @@ function deactivateBtnForTime(btn) {
 }
 
 /* Theme switch */
-function switchToLightMode() {
+function switchToLightMode(btn = '') {
     body.classList.add('light-theme');
     localStorage.setItem('theme', 'light');
     themeSwitcherIcon.innerHTML = themeSwitcherIcons[1];
-    themeSwitcherGradient.style.fill = 'url(#linear-gradient-2)';
-    themeSwitcherGradient.style.stroke = 'url(#linear-gradient-2)';
 
-    deactivateBtnForTime(themeSwitcher);
+    if (btn !== '') deactivateBtnForTime(btn);
 }
 
-function switchToMainMode() {
+function switchToMainMode(btn) {
     body.classList.remove('light-theme');
     localStorage.setItem('theme', 'main');
     themeSwitcherIcon.innerHTML = themeSwitcherIcons[0];
-    themeSwitcherGradient.style.fill = 'url(#linear-gradient-1)';
-    themeSwitcherGradient.style.stroke = 'url(#linear-gradient-1)';
 
-    deactivateBtnForTime(themeSwitcher);
+    deactivateBtnForTime(btn);
 }
 
-function switchTheme() {
+function switchTheme(e) {
+    const closestElem = e.target.closest('.header__theme-switcher');
+
+    if (!closestElem) return;
+
     currentTheme = localStorage.getItem('theme');
-    currentTheme !== 'light' ? switchToLightMode() : switchToMainMode();
+    currentTheme !== 'light' ? switchToLightMode(closestElem) : switchToMainMode(closestElem);
 }
 
 if (currentTheme === 'light') {
     switchToLightMode();
 }
 
-themeSwitcher.addEventListener('click', switchTheme);
+document.addEventListener('click', switchTheme);
 
 /* History switch */
 
@@ -358,3 +356,19 @@ function validator(e) {
 }
 
 inputMainPart.addEventListener('input', validator);
+
+// mobile menu 
+function openCloseMobileMenu(e) {
+    const closestElem = e.target.closest('.menu-button-toggler');
+
+    if (!closestElem) return;
+
+    const navBody = document.querySelector('.nav__body');
+    const mobileNavIcon = closestElem.tagName === 'BUTTON' ? closestElem : closestElem.parentElement;
+
+    navBody.classList.toggle('active-mobile');
+    mobileNavIcon.classList.toggle('active-mobile');
+    document.body.classList.toggle('mobile-lock');
+}
+
+document.addEventListener('click', openCloseMobileMenu);
