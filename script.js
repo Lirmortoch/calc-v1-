@@ -101,7 +101,7 @@ function turnOnHistoryMode(currentMode) {
 
 if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 
-body.addEventListener('click', switchHistoryMode);
+document.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
 
@@ -152,7 +152,7 @@ function switchCalcMode(e) {
     localStorage.setItem('calc-mode', calcMode);
 }
 
-body.addEventListener('click', switchCalcMode);
+document.addEventListener('click', switchCalcMode);
 
 /* Functions for dropdowns */
 function keepOpenDropMenu(e) {
@@ -192,7 +192,7 @@ function dropContentOnMiddle(currentDropDown) {
     }px`;
 }
 
-body.addEventListener('click', keepOpenDropMenu);
+document.addEventListener('click', keepOpenDropMenu);
 
 /* Calculator functionality */
 function clickedTrinogometrySwitcher(e) {
@@ -201,7 +201,7 @@ function clickedTrinogometrySwitcher(e) {
     e.target.classList.toggle('active-switcher');
 }
 
-body.addEventListener('click', clickedTrinogometrySwitcher);
+document.addEventListener('click', clickedTrinogometrySwitcher);
 
 function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
@@ -225,7 +225,7 @@ function printNumber(e) {
     }    
 }
 
-body.addEventListener('click', printNumber);
+document.addEventListener('click', printNumber);
 
 function clearInput(value) {
     if (value === 'C') {
@@ -248,7 +248,7 @@ function clearOperators(e) {
     clearInput(e.target.value)
 }
 
-body.addEventListener('click', clearOperators);
+document.addEventListener('click', clearOperators);
 
 function unaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('unary-operator')) return;
@@ -268,9 +268,10 @@ function unaryOperators(e) {
     inputPrevPart.textContent = mathExpr;
     inputMainPart.value = temp;
     inputPrevPart.classList.add('full-expr');
+    addElementInHistory();
 }
 
-body.addEventListener('click', unaryOperators);
+document.addEventListener('click', unaryOperators);
 
 function auxiliaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('aux-ops')) return;
@@ -286,7 +287,7 @@ function auxiliaryOperators(e) {
     inputMainPart.value = temp;
 }
 
-body.addEventListener('click', auxiliaryOperators);
+document.addEventListener('click', auxiliaryOperators);
 
 function binaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
@@ -318,6 +319,8 @@ function binaryOperators(e) {
     inputMainPart.value = temp;
 
     inputPrevPart.classList.remove('inputted-same-number');
+
+    
 }
 
 function equal(e) {
@@ -333,12 +336,14 @@ function equal(e) {
         inputPrevPart.classList.add('full-expr');
 
         inputPrevPart.classList.remove('inputted-same-number');
+
+        addElementInHistory();
     }
 }
 
 document.addEventListener('click', equal);
 
-body.addEventListener('click', binaryOperators);
+document.addEventListener('click', binaryOperators);
 
 // validate input;
 function replacer(match, p1, p2, p3, offset, string) {
@@ -368,7 +373,21 @@ function openCloseMobileMenu(e) {
 
     navBody.classList.toggle('active-mobile');
     mobileNavIcon.classList.toggle('active-mobile');
-    document.body.classList.toggle('mobile-lock');
+    body.classList.toggle('mobile-lock');
 }
 
 document.addEventListener('click', openCloseMobileMenu);
+
+function addElementInHistory() {
+    const historyBlock = document.querySelector('.history-section__active-part');
+
+    let historyElem;
+
+    if (inputPrevPart.classList.contains('full-expr')) {
+        historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${inputPrevPart.textContent}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
+
+        history.push(historyElem);
+        localStorage.setItem('history', history);
+        historyBlock.insertAdjacentHTML('afterbegin', historyElem);
+    }
+}
