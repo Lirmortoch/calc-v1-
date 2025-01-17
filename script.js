@@ -268,7 +268,7 @@ function unaryOperators(e) {
     inputPrevPart.textContent = mathExpr;
     inputMainPart.value = temp;
     inputPrevPart.classList.add('full-expr');
-    addElementInHistory();
+    if (inputPrevPart.classList.contains('full-expr')) addElementInHistory();
 }
 
 document.addEventListener('click', unaryOperators);
@@ -312,6 +312,8 @@ function binaryOperators(e) {
         return;
     }
     
+    if (inputPrevPart.textContent.length !== 0) addElementInHistory();
+
     inputPrevPart.classList.add('binary-operator-clicked');
     inputPrevPart.classList.remove('full-expr');
 
@@ -319,8 +321,6 @@ function binaryOperators(e) {
     inputMainPart.value = temp;
 
     inputPrevPart.classList.remove('inputted-same-number');
-
-    
 }
 
 function equal(e) {
@@ -383,11 +383,9 @@ function addElementInHistory() {
 
     let historyElem;
 
-    if (inputPrevPart.classList.contains('full-expr')) {
-        historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${inputPrevPart.textContent}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
+    historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${inputPrevPart.textContent}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
 
-        history.push(historyElem);
-        localStorage.setItem('history', history);
-        historyBlock.insertAdjacentHTML('afterbegin', historyElem);
-    }
+    history.push(historyElem);
+    localStorage.setItem('history', history);
+    historyBlock.insertAdjacentHTML('afterbegin', historyElem);    
 }
