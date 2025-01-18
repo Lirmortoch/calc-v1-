@@ -79,7 +79,6 @@ if (currentTheme === 'light') {
 document.addEventListener('click', switchTheme);
 
 /* History switch */
-
 function switchHistoryMode(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.parentElement.classList.contains('history-buttons')) return;
     
@@ -104,7 +103,6 @@ if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
 document.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
-
 function turnOnScienceMode(memoryControl) {
     const upperButtons = body.querySelector('.upper-buttons');
 
@@ -264,6 +262,7 @@ function unaryOperators(e) {
         mathExpr = `${e.target.value}( ${number} )`;
     }
 
+    // РЕФАКТОРИНГ 1
     temp = evaluate(mathExpr);
     inputPrevPart.textContent = mathExpr;
     inputMainPart.value = temp;
@@ -308,13 +307,15 @@ function binaryOperators(e) {
     if (prevNumber === number && !inputPrevPart.classList.contains('inputted-same-number')) {
         if (replaceBinaryOpsRegEx.test(inputPrevPart.textContent) && !inputPrevPart.textContent.includes(e.target.value)) {
             inputPrevPart.textContent = inputPrevPart.textContent.replace(replaceBinaryOpsRegEx, e.target.value);
-            // alert('AVE CAESAR');
+            // alert('AVE CAESAR!');
         }
         return;
     }
     
     if (mathExpr !== undefined) addElementInHistory(mathExpr);
 
+    // РЕФАКТОРИНГ 1
+    // Можно сделать функцию для кнопки ровно переиспользуемой
     inputPrevPart.classList.add('binary-operator-clicked');
     inputPrevPart.classList.remove('full-expr');
 
@@ -324,6 +325,7 @@ function binaryOperators(e) {
     inputPrevPart.classList.remove('inputted-same-number');
 }
 
+// РЕФАКТОРИНГ 1: equalClick and equal
 function equal(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
 
@@ -379,6 +381,7 @@ function openCloseMobileMenu(e) {
 
 document.addEventListener('click', openCloseMobileMenu);
 
+// History and memory functionality
 function addElementInHistory(mathExpr) {
     const historyBlock = document.querySelector('.history-section__active-part');
 
@@ -390,3 +393,12 @@ function addElementInHistory(mathExpr) {
     localStorage.setItem('history', history);
     historyBlock.insertAdjacentHTML('afterbegin', historyElem);    
 }
+
+function restoreHistoryElem(e) {
+    if (!e.target.classList.contains('active-part__item')) return;
+
+    inputMainPart.value = e.target.lastElementChild.textContent;
+    inputPrevPart.textContent = e.target.firstElementChild.textContent;
+}
+
+document.addEventListener('click', restoreHistoryElem);
