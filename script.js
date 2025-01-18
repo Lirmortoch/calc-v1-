@@ -268,7 +268,8 @@ function unaryOperators(e) {
     inputPrevPart.textContent = mathExpr;
     inputMainPart.value = temp;
     inputPrevPart.classList.add('full-expr');
-    if (inputPrevPart.classList.contains('full-expr')) addElementInHistory();
+
+    if (inputPrevPart.classList.contains('full-expr')) addElementInHistory(mathExpr);
 }
 
 document.addEventListener('click', unaryOperators);
@@ -312,7 +313,7 @@ function binaryOperators(e) {
         return;
     }
     
-    if (inputPrevPart.textContent.length !== 0) addElementInHistory();
+    if (mathExpr !== undefined) addElementInHistory(mathExpr);
 
     inputPrevPart.classList.add('binary-operator-clicked');
     inputPrevPart.classList.remove('full-expr');
@@ -337,7 +338,7 @@ function equal(e) {
 
         inputPrevPart.classList.remove('inputted-same-number');
 
-        addElementInHistory();
+        addElementInHistory(mathExpr);
     }
 }
 
@@ -378,12 +379,12 @@ function openCloseMobileMenu(e) {
 
 document.addEventListener('click', openCloseMobileMenu);
 
-function addElementInHistory() {
+function addElementInHistory(mathExpr) {
     const historyBlock = document.querySelector('.history-section__active-part');
 
     let historyElem;
 
-    historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${inputPrevPart.textContent}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
+    historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
 
     history.push(historyElem);
     localStorage.setItem('history', history);
