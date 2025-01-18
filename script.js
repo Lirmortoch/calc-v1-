@@ -22,8 +22,8 @@ const themeSwitcherIcons = [
 
 const scientificMainButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
  
-const history = [];
-const memory = [];
+let history = [];
+let memory = [];
 
 let currentTheme = localStorage.getItem('theme');
 let calcMode = 'standard';
@@ -382,15 +382,15 @@ function openCloseMobileMenu(e) {
 document.addEventListener('click', openCloseMobileMenu);
 
 // History and memory functionality
-function addElementInHistory(mathExpr) {
-    const historyBlock = document.querySelector('.history-section__active-part');
+const historyBlock = document.querySelector('.history-section__active-part');
 
+function addElementInHistory(mathExpr) {
     let historyElem;
 
     historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
 
     history.push(historyElem);
-    localStorage.setItem('history', history);
+
     historyBlock.insertAdjacentHTML('afterbegin', historyElem);    
 }
 
