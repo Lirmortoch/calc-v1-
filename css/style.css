@@ -528,6 +528,12 @@ input[type=number] {
 .active-part__item:hover {
     background-color: var(--history-item-hover-color);
 }
+.active-part__item:active span {
+    filter: blur(0.55px);
+}
+.active-part__item:active span.result {
+    color: gray;
+}
 
 .expression {
     font-size: 0.74em;

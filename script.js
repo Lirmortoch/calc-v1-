@@ -22,8 +22,8 @@ const themeSwitcherIcons = [
 
 const scientificMainButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
  
-let history = [];
-let memory = [];
+const history = [];
+const memory = [];
 
 let currentTheme = localStorage.getItem('theme');
 let calcMode = 'standard';
@@ -89,6 +89,8 @@ function switchHistoryMode(e) {
     localStorage.setItem('history-mode', e.target.value);
 
     historyActivePart.style.display = 'block';
+
+    showPrevOperations();
 }
 
 function turnOnHistoryMode(currentMode) {
@@ -213,6 +215,7 @@ function printNumber(e) {
         clearInput('C');
     }
 
+    // РЕФАКТОРИНГ 2: ввод цифр - проверка main and prev part
     if (!inputPrevPart.classList.contains('binary-operator-clicked')) {
         inputMainPart.value += e.target.value;
     }
@@ -390,8 +393,9 @@ function addElementInHistory(mathExpr) {
     historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
 
     history.push(historyElem);
+    historyBlock.insertAdjacentHTML('afterbegin', historyElem);  
 
-    historyBlock.insertAdjacentHTML('afterbegin', historyElem);    
+    localStorage.setItem('history', history.join(' | '));
 }
 
 function restoreHistoryElem(e) {
@@ -400,5 +404,25 @@ function restoreHistoryElem(e) {
     inputMainPart.value = e.target.lastElementChild.textContent;
     inputPrevPart.textContent = e.target.firstElementChild.textContent;
 }
+
+/* УЛУЧШЕНИЕ 1: Историю можно сделать как два блока div. каждый появляется при нажатии переключателя, но тогда придётся добавлять ещё один блок и делать для него стили. Всё это улучшит визуальную составляющую и взаимодействие с юзером */
+
+function showPrevOperations() {
+    const historyMode = localStorage.getItem('history-mode');
+    let storedItems = localStorage.getItem(historyMode);
+
+    historyBlock.innerHTML = '';
+
+    if (storedItems !== null) {
+        historyBlock.insertAdjacentHTML('afterbegin', storedItems.replaceAll(' | ', ''));
+        historyBlock.style.padding = '0px'
+    }
+    else {
+        historyBlock.textContent = historyMode === 'history' ? 'There\'s no history yet' : "There's nothing saved in memory";
+        historyBlock.style.padding = '10px'
+    }
+}
+
+showPrevOperations();
 
 document.addEventListener('click', restoreHistoryElem);
