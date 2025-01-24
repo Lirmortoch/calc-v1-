@@ -446,19 +446,48 @@ input[type=number] {
     gap: 5px;
 }
 
-.calculator__history-section button {
+.history-buttons button {
     background-color: transparent;
     transition: all 0.5s ease 0s;
     padding: 5px 10px;
 }
 
-.calculator__history-section button:hover {
+.history-buttons button:hover {
     opacity: 0.8;
     transform: scale(1.1);
 }
 
-.calculator__history-section button:active {
+.history-buttons button:active {
     transform: scale(1);
+}
+
+.history-section__clear-button {
+    background-color: transparent;
+    color: var(--font-color);
+
+    width: 24px;
+
+    text-align: center;
+    vertical-align: middle;
+
+    
+}
+
+.history-section__clear-button-wrap {
+    display: flex;
+    align-items: start;
+    justify-content: end;
+
+    border: 1px solid white;
+    height: 50px;
+}
+
+.history-section__clear-button:hover {
+
+}
+
+.history-section__clear-button:active {
+
 }
 
 .history-section {
