@@ -461,33 +461,31 @@ input[type=number] {
     transform: scale(1);
 }
 
+.history-section__clear-button-wrap, .history-section__clear-button {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.history-section__clear-button-wrap {
+    height: 50px;
+}
+
 .history-section__clear-button {
     background-color: transparent;
     color: var(--font-color);
 
-    width: 24px;
+    padding: 4px;
 
-    text-align: center;
-    vertical-align: middle;
-
-    
-}
-
-.history-section__clear-button-wrap {
-    display: flex;
-    align-items: start;
-    justify-content: end;
-
-    border: 1px solid white;
-    height: 50px;
+    display: none;
 }
 
 .history-section__clear-button:hover {
-
+    background-color: var(--history-item-hover-color);
 }
 
 .history-section__clear-button:active {
-
+    background-color: transparent;
 }
 
 .history-section {

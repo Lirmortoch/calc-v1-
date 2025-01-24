@@ -79,6 +79,8 @@ if (currentTheme === 'light') {
 document.addEventListener('click', switchTheme);
 
 /* History switch */
+let isOnce = false;
+
 function switchHistoryMode(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.parentElement.classList.contains('history-buttons')) return;
     
@@ -88,16 +90,26 @@ function switchHistoryMode(e) {
     e.target.classList.add('current-history-mode');
     localStorage.setItem('history-mode', e.target.value);
 
-    historyActivePart.style.display = 'block';
+    if (!isOnce) showHistoryBlock();
 
     showPrevOperations();
 }
 
 function turnOnHistoryMode(currentMode) {
     const element = body.querySelector(`button[value=${currentMode}]`);
+
     element.classList.add('current-history-mode');
 
+    if (!isOnce) showHistoryBlock();
+}
+
+function showHistoryBlock() {
+    const clearBtn = body.querySelector('.history-section__clear-button');
+
     historyActivePart.style.display = 'block';
+    clearBtn.style.display = 'block';
+
+    isOnce = true;
 }
 
 if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
@@ -390,6 +402,8 @@ const historyBlock = document.querySelector('.history-section__active-part');
 function addElementInHistory(mathExpr) {
     let historyElem;
 
+    if (historyBlock.textContent.length !== 0) historyBlock.textContent = '';
+
     historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
 
     history.push(historyElem);
@@ -407,6 +421,11 @@ function restoreHistoryElem(e) {
 
 /* УЛУЧШЕНИЕ 1: Историю можно сделать как два блока div. каждый появляется при нажатии переключателя, но тогда придётся добавлять ещё один блок и делать для него стили. Всё это улучшит визуальную составляющую и взаимодействие с юзером */
 
+function showEmptyBlock(historyMode) {
+    historyBlock.textContent = historyMode === 'history' ? 'There\'s no history yet' : "There's nothing saved in memory";
+    historyBlock.style.padding = '10px'
+}
+
 function showPrevOperations() {
     const historyMode = localStorage.getItem('history-mode');
     let storedItems = localStorage.getItem(historyMode);
@@ -417,12 +436,22 @@ function showPrevOperations() {
         historyBlock.insertAdjacentHTML('afterbegin', storedItems.replaceAll(' | ', ''));
         historyBlock.style.padding = '0px'
     }
-    else {
-        historyBlock.textContent = historyMode === 'history' ? 'There\'s no history yet' : "There's nothing saved in memory";
-        historyBlock.style.padding = '10px'
-    }
+    else showEmptyBlock(historyMode);
 }
 
 showPrevOperations();
 
 document.addEventListener('click', restoreHistoryElem);
+
+function clearHistoryBlock(e) {
+    const closestElem = e.target.closest('.history-section__clear-button');
+    const historyMode = localStorage.getItem('history-mode');
+
+    if (!closestElem) return;
+
+    showEmptyBlock(historyMode);
+
+    localStorage.removeItem(historyMode);
+}
+
+document.addEventListener('click', clearHistoryBlock);
