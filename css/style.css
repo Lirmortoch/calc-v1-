@@ -730,14 +730,18 @@ input[type=number] {
         background-color: var(--history-block-mobile-back-color);
 
         transition: right 0.3s ease 0s;
-
-
+    }
+    .calculator__history-section.active-mobile {
+        right: 0%;
     }
     .calculator__history-section > * {
         background-color: var(--back-color);
     }
     .calculator__button-show-history {
         display: block;
+    }
+    .calculator__button-show-history.active-mobile {
+        z-index: 3;
     }
     .calculator {
         grid-template-columns: 100%;

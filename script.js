@@ -398,6 +398,7 @@ document.addEventListener('click', openCloseMobileMenu);
 
 // History and memory functionality
 const historyBlock = document.querySelector('.history-section__active-part');
+const historyPart = document.querySelector('.history-section');
 
 function addElementInHistory(mathExpr) {
     let historyElem;
@@ -417,6 +418,10 @@ function restoreHistoryElem(e) {
 
     inputMainPart.value = e.target.lastElementChild.textContent;
     inputPrevPart.textContent = e.target.firstElementChild.textContent;
+
+    if (historyPart.classList.contains('active-mobile')) {
+        historyPart.classList.remove('active-mobile');
+    }
 }
 
 /* УЛУЧШЕНИЕ 1: Историю можно сделать как два блока div. каждый появляется при нажатии переключателя, но тогда придётся добавлять ещё один блок и делать для него стили. Всё это улучшит визуальную составляющую и взаимодействие с юзером */
@@ -455,3 +460,20 @@ function clearHistoryBlock(e) {
 }
 
 document.addEventListener('click', clearHistoryBlock);
+
+/* РЕФАКТОРИНГ: сделать один скрипт для дропдаунов и менюшек. Добавить dataset атрибут для кнопок и блоков, затем сделать скрипт который будет открывать менюшку и закрывать остальные */
+/* УЛУЧШЕНИЕ: Добавить обёртку для блока, чтобы не было прозрачного пространства между кнопкой очистки блока и самим блоком */
+function openHistory(e) {
+    const closestElem = e.target.closest('.calculator__button-show-history');
+
+    if (!closestElem) return;
+
+    const mobileHistoryBtn = closestElem.tagName === 'BUTTON' ? closestElem : closestElem.parentElement;
+
+    historyPart.classList.toggle('active-mobile');
+    mobileHistoryBtn.classList.toggle('active-mobile');
+    body.classList.toggle('mobile-lock');
+}
+
+document.addEventListener('click', openHistory);
+
