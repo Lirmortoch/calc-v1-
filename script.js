@@ -364,7 +364,7 @@ document.addEventListener('click', equal);
 document.addEventListener('click', binaryOperators);
 
 // validate input;
-function replacer(match, p1, p2, p3, offset, string) {
+function replacer(match) {
     if (/.[\.\-+*=\/]/.test(match)) {
         return match.slice(0, 1);
     }
@@ -448,20 +448,28 @@ showPrevOperations();
 
 document.addEventListener('click', restoreHistoryElem);
 
-function clearHistoryBlock(e) {
-    const closestElem = e.target.closest('.history-section__clear-button');
+function clearHistory() {
     const historyMode = localStorage.getItem('history-mode');
-
-    if (!closestElem) return;
 
     showEmptyBlock(historyMode);
 
     localStorage.removeItem(historyMode);
+
+    if (historyMode === 'history') history = [];
+    else memory = [];
 }
 
-document.addEventListener('click', clearHistoryBlock);
+function clearHistoryClick(e) {
+    const closestElem = e.target.closest('.history-section__clear-button');
 
-/* РЕФАКТОРИНГ: сделать один скрипт для дропдаунов и менюшек. Добавить dataset атрибут для кнопок и блоков, затем сделать скрипт который будет открывать менюшку и закрывать остальные */
+    if (!closestElem) return;
+
+    clearHistory();
+}
+
+document.addEventListener('click', clearHistoryClick);
+
+/* РЕФАКТОРИНГ 3: сделать один скрипт для дропдаунов и менюшек. Добавить dataset атрибут для кнопок и блоков, затем сделать скрипт который будет открывать менюшку и закрывать остальные */
 /* УЛУЧШЕНИЕ: Добавить обёртку для блока, чтобы не было прозрачного пространства между кнопкой очистки блока и самим блоком */
 function openHistory(e) {
     const closestElem = e.target.closest('.calculator__button-show-history');
@@ -477,3 +485,48 @@ function openHistory(e) {
 
 document.addEventListener('click', openHistory);
 
+function memoryAdd(e) {
+    if (e.target.value !== 'memory-add') return;
+
+    if (memory.length > 0) {
+        const temp  = memory[memory.length - 1];
+        memory[memory.length - 1] = evaluate(memory[memory.length - 1] + input.value);
+    }
+    else memory.push(inputMainPart.value);
+
+    localStorage.setItem('memory', memory.join(' | '));
+}
+
+function memoryStore(e) {
+    if (e.target.value !== 'memory-store') return;
+    
+    let memoryElem = `<div class="active-part__item"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
+
+    memory.push(inputMainPart.value);
+
+    localStorage.setItem('memory', memory.join(' | '));
+}
+
+function memorySubtract(e) {
+    if (e.target.value !== 'memory-subtract') return;
+
+    if (memory.length > 0) {
+        const temp  = memory[memory.length - 1];
+        memory[memory.length - 1] = evaluate(temp - input.value);
+    }
+    else memory.push(-inputMainPart.value);
+
+    localStorage.setItem('memory', memory.join(' | '));
+}
+
+function memoryReCall(e) {
+    if (e.target.value !== 'memory-recall') return;
+
+    inputMainPart.value = memory[memory.length - 1];
+}
+
+function memoryClear(e) {
+    if (e.target.value !== 'memory-clear') return;
+
+    clearHistory();
+}
