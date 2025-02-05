@@ -1,14 +1,25 @@
 {
-  "name": "calc-v1",
+  "name": "calc",
   "version": "1.0.0",
-  "description": "Simple calc with math.js libary",
+  "description": "simple js calculator",
   "main": "script.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack",
+    "start": "webpack-dev-server"
   },
   "author": "Lir",
   "license": "ISC",
   "dependencies": {
-    "mathjs": "^13.0.3"
+    "fs": "^0.0.1-security",
+    "html-webpack-plugin": "^5.6.3",
+    "http": "^0.0.1-security",
+    "mathjs": "^13.2.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "webpack": "^5.96.1",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.1.0"
   }
 }
