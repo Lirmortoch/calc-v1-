@@ -14,16 +14,28 @@ const input = body.querySelector('.input');
 const inputMainPart = input.lastElementChild;
 const inputPrevPart = body.querySelector('.input__prev-part').firstElementChild;
 
-const historyActivePart = body.querySelector('.active-part');
+const historyBlock = body.querySelector('.history-section__active-part');
+const historyPart = body.querySelector('.history-section');
+
+let isOnce = false;
 
 const themeSwitcherIcons = [
     '<circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>', '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
 ];
 
 const scientificMainButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!', ['x', 'y'], ['10', 'x'], 'log', 'ln'];
- 
-const history = [];
-const memory = [];
+
+/* 
+    УЛУЧШЕНИЕ?
+    const tempHistory = localStorage.getItem('history')?.split(' | ');
+    const tempMemory = localStorage.getItem('memory')?.split(' | ');
+
+    const history = tempHistory === undefined ? [] : tempHistory;
+    const memory = tempMemory === undefined ? [] : tempMemory;
+*/
+
+const history = localStorage.getItem('history') === null ? [] : localStorage.getItem('history').split(' | ');
+const memory = localStorage.getItem('memory') === null ? [] : localStorage.getItem('memory').split(' | ');
 
 let currentTheme = localStorage.getItem('theme');
 let calcMode = 'standard';
@@ -79,8 +91,6 @@ if (currentTheme === 'light') {
 document.addEventListener('click', switchTheme);
 
 /* History switch */
-let isOnce = false;
-
 function switchHistoryMode(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.parentElement.classList.contains('history-buttons')) return;
     
@@ -106,7 +116,7 @@ function turnOnHistoryMode(currentMode) {
 function showHistoryBlock() {
     const clearBtn = body.querySelector('.history-section__clear-button');
 
-    historyActivePart.style.display = 'block';
+    historyBlock.style.display = 'block';
     clearBtn.style.display = 'block';
 
     isOnce = true;
@@ -182,7 +192,7 @@ function keepOpenDropMenu(e) {
         dropContentOnMiddle(currentDropDown);
     }
 
-    document.querySelectorAll('[data-dropdown].active').forEach(dropDown => {
+    body.querySelectorAll('[data-dropdown].active').forEach(dropDown => {
         if (dropDown === currentDropDown) return;
         dropDown.classList.remove('active');
         dropDown.querySelector('.caret').classList.toggle('caret__rotate');
@@ -386,7 +396,7 @@ function openCloseMobileMenu(e) {
 
     if (!closestElem) return;
 
-    const navBody = document.querySelector('.nav__body');
+    const navBody = body.querySelector('.nav__body');
     const mobileNavIcon = closestElem.tagName === 'BUTTON' ? closestElem : closestElem.parentElement;
 
     navBody.classList.toggle('active-mobile');
@@ -397,17 +407,16 @@ function openCloseMobileMenu(e) {
 document.addEventListener('click', openCloseMobileMenu);
 
 // History and memory functionality
-const historyBlock = document.querySelector('.history-section__active-part');
-const historyPart = document.querySelector('.history-section');
-
+/* УЛУЧШЕНИЕ? Сделать класс Calc со всеми переменными + сделать объект, который содержит все переменные? (хотя это не нужно, просто использовать this[value]?) */
+/* СРОЧНО: Добавление элемента только в соответствующий блок (if () и добавлять класс к активному блоку) */
 function addElementInHistory(mathExpr) {
-    let historyElem;
+    if (historyBlock.textContent.includes('There\'s no')) historyBlock.textContent = '';
 
-    if (historyBlock.textContent.length !== 0) historyBlock.textContent = '';
-
-    historyElem = `<div class="active-part__item"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
+    let historyElem = `<div class="active-part__item history-elem"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
 
     history.push(historyElem);
+
+    // if (historyBlock.classList.contains('history-mode'))
     historyBlock.insertAdjacentHTML('afterbegin', historyElem);  
 
     localStorage.setItem('history', history.join(' | '));
@@ -417,7 +426,8 @@ function restoreHistoryElem(e) {
     if (!e.target.classList.contains('active-part__item')) return;
 
     inputMainPart.value = e.target.lastElementChild.textContent;
-    inputPrevPart.textContent = e.target.firstElementChild.textContent;
+
+    if (e.target.classList.contains('history-elem')) inputPrevPart.textContent = e.target.firstElementChild.textContent;
 
     if (historyPart.classList.contains('active-mobile')) {
         historyPart.classList.remove('active-mobile');
@@ -438,7 +448,7 @@ function showPrevOperations() {
     historyBlock.innerHTML = '';
 
     if (storedItems !== null) {
-        historyBlock.insertAdjacentHTML('afterbegin', storedItems.replaceAll(' | ', ''));
+        historyBlock.insertAdjacentHTML('afterbegin', storedItems.split(' | ').reverse().join(' | ').replaceAll(' | ', ''));
         historyBlock.style.padding = '0px'
     }
     else showEmptyBlock(historyMode);
@@ -497,12 +507,17 @@ function memoryAdd(e) {
     localStorage.setItem('memory', memory.join(' | '));
 }
 
+// РЕФАКТОРИНГ 4: одна функция добавления в историю и память
+// УЛУЧШЕНИЕ: один класс Calc со всеми нужными приватными переменными и доступ через this[value]
 function memoryStore(e) {
     if (e.target.value !== 'memory-store') return;
     
-    let memoryElem = `<div class="active-part__item"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
+    if (historyBlock.textContent.includes('There\'s no')) historyBlock.textContent = '';
 
-    memory.push(inputMainPart.value);
+    let memoryElem = `<div class="active-part__item memory-elem"><span class="active-part__memory-item">${inputMainPart.value}</span></div>`;
+
+    memory.push(memoryElem);
+    historyBlock.insertAdjacentHTML('afterbegin', memoryElem); 
 
     localStorage.setItem('memory', memory.join(' | '));
 }
@@ -530,3 +545,5 @@ function memoryClear(e) {
 
     clearHistory();
 }
+
+document.addEventListener('click', memoryStore);
