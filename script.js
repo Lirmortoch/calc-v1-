@@ -34,15 +34,14 @@ const scientificMainButtons = [['2','nd'], 'π', 'e', '|x|', 'exp', 'mod', 'n!',
     const memory = tempMemory === undefined ? [] : tempMemory;
 */
 
-const history = localStorage.getItem('history') === null ? [] : localStorage.getItem('history').split(' | ');
-const memory = localStorage.getItem('memory') === null ? [] : localStorage.getItem('memory').split(' | ');
+let history = localStorage.getItem('history') === null ? [] : localStorage.getItem('history').split(' | ');
+let memory = localStorage.getItem('memory') === null ? [] : localStorage.getItem('memory').split(' | ');
 
 let currentTheme = localStorage.getItem('theme');
 let calcMode = 'standard';
-let currentHistoryMode = localStorage.getItem('history-mode');
 
 const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
-const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
+// const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
 const replaceBinaryOpsRegEx = /[\+\-\*\/]/gm;
 
 //inputMainPart.pattern = validatorRegExp.toString(10).replace(/^\/|\/[a-z]+$/gmi, '');
@@ -95,10 +94,16 @@ function switchHistoryMode(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.parentElement.classList.contains('history-buttons')) return;
     
     const prevBtn = body.querySelector('.current-history-mode');
-    if (prevBtn) prevBtn.classList.remove('current-history-mode');
+
+    if (prevBtn) {
+        historyBlock.classList.remove(`${prevBtn.value}-mode`);
+        prevBtn.classList.remove('current-history-mode');
+    }
+
 
     e.target.classList.add('current-history-mode');
     localStorage.setItem('history-mode', e.target.value);
+    historyBlock.classList.add(`${e.target.value}-mode`);
 
     if (!isOnce) showHistoryBlock();
 
@@ -109,6 +114,7 @@ function turnOnHistoryMode(currentMode) {
     const element = body.querySelector(`button[value=${currentMode}]`);
 
     element.classList.add('current-history-mode');
+    historyBlock.classList.add(`${currentMode}-mode`);
 
     if (!isOnce) showHistoryBlock();
 }
@@ -122,7 +128,7 @@ function showHistoryBlock() {
     isOnce = true;
 }
 
-if (currentHistoryMode !== null) turnOnHistoryMode(currentHistoryMode);
+if (localStorage.getItem('history-mode') !== null) turnOnHistoryMode(localStorage.getItem('history-mode'));
 
 document.addEventListener('click', switchHistoryMode);
 
@@ -408,16 +414,14 @@ document.addEventListener('click', openCloseMobileMenu);
 
 // History and memory functionality
 /* УЛУЧШЕНИЕ? Сделать класс Calc со всеми переменными + сделать объект, который содержит все переменные? (хотя это не нужно, просто использовать this[value]?) */
-/* СРОЧНО: Добавление элемента только в соответствующий блок (if () и добавлять класс к активному блоку) */
 function addElementInHistory(mathExpr) {
-    if (historyBlock.textContent.includes('There\'s no')) historyBlock.textContent = '';
+    if (historyBlock.textContent.includes('There\'s no') && historyBlock.classList.contains('history-mode')) historyBlock.textContent = '';
 
     let historyElem = `<div class="active-part__item history-elem"><span class="active-part__expression expression">${mathExpr + ' = '}</span> <br> <span class="active-part__result result">${inputMainPart.value}</span></div>`;
 
     history.push(historyElem);
 
-    // if (historyBlock.classList.contains('history-mode'))
-    historyBlock.insertAdjacentHTML('afterbegin', historyElem);  
+    if (historyBlock.classList.contains('history-mode')) historyBlock.insertAdjacentHTML('afterbegin', historyElem);  
 
     localStorage.setItem('history', history.join(' | '));
 }
@@ -512,12 +516,13 @@ function memoryAdd(e) {
 function memoryStore(e) {
     if (e.target.value !== 'memory-store') return;
     
-    if (historyBlock.textContent.includes('There\'s no')) historyBlock.textContent = '';
+    if (historyBlock.textContent.includes('There\'s no') && historyBlock.classList.contains('memory-mode')) historyBlock.textContent = '';
 
     let memoryElem = `<div class="active-part__item memory-elem"><span class="active-part__memory-item">${inputMainPart.value}</span></div>`;
 
     memory.push(memoryElem);
-    historyBlock.insertAdjacentHTML('afterbegin', memoryElem); 
+
+    if (historyBlock.classList.contains('memory-mode')) historyBlock.insertAdjacentHTML('afterbegin', memoryElem); 
 
     localStorage.setItem('memory', memory.join(' | '));
 }
