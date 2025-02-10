@@ -671,6 +671,27 @@ input[type=number] {
     background-color: var(--equal-clicked-color);
 }
 
+.memory-elem div {
+    margin-top: 5px;
+    width: fit-content;
+    margin-left: auto;
+}
+
+.memory-elem .button {
+    font-size: 0.7em;
+    background-color: transparent;
+    margin-right: 5px;
+    padding: 7px 5px;
+}
+
+.memory-elem .button:last-of-type {
+    margin-right: 0px;
+}
+
+.memory-elem .button:hover {
+    background-color: var(--back-btn-color);
+}
+
 @media screen and (min-width: 3820px) {
     body {
         font-size: 2em;

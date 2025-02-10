@@ -429,7 +429,7 @@ function addElementInHistory(mathExpr) {
 function restoreHistoryElem(e) {
     if (!e.target.classList.contains('active-part__item')) return;
 
-    inputMainPart.value = e.target.lastElementChild.textContent;
+    inputMainPart.value = e.target.querySelector('.result').textContent;
 
     if (e.target.classList.contains('history-elem')) inputPrevPart.textContent = e.target.firstElementChild.textContent;
 
@@ -451,7 +451,7 @@ function showPrevOperations() {
 
     historyBlock.innerHTML = '';
 
-    if (storedItems !== null) {
+    if (storedItems !== null && storedItems !== '') {
         historyBlock.insertAdjacentHTML('afterbegin', storedItems.split(' | ').reverse().join(' | ').replaceAll(' | ', ''));
         historyBlock.style.padding = '0px'
     }
@@ -512,13 +512,13 @@ function memoryAdd(e) {
 }
 
 // РЕФАКТОРИНГ 4: одна функция добавления в историю и память
-// УЛУЧШЕНИЕ: один класс Calc со всеми нужными приватными переменными и доступ через this[value]
+// УЛУЧШЕНИЕ: один класс Calc со всеми нужными приватными переменными и доступ через this[value]. Подсказка над кнопками с операциями (память и математические операции)
 function memoryStore(e) {
-    if (e.target.value !== 'memory-store') return;
+    if (e.target.value !== 'memory-store' || inputMainPart.value === '') return;
     
     if (historyBlock.textContent.includes('There\'s no') && historyBlock.classList.contains('memory-mode')) historyBlock.textContent = '';
 
-    let memoryElem = `<div class="active-part__item memory-elem"><span class="active-part__memory-item">${inputMainPart.value}</span></div>`;
+    let memoryElem = `<div class="active-part__item memory-elem"><span class="active-part__memory-item result">${inputMainPart.value}</span><div><button class="upper-buttons__clearAll button" value="memory-clear">mc</button><button class="upper-buttons__add button" value="memory-add">m+</button><button class="upper-buttons__subtract button" value="memory-subtract">m-</button></div></div>`;
 
     memory.push(memoryElem);
 
@@ -545,10 +545,28 @@ function memoryReCall(e) {
     inputMainPart.value = memory[memory.length - 1];
 }
 
+// РЕФАКТОРИНГ: привести к норм виду. Лишние ветвления. Сделать функцию clearHistory более юзабельной?
 function memoryClear(e) {
     if (e.target.value !== 'memory-clear') return;
 
-    clearHistory();
+    if (!e.target.closest('.memory-elem')) {
+        if (localStorage.getItem('history-mode') === 'memory') showEmptyBlock('memory');
+
+        localStorage.removeItem('memory');
+        memory = [];
+    }
+    else {
+        const elem = e.target.closest('.memory-elem');
+        const index = memory.indexOf(elem.innerHTML);
+
+        memory.splice(index, 1);
+        localStorage.setItem('memory', memory);
+        
+        elem.remove();
+
+        if (historyBlock.innerHTML.length === 0) showEmptyBlock('memory');
+    }
 }
 
 document.addEventListener('click', memoryStore);
+document.addEventListener('click', memoryClear);
