@@ -499,26 +499,31 @@ function openHistory(e) {
 
 document.addEventListener('click', openHistory);
 
+// РЕФАКТОРИНГ 5: Уменьшение кода в add & subtract? (add + subtract)?
+// РЕФАКТОРИНГ 6: Где-то в коде в memory пушиться пустая строка. Надо найти и убрать
 function memoryAdd(e) {
     if (e.target.value !== 'memory-add') return;
 
-    if (memory.length > 0) {
-        const temp  = memory[memory.length - 1];
-        memory[memory.length - 1] = evaluate(memory[memory.length - 1] + input.value);
+    if (memory.length > 0 && memory[0] !== '') {
+        const tempMemoryItem = document.querySelector('.active-part__memory-item.result');
+
+        tempMemoryItem.textContent = evaluate(`${tempMemoryItem.textContent} + ${inputMainPart.value}`);
+
+        memory[memory.length - 1] = `<div class='active-part__item memory-elem'>${tempMemoryItem.closest('.memory-elem').innerHTML}</div>`;
     }
-    else memory.push(inputMainPart.value);
+    else memoryStore(inputMainPart.value);
 
     localStorage.setItem('memory', memory.join(' | '));
 }
 
-// РЕФАКТОРИНГ 4: одна функция добавления в историю и память
-// УЛУЧШЕНИЕ: один класс Calc со всеми нужными приватными переменными и доступ через this[value]. Подсказка над кнопками с операциями (память и математические операции)
-function memoryStore(e) {
-    if (e.target.value !== 'memory-store' || inputMainPart.value === '') return;
-    
+// РЕФАКТОРИНГ 4: одна функция добавления в историю и память. Убрать нестрогое сравнение?
+// УЛУЧШЕНИЕ: один класс Calc со всеми нужными приватными переменными и доступ через this[value]. Подсказка над кнопками с операциями (память)
+function memoryStore(value) {
+    if (value == false) return;
+
     if (historyBlock.textContent.includes('There\'s no') && historyBlock.classList.contains('memory-mode')) historyBlock.textContent = '';
 
-    let memoryElem = `<div class="active-part__item memory-elem"><span class="active-part__memory-item result">${inputMainPart.value}</span><div><button class="upper-buttons__clearAll button" value="memory-clear">mc</button><button class="upper-buttons__add button" value="memory-add">m+</button><button class="upper-buttons__subtract button" value="memory-subtract">m-</button></div></div>`;
+    let memoryElem = `<div class="active-part__item memory-elem"><span class="active-part__memory-item result">${value}</span><div><button class="upper-buttons__clearAll button" value="memory-clear">mc</button><button class="upper-buttons__add button" value="memory-add">m+</button><button class="upper-buttons__subtract button" value="memory-subtract">m-</button></div></div>`;
 
     memory.push(memoryElem);
 
@@ -527,14 +532,23 @@ function memoryStore(e) {
     localStorage.setItem('memory', memory.join(' | '));
 }
 
+function memoryStoreClick(e) {
+    if (e.target.value !== 'memory-store' || inputMainPart.value === '') return;
+
+    memoryStore(inputMainPart.value);
+}
+
 function memorySubtract(e) {
     if (e.target.value !== 'memory-subtract') return;
 
-    if (memory.length > 0) {
-        const temp  = memory[memory.length - 1];
-        memory[memory.length - 1] = evaluate(temp - input.value);
+    if (memory.length > 0 && memory[0] !== '') {
+        const tempMemoryItem = document.querySelector('.active-part__memory-item.result');
+
+        tempMemoryItem.textContent = evaluate(`${tempMemoryItem.textContent} - ${inputMainPart.value}`);
+        
+        memory[memory.length - 1] = `<div class='active-part__item memory-elem'>${tempMemoryItem.closest('.memory-elem').innerHTML}</div>`;
     }
-    else memory.push(-inputMainPart.value);
+    else memoryStore(-inputMainPart.value);
 
     localStorage.setItem('memory', memory.join(' | '));
 }
@@ -542,10 +556,10 @@ function memorySubtract(e) {
 function memoryReCall(e) {
     if (e.target.value !== 'memory-recall') return;
 
-    inputMainPart.value = memory[memory.length - 1];
+    inputMainPart.value = document.querySelector('.active-part__memory-item.result').textContent;
 }
 
-// РЕФАКТОРИНГ: привести к норм виду. Лишние ветвления. Сделать функцию clearHistory более юзабельной?
+// РЕФАКТОРИНГ: привести к норм виду. Лишние ветвления. Сделать функцию clearHistory более юзабельной (в функцию кидать текущий мод и внутри проверять его, чтобы не удалить элементы из другого блока)?
 function memoryClear(e) {
     if (e.target.value !== 'memory-clear') return;
 
@@ -568,5 +582,8 @@ function memoryClear(e) {
     }
 }
 
-document.addEventListener('click', memoryStore);
+document.addEventListener('click', memoryStoreClick);
 document.addEventListener('click', memoryClear);
+document.addEventListener('click', memoryAdd);
+document.addEventListener('click', memorySubtract);
+document.addEventListener('click', memoryReCall);
