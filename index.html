@@ -67,7 +67,7 @@
         </header>
 
         <main class="main">
-            <section class="calculator">
+            <section class="calculator ">
                 <div class="dropdown mode-switcher" data-dropdown>
                     <button class="mode-switcher__button button current-calc-mode dropdown__button" value="standard" data-dropdown-button>
                         Standard
@@ -96,10 +96,8 @@
                     
                     <div class="calculator__upper-buttons upper-buttons">
                         <div class="upper-buttons__grid">
-                            <!-- For scientific mode: 
-                                <button class="upper-buttons__angle-value button  science-functions">Deg</button>
-                                <button class="upper-buttons__f-e button  science-functions">F-e</button> 
-                            -->
+                            <button class="upper-buttons__angle-value button  science-functions science-values" value="deg">Deg</button>
+                            <button class="upper-buttons__f-e button  science-functions science-values" value="f-e">F-e</button> 
                             <button class="upper-buttons__clearAll button  memory-control" value="memory-clear">mc</button>
                             <button class="upper-buttons__recall button  memory-control" value="memory-recall">mr</button>
                             <button class="upper-buttons__add button  memory-control" value="memory-add">m+</button>
@@ -108,7 +106,7 @@
                         </div>
                     </div>
 
-                    <!-- <div class="calculator__functions functions">
+                    <div class="calculator__functions functions science-values">
                         <div class="functions__wrap dropdown" data-dropdown>
                             <button class="functions__trigonometry button functionality-btn dropdown__button" data-dropdown-button>
                                 Trigonometry
@@ -143,7 +141,7 @@
                                 <button class="others-funcs__btn button">6</button>
                             </div>
                         </div>
-                    </div>  -->
+                    </div>
 
                     <div class="action-buttons">
                         <button class="action-buttons__button action-button button binary-operator" value="%">%</button>
@@ -176,43 +174,6 @@
                         <button class="action-buttons__button main-btn num-btn button" value="0">0</button>
                         <button class="action-buttons__button main-btn num-btn button big-sign" value=".">.</button>
                         <button class="action-buttons__button equal-sign button big-sign" value="=">=</button>
-                        
-                        <!-- For scientific mode: 
-                        <button class="action-buttons__button button">1</button>
-                        <button class="action-buttons__button button">2</button>
-                        <button class="action-buttons__button button">3</button>
-                        <button class="action-buttons__button button">4</button>
-                        <button class="action-buttons__button button">5</button>
-                        <button class="action-buttons__button button">6</button>
-                        <button class="action-buttons__button button">7</button>
-                        <button class="action-buttons__button button">8</button>
-                        <button class="action-buttons__button button">9</button>
-                        <button class="action-buttons__button button">10</button>
-                        <button class="action-buttons__button button">11</button>
-                        <button class="action-buttons__button button">12</button>
-                        <button class="action-buttons__button button">13</button>
-                        <button class="action-buttons__button button">14</button>
-                        <button class="action-buttons__button button">15</button>
-                        <button class="action-buttons__button button">16</button>
-                        <button class="action-buttons__button main-btn button">17</button>
-                        <button class="action-buttons__button main-btn button">18</button>
-                        <button class="action-buttons__button main-btn button">19</button>
-                        <button class="action-buttons__button button">20</button>
-                        <button class="action-buttons__button button">21</button>
-                        <button class="action-buttons__button main-btn button">22</button>
-                        <button class="action-buttons__button main-btn button">23</button>
-                        <button class="action-buttons__button main-btn button">24</button>
-                        <button class="action-buttons__button button">25</button>
-                        <button class="action-buttons__button button">26</button>
-                        <button class="action-buttons__button main-btn button">27</button>
-                        <button class="action-buttons__button main-btn button">28</button>
-                        <button class="action-buttons__button main-btn button">29</button>
-                        <button class="action-buttons__button button">30</button>
-                        <button class="action-buttons__button button">31</button>
-                        <button class="action-buttons__button main-btn button">32</button>
-                        <button class="action-buttons__button main-btn button">33</button>
-                        <button class="action-buttons__button main-btn button">34</button>
-                        <button class="action-buttons__button equal-sign button">35</button> -->
                     </div>
                 </section>
 

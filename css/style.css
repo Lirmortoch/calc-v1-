@@ -367,11 +367,16 @@ input[type=number] {
     margin-bottom: 5px;
 }
 
-.science-functions {
+.memory-control, .science-functions {
     grid-row: 1;
 }
-.memory-control {
-    grid-row: 1;
+
+.calculator.scientific .memory-control {
+    grid-row: 2;
+}
+
+.calculator:not(.scientific) .science-values {
+    display: none;
 }
 
 .calculator__upper-buttons button {
@@ -400,13 +405,18 @@ input[type=number] {
 /* Main buttons */
 .action-buttons {
     display: grid;
-    grid-auto-rows: 4.4vmax; /* For scientific mode: grid-auto-rows: 3.8vmax; */ 
+    grid-auto-rows: 4.4vmax;
     grid-auto-columns: 315px;
 
-    grid-template-columns: repeat(4, 1fr); /* For scientific mode: grid-template-columns: repeat(5, 1fr); */
+    grid-template-columns: repeat(4, 1fr);
 
     grid-auto-flow: dense;
     gap: 3px;
+}
+
+.calculator.scientific .action-buttons {
+    grid-auto-rows: 3.8vmax; 
+    grid-template-columns: repeat(5, 1fr); 
 }
 
 .button {

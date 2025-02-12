@@ -133,27 +133,17 @@ if (localStorage.getItem('history-mode') !== null) turnOnHistoryMode(localStorag
 document.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
-function turnOnScienceMode(memoryControl) {
-    const upperButtons = body.querySelector('.upper-buttons');
-
-    upperButtons.firstElementChild.insertAdjacentHTML('afterbegin', '<button class="upper-buttons__angle-value button science-functions scientific">Deg</button><button class="upper-buttons__f-e button science-functions scientific">F-e</button>');
-
-    upperButtons.insertAdjacentHTML('afterend', '');
-
-    memoryControl.forEach(elem => elem.style.gridRow = '2');
+function turnOnScienceMode() {
+    // actionButtons.innerHTML = '';
 }
 
-function turnOffScienceMode(memoryControl) {
-    const scientificFuncs = body.querySelectorAll('.scientific');
-
-    scientificFuncs.forEach(elem => elem.remove());
-    memoryControl.forEach(elem => elem.style = '');
+function turnOffScienceMode() {
+    // actionButtons.innerHTML = '';
 }
 
 function switchCalcMode(e) {
     if (e.target.tagName !== 'BUTTON' || e.target.classList.contains('current-calc-mode') || !e.target.parentElement.classList.contains('mode-switcher')) return;
 
-    const memoryControl = body.querySelectorAll('.memory-control');
     const btn = e.target.parentElement.querySelector('.current-calc-mode');
 
     localStorage.setItem('prev-calc-mode', calcMode);
@@ -161,12 +151,12 @@ function switchCalcMode(e) {
     if (e.target.value === 'scientific') {
         calcMode = 'scientific';
         calculator.classList.add(calcMode);
-        turnOnScienceMode(memoryControl);
+        turnOnScienceMode();
     }
     else {
         calcMode = 'standard';
         calculator.classList.remove('scientific');
-        turnOffScienceMode(memoryControl); 
+        turnOffScienceMode(); 
     }
 
     const prevCalcMode = localStorage.getItem('prev-calc-mode');
