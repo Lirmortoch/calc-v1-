@@ -1,6 +1,8 @@
 /* import fonts */
 @import url('fonts.css');
 
+/* УЛУЧШЕНИЕ: минимизировать стили */
+
 html {
     /* for dark (main) mode */
     --back-color: #253040;
