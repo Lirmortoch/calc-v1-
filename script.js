@@ -7,6 +7,8 @@ const body = document.querySelector('body');
 
 const calculator = body.querySelector('.calculator');
 
+const actionButtons = body.querySelector('.action-buttons');
+
 const themeSwitcherIcon = document.getElementById('switcher-mask');
 
 const input = body.querySelector('.input');
@@ -26,8 +28,8 @@ const themeSwitcherIcons = [
 let history = localStorage.getItem('history') === null ? [] : localStorage.getItem('history').split(' | ');
 let memory = localStorage.getItem('memory') === null ? [] : localStorage.getItem('memory').split(' | ');
 
-let currentTheme = localStorage.getItem('theme');
-let calcMode = 'standard';
+let currentTheme = localStorage.getItem('theme') || 'main';
+let calcMode = localStorage.getItem('calc-mode') || 'standard';
 
 const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
 // const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
@@ -122,30 +124,43 @@ if (localStorage.getItem('history-mode') !== null) turnOnHistoryMode(localStorag
 document.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
-function turnOnScienceMode() {
+function onScienceMode() {
+    calcMode = 'scientific';
+    calculator.classList.add(calcMode);
     // actionButtons.innerHTML = '';
 }
 
-function turnOffScienceMode() {
-    // actionButtons.innerHTML = '';
+function offScienceMode() {
+    calcMode = 'standard';
+    calculator.classList.remove('scientific');
+    actionButtons.innerHTML = '<button class="action-buttons__button action-button button binary-operator" value="%">%</button> <button class="action-buttons__button action-button button clear-funcs" value="CE">CE</button> <button class="action-buttons__button action-button button clear-funcs" value="C">C</button> <button class="action-buttons__button action-button button clear-funcs" value="backspace">⌫</button> <button class="action-buttons__button action-button button unary-operator" value="1/x"> <sup>1</sup><span>/</span><sub>x</sub> </button> <button class="action-buttons__button action-button button unary-operator" value="x^2"> <span>x</span><sup>2</sup> </button> <button class="action-buttons__button action-button button unary-operator" value="sqrt">²√x</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="/">÷</button> <button class="action-buttons__button main-btn num-btn button" value="7">7</button> <button class="action-buttons__button main-btn num-btn button" value="8">8</button> <button class="action-buttons__button main-btn num-btn button" value="9">9</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="*">x</button> <button class="action-buttons__button main-btn num-btn button" value="4">4</button> <button class="action-buttons__button main-btn num-btn button" value="5">5</button> <button class="action-buttons__button main-btn num-btn button" value="6">6</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="-">-</button> <button class="action-buttons__button main-btn num-btn button" value="1">1</button> <button class="action-buttons__button main-btn num-btn button" value="2">2</button> <button class="action-buttons__button main-btn num-btn button" value="3">3</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="+">+</button> <button class="action-buttons__button main-btn button aux-ops" value="+-"> <sup class="superscript">+</sup><span class="middle">/</span><sub class="subscript">-</sub> </button> <button class="action-buttons__button main-btn num-btn button" value="0">0</button> <button class="action-buttons__button main-btn num-btn button big-sign" value=".">.</button> <button class="action-buttons__button equal-sign button big-sign" value="=">=</button>';
+}
+
+function turnOnScienceMode() {
+    const btn = body.querySelector('.current-calc-mode');
+    const target = body.querySelector('.mode-switcher__menu');
+
+    onScienceMode();
+
+    btn.innerHTML = toRegularCase(calcMode) + '<span class="dropdown__caret caret"></span>';
+    btn.value = calcMode;
+
+    target.innerText = toRegularCase('standard');
+    target.value = 'standard';
 }
 
 function switchCalcMode(e) {
     if (e.target.tagName !== 'BUTTON' || e.target.classList.contains('current-calc-mode') || !e.target.parentElement.classList.contains('mode-switcher')) return;
 
-    const btn = e.target.parentElement.querySelector('.current-calc-mode');
+    const btn = body.querySelector('.current-calc-mode');
 
     localStorage.setItem('prev-calc-mode', calcMode);
 
     if (e.target.value === 'scientific') {
-        calcMode = 'scientific';
-        calculator.classList.add(calcMode);
-        // turnOnScienceMode();
+        onScienceMode();
     }
     else {
-        calcMode = 'standard';
-        calculator.classList.remove('scientific');
-        // turnOffScienceMode(); 
+        offScienceMode(); 
     }
 
     const prevCalcMode = localStorage.getItem('prev-calc-mode');
@@ -158,7 +173,9 @@ function switchCalcMode(e) {
 
     localStorage.setItem('calc-mode', calcMode);
 }
-// <button class="action-buttons__button action-button button binary-operator" value="%">%</button> <button class="action-buttons__button action-button button clear-funcs" value="CE">CE</button> <button class="action-buttons__button action-button button clear-funcs" value="C">C</button> <button class="action-buttons__button action-button button clear-funcs" value="backspace">⌫</button> <button class="action-buttons__button action-button button unary-operator" value="1/x"> <sup>1</sup><span>/</span><sub>x</sub> </button> <button class="action-buttons__button action-button button unary-operator" value="x^2"> <span>x</span><sup>2</sup> </button> <button class="action-buttons__button action-button button unary-operator" value="sqrt">²√x</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="/">÷</button> <button class="action-buttons__button main-btn num-btn button" value="7">7</button> <button class="action-buttons__button main-btn num-btn button" value="8">8</button> <button class="action-buttons__button main-btn num-btn button" value="9">9</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="*">x</button> <button class="action-buttons__button main-btn num-btn button" value="4">4</button> <button class="action-buttons__button main-btn num-btn button" value="5">5</button> <button class="action-buttons__button main-btn num-btn button" value="6">6</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="-">-</button> <button class="action-buttons__button main-btn num-btn button" value="1">1</button> <button class="action-buttons__button main-btn num-btn button" value="2">2</button> <button class="action-buttons__button main-btn num-btn button" value="3">3</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="+">+</button> <button class="action-buttons__button main-btn button aux-ops" value="+-"> <sup class="superscript">+</sup><span class="middle">/</span><sub class="subscript">-</sub> </button> <button class="action-buttons__button main-btn num-btn button" value="0">0</button> <button class="action-buttons__button main-btn num-btn button big-sign" value=".">.</button> <button class="action-buttons__button equal-sign button big-sign" value="=">=</button>
+
+if (calcMode === 'scientific') turnOnScienceMode();
+
 document.addEventListener('click', switchCalcMode);
 
 /* Functions for dropdowns */
