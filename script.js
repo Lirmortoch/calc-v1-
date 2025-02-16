@@ -31,7 +31,7 @@ let memory = localStorage.getItem('memory') === null ? [] : localStorage.getItem
 let currentTheme = localStorage.getItem('theme') || 'main';
 let calcMode = localStorage.getItem('calc-mode') || 'standard';
 
-const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\./gmi;
+const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\.|(?<![\d\.])0\d+/gmi;
 // const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
 const replaceBinaryOpsRegEx = /[\+\-\*\/]/gm;
 
@@ -147,8 +147,11 @@ function turnOnScienceMode() {
 
     target.innerText = toRegularCase('standard');
     target.value = 'standard';
+
+    localStorage.setItem('calc-mode', calcMode);
 }
 
+// УЛУЧШЕНИЕ: минимизировать код, убрать из localStorage переменную prevCalcMode
 function switchCalcMode(e) {
     if (e.target.tagName !== 'BUTTON' || e.target.classList.contains('current-calc-mode') || !e.target.parentElement.classList.contains('mode-switcher')) return;
 
@@ -377,8 +380,12 @@ document.addEventListener('click', binaryOperators);
 
 // validate input;
 function replacer(match) {
+    console.log(match);
     if (/.[\.\-+*=\/]/.test(match)) {
         return match.slice(0, 1);
+    }
+    else if (/0\d+/.test(match)) {
+        return 0;
     }
     else {
         return '';
