@@ -28,6 +28,10 @@ html {
 
     /* caret size*/
     --caret-size: 5px;
+
+    --funcs-switcher-hover-color: black;
+    --funcs-switcher-hover-back-color: #0098df;
+    --funcs-switched-hover-back-color: #008cff; /* v1: #0099ff; v2: #0084ff; 16.02.2025 */
 }
 
 .light-theme {
@@ -49,9 +53,13 @@ html {
     --expression-color: #3c4c64;
 
     --history-item-hover-color: #8aade2; 
-    --current-history-item: #003750;
+    --current-history-item: #006999; /* v1: #015379; v2: #005881; 16.02.2025 */ 
 
     --icon-gradient: url(#linear-gradient-2);
+
+    --funcs-switcher-hover-color: white;
+    --funcs-switcher-hover-back-color: #003750; /* v1: #004666; 16.02.2025*/
+    --funcs-switched-hover-back-color: #004799; /* v1: #004799; 16.02.2025 */
 }
 
 body {
@@ -627,11 +635,8 @@ input[type=number] {
     background-color: var(--back-btn-hover-color);
 }
 
-.others-funcs__switcher {
-    height: 100%;
-
-    grid-column: 1;
-    grid-row: 1 / 2;
+.funcs-switcher {
+    
 }
 
 .trigonometry {
@@ -643,6 +648,15 @@ input[type=number] {
     color: var(--back-color);
 }
 .active-switcher:hover {
+    background-color: var(--funcs-switcher-hover-back-color);
+    color: var(--funcs-switcher-hover-color);
+}
+
+.funcs-switched-value:hover {
+    background-color: var(--funcs-switched-hover-back-color);
+    color: var(--back-color);
+}
+.funcs-switched-value:active {
     color: var(--font-color);
 }
 

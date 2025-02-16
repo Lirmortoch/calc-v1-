@@ -222,13 +222,13 @@ function dropContentOnMiddle(currentDropDown) {
 document.addEventListener('click', keepOpenDropMenu);
 
 /* Calculator functionality */
-function clickedTrinogometrySwitcher(e) {
-    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('others-funcs__switcher')) return;
+function clickedFuncsSwitcher(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('funcs-switcher')) return;
 
     e.target.classList.toggle('active-switcher');
 }
 
-document.addEventListener('click', clickedTrinogometrySwitcher);
+document.addEventListener('click', clickedFuncsSwitcher);
 
 function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
