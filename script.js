@@ -222,10 +222,36 @@ function dropContentOnMiddle(currentDropDown) {
 document.addEventListener('click', keepOpenDropMenu);
 
 /* Calculator functionality */
+function switchScienceFuncs() {
+    const buttons = document.querySelectorAll('[data-second-value]');
+
+    buttons.forEach(item => {
+        item.classList.toggle('funcs-switched-value');
+
+        const tempValue = item.value;
+        let tempText = '';
+
+        item.value = item.dataset.secondValue;
+        item.dataset.secondValue = tempValue;
+
+        if (!item.getAttribute('[data-inner-code]')) {
+            tempText = item.textContent;
+            item.textContent = item.dataset.textContent;
+            item.dataset.textContent = tempText;
+        }
+        else {
+            tempText = item.innerHTML;
+            item.textContent = item.dataset.innerCode;
+            item.dataset.innerCode = tempText;
+        }
+    });
+}
+
 function clickedFuncsSwitcher(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('funcs-switcher')) return;
 
     e.target.classList.toggle('active-switcher');
+    switchScienceFuncs();
 }
 
 document.addEventListener('click', clickedFuncsSwitcher);
