@@ -228,20 +228,25 @@ function switchScienceFuncs() {
     buttons.forEach(item => {
         item.classList.toggle('funcs-switched-value');
 
+        if (item.value.includes('log')) {
+            item.classList.toggle('binary-operator');
+            item.classList.toggle('unary-operator');
+        }
+
         const tempValue = item.value;
         let tempText = '';
 
         item.value = item.dataset.secondValue;
         item.dataset.secondValue = tempValue;
-
-        if (!item.getAttribute('[data-inner-code]')) {
+     
+        if (!item.getAttribute('data-inner-code')) {
             tempText = item.textContent;
             item.textContent = item.dataset.textContent;
             item.dataset.textContent = tempText;
         }
         else {
             tempText = item.innerHTML;
-            item.textContent = item.dataset.innerCode;
+            item.innerHTML = item.dataset.innerCode;
             item.dataset.innerCode = tempText;
         }
     });
