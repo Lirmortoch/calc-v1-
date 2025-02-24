@@ -350,40 +350,64 @@ function auxiliaryOperators(e) {
 
 document.addEventListener('click', auxiliaryOperators);
 
+// РЕФАКТОРИНГ 0: ПЕРЕДЕЛАТЬ
 function binaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
     
     let temp, mathExpr, prevNumber;
     let number = inputMainPart.value;
 
-    if (inputPrevPart.textContent.length === 0 || inputPrevPart.textContent.includes('=') && inputMainPart.value !== '') {
-        temp = number;
-    }
-    else if (inputPrevPart.textContent.length !== 0) {
-        prevNumber = inputPrevPart.textContent.split(' ')[0];
-        mathExpr = `${inputPrevPart.textContent}${number}`;
-        temp = evaluate(mathExpr);
-    }
-
-    if (prevNumber === number && !inputPrevPart.classList.contains('inputted-same-number')) {
-        if (replaceBinaryOpsRegEx.test(inputPrevPart.textContent) && !inputPrevPart.textContent.includes(e.target.value)) {
-            inputPrevPart.textContent = inputPrevPart.textContent.replace(replaceBinaryOpsRegEx, e.target.value);
-            // alert('AVE CAESAR!');
+    if (/[xy]/.test(e.target.value)) {
+        if (inputPrevPart.textContent.length === 0 || inputPrevPart.textContent.includes('=') && inputMainPart.value !== '') {
+            temp = number;
+            inputPrevPart.textContent = e.target.value.replace(/x/, temp);
         }
-        return;
-    }
+        else if (inputPrevPart.textContent.length !== 0) {
+            prevNumber = inputPrevPart.textContent.match(/[0-9]/)[0]; // inputPrevPart.textContent[inputPrevPart.textContent.search(/[0-9]/)];
+            mathExpr = inputPrevPart.textContent.replace(/y/, inputMainPart.value);
+            temp = evaluate(mathExpr);
+            inputPrevPart.textContent = mathExpr;
+        }
+
+        if (mathExpr !== undefined) addElementInHistory(mathExpr);
+
+        inputPrevPart.classList.add('binary-operator-clicked');
+        inputPrevPart.classList.remove('full-expr');
     
-    if (mathExpr !== undefined) addElementInHistory(mathExpr);
-
-    // РЕФАКТОРИНГ 1
-    // Можно сделать функцию для кнопки ровно переиспользуемой
-    inputPrevPart.classList.add('binary-operator-clicked');
-    inputPrevPart.classList.remove('full-expr');
-
-    inputPrevPart.textContent = `${temp} ${e.target.value} `;
-    inputMainPart.value = temp;
-
-    inputPrevPart.classList.remove('inputted-same-number');
+        inputMainPart.value = temp;
+    
+        inputPrevPart.classList.remove('inputted-same-number');
+    }
+    else if (!/[xy]/.test(e.target.value) || !/[xy]/.test(inputPrevPart.textContent)) {
+        console.log('x');
+        if (inputPrevPart.textContent.length === 0 || inputPrevPart.textContent.includes('=') && inputMainPart.value !== '') {
+            temp = number;
+        }
+        else if (inputPrevPart.textContent.length !== 0) {
+            prevNumber = inputPrevPart.textContent.split(' ')[0];
+            mathExpr = `${inputPrevPart.textContent}${number}`;
+            temp = evaluate(mathExpr);
+        }
+    
+        if (prevNumber === number && !inputPrevPart.classList.contains('inputted-same-number')) {
+            if (replaceBinaryOpsRegEx.test(inputPrevPart.textContent) && !inputPrevPart.textContent.includes(e.target.value)) {
+                inputPrevPart.textContent = inputPrevPart.textContent.replace(replaceBinaryOpsRegEx, e.target.value);
+            }
+            return;
+        }
+        
+        if (mathExpr !== undefined) addElementInHistory(mathExpr);
+    
+        // РЕФАКТОРИНГ 1
+        // Можно сделать функцию для кнопки ровно переиспользуемой?
+        inputPrevPart.classList.add('binary-operator-clicked');
+        inputPrevPart.classList.remove('full-expr');
+    
+        inputPrevPart.textContent = `${temp} ${e.target.value} `;
+        inputMainPart.value = temp;
+    
+        inputPrevPart.classList.remove('inputted-same-number');
+    }
 }
 
 // РЕФАКТОРИНГ 1: equalClick and equal
