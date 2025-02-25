@@ -350,7 +350,7 @@ function auxiliaryOperators(e) {
 
 document.addEventListener('click', auxiliaryOperators);
 
-// РЕФАКТОРИНГ 0: ПЕРЕДЕЛАТЬ
+// РЕФАКТОРИНГ 7: ПЕРЕДЕЛАТЬ (Уменьшить количество ветвлений; баг: при -1 если меняется оператор, меняется и знак числа)
 function binaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
     
@@ -363,23 +363,13 @@ function binaryOperators(e) {
             inputPrevPart.textContent = e.target.value.replace(/x/, temp);
         }
         else if (inputPrevPart.textContent.length !== 0) {
-            prevNumber = inputPrevPart.textContent.match(/[0-9]/)[0]; // inputPrevPart.textContent[inputPrevPart.textContent.search(/[0-9]/)];
+            prevNumber = inputPrevPart.textContent[inputPrevPart.textContent.search(/\d+/)];
             mathExpr = inputPrevPart.textContent.replace(/y/, inputMainPart.value);
             temp = evaluate(mathExpr);
             inputPrevPart.textContent = mathExpr;
         }
-
-        if (mathExpr !== undefined) addElementInHistory(mathExpr);
-
-        inputPrevPart.classList.add('binary-operator-clicked');
-        inputPrevPart.classList.remove('full-expr');
-    
-        inputMainPart.value = temp;
-    
-        inputPrevPart.classList.remove('inputted-same-number');
     }
     else if (!/[xy]/.test(e.target.value) || !/[xy]/.test(inputPrevPart.textContent)) {
-        console.log('x');
         if (inputPrevPart.textContent.length === 0 || inputPrevPart.textContent.includes('=') && inputMainPart.value !== '') {
             temp = number;
         }
@@ -388,35 +378,44 @@ function binaryOperators(e) {
             mathExpr = `${inputPrevPart.textContent}${number}`;
             temp = evaluate(mathExpr);
         }
-    
+
         if (prevNumber === number && !inputPrevPart.classList.contains('inputted-same-number')) {
             if (replaceBinaryOpsRegEx.test(inputPrevPart.textContent) && !inputPrevPart.textContent.includes(e.target.value)) {
                 inputPrevPart.textContent = inputPrevPart.textContent.replace(replaceBinaryOpsRegEx, e.target.value);
             }
             return;
         }
-        
-        if (mathExpr !== undefined) addElementInHistory(mathExpr);
-    
-        // РЕФАКТОРИНГ 1
-        // Можно сделать функцию для кнопки ровно переиспользуемой?
-        inputPrevPart.classList.add('binary-operator-clicked');
-        inputPrevPart.classList.remove('full-expr');
     
         inputPrevPart.textContent = `${temp} ${e.target.value} `;
-        inputMainPart.value = temp;
-    
-        inputPrevPart.classList.remove('inputted-same-number');
     }
+
+    // РЕФАКТОРИНГ 1
+    // Можно сделать функцию для кнопки ровно переиспользуемой?
+    inputPrevPart.classList.add('binary-operator-clicked');
+    inputPrevPart.classList.remove('full-expr');
+
+    inputMainPart.value = temp;
+
+    inputPrevPart.classList.remove('inputted-same-number');
+
+    if (mathExpr !== undefined) addElementInHistory(mathExpr);
 }
 
-// РЕФАКТОРИНГ 1: equalClick and equal
+// РЕФАКТОРИНГ 1: equalClick and equal; уменьшить количество ветвлений?
 function equal(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
 
+    let temp, mathExpr;
+
     if (inputMainPart.value.length !== 0 && !inputPrevPart.textContent.includes('=')) {
-        let mathExpr = inputPrevPart.textContent + inputMainPart.value;
-        let temp = evaluate(mathExpr);
+        if (/y/.test(inputPrevPart.textContent)) {
+            mathExpr = inputPrevPart.textContent.replace(/y/, inputMainPart.value);
+        }
+        else {
+            mathExpr = inputPrevPart.textContent + inputMainPart.value;
+        }
+
+        temp = evaluate(mathExpr);
 
         inputMainPart.value = temp;
         inputPrevPart.textContent = mathExpr + ' = ';
@@ -617,7 +616,7 @@ function memoryReCall(e) {
     inputMainPart.value = document.querySelector('.active-part__memory-item.result').textContent;
 }
 
-// РЕФАКТОРИНГ: привести к норм виду. Лишние ветвления. Сделать функцию clearHistory более юзабельной (в функцию кидать текущий мод и внутри проверять его, чтобы не удалить элементы из другого блока)?
+// РЕФАКТОРИНГ 6: привести к норм виду. Лишние ветвления. Сделать функцию clearHistory более юзабельной (в функцию кидать текущий мод и внутри проверять его, чтобы не удалить элементы из другого блока)?
 function memoryClear(e) {
     if (e.target.value !== 'memory-clear') return;
 

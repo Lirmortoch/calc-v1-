@@ -787,8 +787,6 @@ input[type=number] {
     }
     .calculator__button-show-history {
         display: block;
-    }
-    .calculator__button-show-history.active-mobile {
         z-index: 3;
     }
     .calculator {
@@ -847,7 +845,7 @@ input[type=number] {
     }
     .nav__body {
         position: fixed;
-        z-index: 2;
+        z-index: 4;
         top: 0;
         left: 100%;
         width: 100%;
