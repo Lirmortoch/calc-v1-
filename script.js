@@ -33,6 +33,7 @@ let calcMode = localStorage.getItem('calc-mode') || 'standard';
 
 const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\.|(?<![\d\.])0\d+/gmi;
 // const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
+// РЕФАКТОРИНГ 8: меняет знак числа - переделать
 const replaceBinaryOpsRegEx = /[\+\-\*\/]/gm;
 
 //inputMainPart.pattern = validatorRegExp.toString(10).replace(/^\/|\/[a-z]+$/gmi, '');
@@ -222,7 +223,7 @@ function dropContentOnMiddle(currentDropDown) {
 document.addEventListener('click', keepOpenDropMenu);
 
 /* Calculator functionality */
-function switchScienceFuncs() {
+function switchScienceOperators() {
     const buttons = document.querySelectorAll('[data-second-value]');
 
     buttons.forEach(item => {
@@ -252,14 +253,28 @@ function switchScienceFuncs() {
     });
 }
 
-function clickedFuncsSwitcher(e) {
+function clickOperatorsSwitcher(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('funcs-switcher')) return;
 
     e.target.classList.toggle('active-switcher');
-    switchScienceFuncs();
+    switchScienceOperators();
 }
 
-document.addEventListener('click', clickedFuncsSwitcher);
+function switchTrigonometryFuncs(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('trigonometry-switcher')) return;
+
+    e.target.classList.toggle('active-switcher');
+
+    const buttons = document.querySelectorAll('.trigonometry-funcs');
+
+    buttons.forEach(item => {
+        
+    });
+}
+
+document.addEventListener('click', switchTrigonometryFuncs);
+
+document.addEventListener('click', clickOperatorsSwitcher);
 
 function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
@@ -644,3 +659,4 @@ document.addEventListener('click', memoryClear);
 document.addEventListener('click', memoryAdd);
 document.addEventListener('click', memorySubtract);
 document.addEventListener('click', memoryReCall);
+
