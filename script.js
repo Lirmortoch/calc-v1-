@@ -1,6 +1,6 @@
 'use strict'
 
-import {evaluate} from './node_modules/mathjs';
+import {evaluate, format} from './node_modules/mathjs';
 
 /* Variables */
 const body = document.querySelector('body');
@@ -361,14 +361,19 @@ function unaryOperators(e) {
     if (/x/.test(e.target.value)) {
         mathExpr = `${e.target.value.replace(/x/, number)}`;
     }
+    else if (e.target.classList.contains('trigonometry-funcs')) {
+        const angleUnit = document.querySelector('.angle-switcher').value;
+        
+        mathExpr = `${e.target.value}(${number} ${angleUnit})`;
+    }
     else {
-        mathExpr = `${e.target.value}( ${number} )`;
+        mathExpr = `${e.target.value}(${number})`;
     }
 
     // РЕФАКТОРИНГ 1
     temp = evaluate(mathExpr);
     inputPrevPart.textContent = mathExpr;
-    inputMainPart.value = temp;
+    inputMainPart.value = format(temp, {precision: 14});
     inputPrevPart.classList.add('full-expr');
 
     if (inputPrevPart.classList.contains('full-expr')) addElementInHistory(mathExpr);
@@ -407,7 +412,7 @@ function binaryOperators(e) {
         else if (inputPrevPart.textContent.length !== 0) {
             prevNumber = inputPrevPart.textContent[inputPrevPart.textContent.search(/\d+/)];
             mathExpr = inputPrevPart.textContent.replace(/y/, inputMainPart.value);
-            temp = evaluate(mathExpr);
+            temp = format(evaluate(mathExpr), {precision: 14});
             inputPrevPart.textContent = mathExpr;
         }
     }
@@ -418,7 +423,7 @@ function binaryOperators(e) {
         else if (inputPrevPart.textContent.length !== 0) {
             prevNumber = inputPrevPart.textContent.split(' ')[0];
             mathExpr = `${inputPrevPart.textContent}${number}`;
-            temp = evaluate(mathExpr);
+            temp = format(evaluate(mathExpr), {precision: 14});
         }
 
         if (prevNumber === number && !inputPrevPart.classList.contains('inputted-same-number')) {
@@ -687,3 +692,23 @@ document.addEventListener('click', memoryAdd);
 document.addEventListener('click', memorySubtract);
 document.addEventListener('click', memoryReCall);
 
+function switchAngleUnit(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('angle-switcher')) return;
+    
+    let temp = e.target.value;
+
+    if (e.target.value === 'rad') {
+        e.target.value = e.target.dataset.secondValue;
+        e.target.textContent = toRegularCase(e.target.value);
+
+        e.target.dataset.secondValue = temp;
+    }
+    else if (e.target.value === 'grad') {
+        e.target.value = e.target.dataset.thirdValue;
+        e.target.textContent = toRegularCase(e.target.value);
+
+        e.target.dataset.thirdValue = temp;
+    }
+}
+
+document.addEventListener('click', switchAngleUnit);
