@@ -260,19 +260,46 @@ function clickOperatorsSwitcher(e) {
     switchScienceOperators();
 }
 
-function switchTrigonometryFuncs(e) {
-    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('trigonometry-switcher')) return;
+// УЛУЧШЕНИЕ: объединить в одну?
+function switchAFuncs(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('a-func')) return;
 
     e.target.classList.toggle('active-switcher');
 
-    const buttons = document.querySelectorAll('.trigonometry-funcs');
+    document.querySelectorAll('.trigonometry-funcs').forEach(item => {
+        const temp = item.textContent;
 
-    buttons.forEach(item => {
-        
+        if (temp[0] === 'a') {
+            item.textContent = temp.replace('a', '');
+            item.value = temp.replace('a', '');
+        }
+        else {
+            item.textContent = `a${temp}`;
+            item.value = `a${temp}`;
+        }
+    });
+}
+function switchHyperbolicFuncs(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('hyperbolic')) return;
+
+    e.target.classList.toggle('active-switcher');
+
+    document.querySelectorAll('.trigonometry-funcs').forEach(item => {
+        const temp = item.textContent;
+
+        if (temp.includes('h')) {
+            item.textContent = temp.replace('h', '');
+            item.value = temp.replace('h', '');
+        }
+        else {
+            item.textContent = `${temp}h`;
+            item.value = `${temp}h`;
+        }
     });
 }
 
-document.addEventListener('click', switchTrigonometryFuncs);
+document.addEventListener('click', switchAFuncs);
+document.addEventListener('click', switchHyperbolicFuncs);
 
 document.addEventListener('click', clickOperatorsSwitcher);
 
