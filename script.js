@@ -699,16 +699,24 @@ function switchAngleUnit(e) {
 
     if (e.target.value === 'rad') {
         e.target.value = e.target.dataset.secondValue;
-        e.target.textContent = toRegularCase(e.target.value);
 
         e.target.dataset.secondValue = temp;
     }
+    else if (e.target.value === 'deg') {
+        e.target.value = e.target.dataset.thirdValue;
+
+        const rad = e.target.dataset.secondValue;
+
+        e.target.dataset.secondValue = temp;
+        e.target.dataset.thirdValue = rad;
+    }
     else if (e.target.value === 'grad') {
         e.target.value = e.target.dataset.thirdValue;
-        e.target.textContent = toRegularCase(e.target.value);
-
+        
         e.target.dataset.thirdValue = temp;
     }
+
+    e.target.textContent = toRegularCase(e.target.value);
 }
 
 document.addEventListener('click', switchAngleUnit);
