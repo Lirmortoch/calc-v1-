@@ -96,7 +96,7 @@
                     
                     <div class="calculator__upper-buttons upper-buttons">
                         <div class="upper-buttons__grid">
-                            <button class="upper-buttons__angle-value button  science-functions science-values angle-switcher" value="rad" data-second-value="deg" data-third-value="grad">Rad</button>
+                            <button class="upper-buttons__angle-value button  science-functions science-values angle-switcher" value="rad">Rad</button>
                             <button class="upper-buttons__f-e button  science-functions science-values" value="f-e">F-e</button> 
                             <button class="upper-buttons__clearAll button  memory-control" value="memory-clear">mc</button>
                             <button class="upper-buttons__recall button  memory-control" value="memory-recall">mr</button>
@@ -132,11 +132,11 @@
                             </button>
 
                             <div class="others-funcs__wrap dropdown__menu dropdown-content ">
-                                <button class="action-buttons__button action-button button unary-operator" value="|x|">|x|</button>
-                                <button class="others-funcs__btn button" value="rand">rand</button>
-                                <button class="others-funcs__btn button" value="floor">⌊x⌋</button>
+                                <button class="action-buttons__button action-button button unary-operator" value="abs">|x|</button>
+                                <button class="others-funcs__btn button binary-operator" value="random(x, y)">rand(x, y)</button>
+                                <button class="others-funcs__btn button unary-operator" value="floor">⌊x⌋</button>
                                 <button class="others-funcs__btn button" value="dms">→dms</button>
-                                <button class="others-funcs__btn button" value="ceil">⌈x⌉</button>
+                                <button class="others-funcs__btn button unary-operator" value="ceil">⌈x⌉</button>
                                 <button class="others-funcs__btn button" value="deg">→deg</button>
                             </div>
                         </div>
@@ -144,8 +144,8 @@
 
                     <div class="action-buttons">
                         <button class="action-buttons__button action-button button funcs-switcher" value="2nd">2nd</button>
-                        <button class="action-buttons__button action-button button constant" value="pi">π</button>
-                        <button class="action-buttons__button action-button button constant" value="e">e</button>
+                        <button class="action-buttons__button action-button button unary-operator constant" value="pi">π</button>
+                        <button class="action-buttons__button action-button button unary-operator constant" value="e">e</button>
                         <button class="action-buttons__button action-button button clear-funcs" value="C">C</button>
                         <button class="action-buttons__button action-button button clear-funcs" value="backspace">⌫</button>
                         <button class="action-buttons__button action-button button unary-operator" data-second-value="x^3" data-inner-code="<span>x</span><sup>3</sup>" value="x^2">
@@ -154,7 +154,7 @@
                         <button class="action-buttons__button action-button button unary-operator" value="1/x">
                             <sup>1</sup><span>/</span><sub>x</sub>
                         </button>
-                        <button class="action-buttons__button action-button button unary-operator" value="|x|">|x|</button>
+                        <button class="action-buttons__button action-button button unary-operator" value="abs">|x|</button>
                         <button class="action-buttons__button action-button button unary-operator" value="exp">exp</button>
                         <button class="action-buttons__button action-button button unary-operator" value="mod">mod</button>
                         <button class="action-buttons__button action-button button unary-operator" value="sqrt" data-second-value="x^1/3" data-inner-code="<sup>3</sup><span>√x</span>">²√x</button>

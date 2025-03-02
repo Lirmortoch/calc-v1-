@@ -366,6 +366,9 @@ function unaryOperators(e) {
         
         mathExpr = `${e.target.value}(${number} ${angleUnit})`;
     }
+    else if (e.target.classList.contains('constant')) {
+        mathExpr = e.target.value;
+    }
     else {
         mathExpr = `${e.target.value}(${number})`;
     }
@@ -388,7 +391,7 @@ function auxiliaryOperators(e) {
     let number = inputMainPart.value;
 
     if (e.target.value === '+-') {
-        inputPrevPart.textContent = `negate${number}`
+        inputPrevPart.textContent = `negate(${number})`
         temp = -number;
     }
 
