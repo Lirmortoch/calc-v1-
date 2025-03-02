@@ -695,28 +695,12 @@ document.addEventListener('click', memoryReCall);
 function switchAngleUnit(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('angle-switcher')) return;
     
-    let temp = e.target.value;
-
-    if (e.target.value === 'rad') {
-        e.target.value = e.target.dataset.secondValue;
-
-        e.target.dataset.secondValue = temp;
-    }
-    else if (e.target.value === 'deg') {
-        e.target.value = e.target.dataset.thirdValue;
-
-        const rad = e.target.dataset.secondValue;
-
-        e.target.dataset.secondValue = temp;
-        e.target.dataset.thirdValue = rad;
-    }
-    else if (e.target.value === 'grad') {
-        e.target.value = e.target.dataset.thirdValue;
-        
-        e.target.dataset.thirdValue = temp;
-    }
-
-    e.target.textContent = toRegularCase(e.target.value);
+    const temp = e.target.value === 'rad' ? 'deg' 
+                : e.target.value === 'deg' ? 'grad' 
+                : 'rad';
+    
+    e.target.value = temp
+    e.target.textContent = toRegularCase(temp);
 }
 
 document.addEventListener('click', switchAngleUnit);
