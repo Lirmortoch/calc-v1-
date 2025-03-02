@@ -34,7 +34,7 @@ let calcMode = localStorage.getItem('calc-mode') || 'standard';
 const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\.|(?<![\d\.])0\d+/gmi;
 // const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
 // РЕФАКТОРИНГ 8: меняет знак числа - переделать
-const replaceBinaryOpsRegEx = /[\+\-\*\/]/gm;
+const replaceBinaryOpsRegEx = /(?<=\s)[\+\-\*\/](?=\s)/gm;
 
 //inputMainPart.pattern = validatorRegExp.toString(10).replace(/^\/|\/[a-z]+$/gmi, '');
 
@@ -400,7 +400,7 @@ function auxiliaryOperators(e) {
 
 document.addEventListener('click', auxiliaryOperators);
 
-// РЕФАКТОРИНГ 7: ПЕРЕДЕЛАТЬ (Уменьшить количество ветвлений; баг: при -1 если меняется оператор, меняется и знак числа)
+// РЕФАКТОРИНГ 7: ПЕРЕДЕЛАТЬ (Уменьшить количество ветвлений)
 function binaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
     
@@ -430,7 +430,7 @@ function binaryOperators(e) {
         }
 
         if (prevNumber === number && !inputPrevPart.classList.contains('inputted-same-number')) {
-            if (replaceBinaryOpsRegEx.test(inputPrevPart.textContent) && !inputPrevPart.textContent.includes(e.target.value)) {
+            if (replaceBinaryOpsRegEx.test(inputPrevPart.textContent) && !inputPrevPart.textContent.slice(1).includes(e.target.value)) {
                 inputPrevPart.textContent = inputPrevPart.textContent.replace(replaceBinaryOpsRegEx, e.target.value);
             }
             return;
@@ -622,6 +622,21 @@ function memoryAdd(e) {
 
     localStorage.setItem('memory', memory.join(' | '));
 }
+
+/* function memorySubtractOrAdd(e) {
+    if (e.target.value !== 'memory-subtract' || e.target.value !== 'memory-add') return;
+
+    if (memory.length > 0 && memory[0] !== '') {
+        const tempMemoryItem = document.querySelector('.active-part__memory-item.result');
+
+        tempMemoryItem.textContent = evaluate(`${tempMemoryItem.textContent} ${e.target.value === 'memory-subtract' ? '-' : '+'} ${inputMainPart.value}`);
+        
+        memory[memory.length - 1] = `<div class='active-part__item memory-elem'>${tempMemoryItem.closest('.memory-elem').innerHTML}</div>`;
+    }
+    else e.target.value === 'memory-subtract' ? memoryStore(-inputMainPart.value) : memoryStore(inputMainPart.value);
+
+    localStorage.setItem('memory', memory.join(' | '));
+} */
 
 // РЕФАКТОРИНГ 4: одна функция добавления в историю и память. Убрать нестрогое сравнение?
 // УЛУЧШЕНИЕ: один класс Calc со всеми нужными приватными переменными и доступ через this[value]. Подсказка над кнопками с операциями (память)
