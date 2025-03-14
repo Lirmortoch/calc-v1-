@@ -25,8 +25,11 @@ const themeSwitcherIcons = [
     '<circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>', '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'
 ];
 
-let history = localStorage.getItem('history') === null ? [] : localStorage.getItem('history').split(' | ');
-let memory = localStorage.getItem('memory') === null ? [] : localStorage.getItem('memory').split(' | ');
+const tempHis = localStorage.getItem('history');
+const tempMem = localStorage.getItem('memory');
+
+let history = tempHis === null ? [] : tempHis.split(' | ');
+let memory = tempMem === null ? [] : tempMem.split(' | ');
 
 let currentTheme = localStorage.getItem('theme') || 'main';
 let calcMode = localStorage.getItem('calc-mode') || 'standard';
@@ -128,13 +131,24 @@ document.addEventListener('click', switchHistoryMode);
 function onScienceMode() {
     calcMode = 'scientific';
     calculator.classList.add(calcMode);
-    // actionButtons.innerHTML = '';
+    const modBtn = actionButtons.querySelector('[value=%]');
+
+    modBtn.textContent = 'mod';
+    modBtn.value = 'x mod y';
+
+    
 }
 
 function offScienceMode() {
     calcMode = 'standard';
     calculator.classList.remove('scientific');
-    actionButtons.innerHTML = '<button class="action-buttons__button action-button button binary-operator" value="%">%</button> <button class="action-buttons__button action-button button clear-funcs" value="CE">CE</button> <button class="action-buttons__button action-button button clear-funcs" value="C">C</button> <button class="action-buttons__button action-button button clear-funcs" value="backspace">⌫</button> <button class="action-buttons__button action-button button unary-operator" value="1/x"> <sup>1</sup><span>/</span><sub>x</sub> </button> <button class="action-buttons__button action-button button unary-operator" value="x^2"> <span>x</span><sup>2</sup> </button> <button class="action-buttons__button action-button button unary-operator" value="sqrt">²√x</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="/">÷</button> <button class="action-buttons__button main-btn num-btn button" value="7">7</button> <button class="action-buttons__button main-btn num-btn button" value="8">8</button> <button class="action-buttons__button main-btn num-btn button" value="9">9</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="*">x</button> <button class="action-buttons__button main-btn num-btn button" value="4">4</button> <button class="action-buttons__button main-btn num-btn button" value="5">5</button> <button class="action-buttons__button main-btn num-btn button" value="6">6</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="-">-</button> <button class="action-buttons__button main-btn num-btn button" value="1">1</button> <button class="action-buttons__button main-btn num-btn button" value="2">2</button> <button class="action-buttons__button main-btn num-btn button" value="3">3</button> <button class="action-buttons__button action-button button binary-operator big-sign" value="+">+</button> <button class="action-buttons__button main-btn button aux-ops" value="+-"> <sup class="superscript">+</sup><span class="middle">/</span><sub class="subscript">-</sub> </button> <button class="action-buttons__button main-btn num-btn button" value="0">0</button> <button class="action-buttons__button main-btn num-btn button big-sign" value=".">.</button> <button class="action-buttons__button equal-sign button big-sign" value="=">=</button>';
+
+    const modBtn = actionButtons.querySelector('[value=x mod y]');
+
+    modBtn.textContent = '%';
+    modBtn.value = '%';
+
+
 }
 
 function turnOnScienceMode() {
