@@ -131,24 +131,37 @@ document.addEventListener('click', switchHistoryMode);
 function onScienceMode() {
     calcMode = 'scientific';
     calculator.classList.add(calcMode);
-    const modBtn = actionButtons.querySelector('[value=%]');
 
-    modBtn.textContent = 'mod';
-    modBtn.value = 'x mod y';
+    const modeBtn = actionButtons.querySelector('[value=%]');
+    const clearElementBtn = actionButtons.querySelector('[value=CE]');
+    const oneDivideX = actionButtons.querySelector('[value=1/x]');
 
-    
+    modeBtn.textContent = 'π';
+    modeBtn.value = 'pi';
+
+    clearElementBtn.textContent = 'e';
+    clearElementBtn.value = eBtn.textContent;
+
+    oneDivideX.innerHTML = '<span>x</span><sup>2</sup>';
+    oneDivideX.value = 'x^2';
 }
 
 function offScienceMode() {
     calcMode = 'standard';
     calculator.classList.remove('scientific');
 
-    const modBtn = actionButtons.querySelector('[value=x mod y]');
+    const piBtn = actionButtons.querySelector('[value=pi]');
+    const eBtn = actionButtons.querySelector('[value=e]');
+    const xPowTwo = actionButtons.querySelector('[value=x^2]');
 
-    modBtn.textContent = '%';
-    modBtn.value = '%';
+    piBtn.textContent = '%';
+    piBtn.value = piBtn.textContent;
 
+    eBtn.textContent = 'CE';
+    eBtn.value = eBtn.textContent;
 
+    xPowTwo.innerHTML = '<sup>1</sup><span>/</span><sub>x</sub>';
+    xPowTwo.value = '1/x';
 }
 
 function turnOnScienceMode() {
