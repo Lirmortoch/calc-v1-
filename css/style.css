@@ -72,7 +72,7 @@ body {
 
 .wrap {
     min-height: 100vh;
-    padding: 20px; /* padding: 20px 40px; */
+    padding: 20px 40px;
 }
 
 .header {
@@ -425,7 +425,7 @@ input[type=number] {
 }
 
 .calculator.scientific .action-buttons {
-    grid-auto-rows: 3.8vmax; 
+    grid-auto-rows: 4vmax; 
     grid-template-columns: repeat(5, 1fr); 
 }
 
@@ -754,6 +754,9 @@ input[type=number] {
     .action-buttons {
         grid-auto-rows: 5.45vmax;
     }
+    .wrap {
+        padding: 20px;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -848,7 +851,7 @@ input[type=number] {
         z-index: 4;
         top: 0;
         left: 100%;
-        width: 100%;
+        width: 100vw;
         height: 100%;
         background-color: var(--back-color);
         padding: 160px 30px 30px 30px;

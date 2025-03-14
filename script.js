@@ -307,6 +307,7 @@ function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
 
     if (e.target.value === '.') { 
+        console.log(validatorRegExp.test(inputMainPart.textContent));
         if (inputMainPart.value.length === 0) return;
     }
 
@@ -323,7 +324,9 @@ function printNumber(e) {
         inputMainPart.value = e.target.value;
         inputPrevPart.className = 'active-part__expression expression';
         inputPrevPart.classList.add('inputted-same-number');
-    }    
+    }  
+    
+    validator();
 }
 
 document.addEventListener('click', printNumber);
@@ -496,12 +499,10 @@ function replacer(match) {
     }
 }
 
-function validator(e) {
+function validator() {
     let inputValue = inputMainPart.value.replace(validatorRegExp, replacer);
     inputMainPart.value = inputValue;
 }
-
-inputMainPart.addEventListener('input', validator);
 
 // mobile menu 
 function openCloseMobileMenu(e) {
@@ -606,7 +607,6 @@ function openHistory(e) {
 
 document.addEventListener('click', openHistory);
 
-// РЕФАКТОРИНГ 5: Уменьшение кода в add & subtract? (add + subtract)?
 // РЕФАКТОРИНГ 6: Где-то в коде в memory пушиться пустая строка. Надо найти и убрать
 function memoryAdd(e) {
     if (e.target.value !== 'memory-add') return;
@@ -722,3 +722,5 @@ function switchAngleUnit(e) {
 }
 
 document.addEventListener('click', switchAngleUnit);
+
+inputMainPart.addEventListener('keydown', (e) => e.preventDefault());
