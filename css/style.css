@@ -522,7 +522,7 @@ input[type=number] {
     position: relative;
 }
 
-/* Улучшение Сделать один active-mode класс */
+/* Улучшение: Сделать один active-mode класс? */
 .current-history-mode::after, .active-mode::after {
     display: block;
     content: '';

@@ -1,221 +1,221 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" href="css/reset.css">
-    <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
 
-    <title>Simple calc</title>
-</head>
-<body>
-    <div class="wrap">
-        <header class="header">
-            <div class="header__logo">
-                <img src="img/Gojo-and-gojo-cat.jfif" alt="Calc's logo">
-            </div>
-
-            <h1 class="header__title title">
-                <a rel="noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v=qXvdQiAXUZE">Gojo's</a> Calculator
-            </h1>
-
-            <nav class="header__nav nav">
-                <button class="nav__icon menu-button-toggler">
-                    <span></span>
-                </button>
-
-                <div class="nav__body">
-                    <a href="#" class="nav__link">About</a>
-                    
-                    <a rel="noopener noreferrer" target="_blank" href="https://github.com/Lirmortoch" class="nav__link">GitHub</a>
-                   
-                    <button class="header__theme-switcher">
-                        <?xml version="1.0" ?>
-                        <svg class="switch-img" fill="white" stroke="white" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-                            <defs>
-                                <linearGradient id="linear-gradient-1" gradientTransform="rotate(90)">
-                                    <stop offset="0" stop-color="#e4ba5b" />
-                                    <stop offset="0.92" stop-color="#b71d1a" />
-                                </linearGradient>
-                                <linearGradient id="linear-gradient-2" gradientUnits="userSpaceOnUse" gradientTransform="rotate(90)">
-                                    <stop offset="0" stop-color="#fcf9f6" />
-                                    <stop offset="0.09090909090909091" stop-color="#e1d4cf" />
-                                    <stop offset="0.18181818181818182" stop-color="#c7aeae" />
-                                    <stop offset="0.2727272727272727" stop-color="#aa8b96" />
-                                    <stop offset="0.36363636363636365" stop-color="#886b82" />
-                                    <stop offset="0.45454545454545453" stop-color="#5e4f71" />
-                                    <stop offset="0.5454545454545454" stop-color="#4c426a" />
-                                    <stop offset="0.6363636363636364" stop-color="#573f6b" />
-                                    <stop offset="0.7272727272727273" stop-color="#623a6a" />
-                                    <stop offset="0.8181818181818182" stop-color="#6e3567" />
-                                    <stop offset="0.9090909090909091" stop-color="#7a2f60" />
-                                    <stop offset="1" stop-color="#842857" />
-                                </linearGradient>
-                                <mask id="switcher-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
-                                    <circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>
-                                </mask>
-                            </defs>
-                            <g mask="url(#switcher-mask)">
-                                <rect id="first-layer" x="0" y="0" width="24" height="24" />
-                                <rect id="switcher-gradient" x="0" y="0" width="24" height="24" />
-                            </g>
-                        </svg>
-                    </button>
-                </div>
-            </nav>
-        </header>
-
-        <main class="main">
-            <section class="calculator">
-                <div class="dropdown mode-switcher" data-dropdown>
-                    <button class="mode-switcher__button button current-calc-mode dropdown__button" value="standard" data-dropdown-button>
-                        Standard
-
-                        <span class="dropdown__caret caret"></span>
-                    </button> 
-    
-                    <button class="mode-switcher__menu button dropdown__menu dropdown-content" value="scientific">
-                        Scientific
-                    </button>
+        <title>Simple calc</title>
+    </head>
+    <body>
+        <div class="wrap">
+            <header class="header">
+                <div class="header__logo">
+                    <img src="img/Gojo-and-gojo-cat.jfif" alt="Calc's logo">
                 </div>
 
-                <button class="calculator__button-show-history button">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                        <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" fill="none"></rect> <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></circle> <path d="M12 6V12L16.5 16.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path> </g>
-                    </svg>
-                </button>
-                
-                <section class="calculator__action-section action-section">
-                    <div class="calculator__input input">
-                        <div class="input__prev-part">
-                            <span class="active-part__expression expression"></span>
-                        </div>
-                        <input class="input__main-part" type="text" name="calc__input" id="calc__input" step="any" pattern="" placeholder="0" autocomplete="off">
-                    </div>
-                    
-                    <div class="calculator__upper-buttons upper-buttons">
-                        <div class="upper-buttons__grid">
-                            <button class="upper-buttons__angle-value button  science-functions science-values angle-switcher" value="rad">Rad</button>
-                            <button class="upper-buttons__f-e button  science-functions science-values" value="f-e">F-e</button> 
-                            <button class="upper-buttons__clearAll button  memory-control" value="memory-clear">mc</button>
-                            <button class="upper-buttons__recall button  memory-control" value="memory-recall">mr</button>
-                            <button class="upper-buttons__add button  memory-control" value="memory-add">m+</button>
-                            <button class="upper-buttons__subtract button  memory-control" value="memory-subtract">m-</button>
-                            <button class="upper-buttons__store button  memory-control" value="memory-store">ms</button>
-                        </div>
-                    </div>
+                <h1 class="header__title title">
+                    <a rel="noopener noreferrer" target="_blank" href="https://www.youtube.com/watch?v=qXvdQiAXUZE">Gojo's</a> Calculator
+                </h1>
 
-                    <div class="calculator__functions functions science-values">
-                        <div class="functions__wrap dropdown" data-dropdown>
-                            <button class="functions__trigonometry button functionality-btn dropdown__button" data-dropdown-button>
-                                Trigonometry
-                                <span class="dropdown__caret caret"></span>
-                            </button>
+                <nav class="header__nav nav">
+                    <button class="nav__icon menu-button-toggler">
+                        <span></span>
+                    </button>
 
-                            <div class="others-funcs__wrap trigonometry dropdown__menu dropdown-content">
-                                <button class="others-funcs__btn button others-funcs__btn a-func" value="2nd">2nd</button>
-                                <button class="others-funcs__btn button others-funcs__btn hyperbolic" value="hyp">hyp</button>
-                                <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="sin">sin</button>
-                                <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="sec">sec</button>
-                                <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="cos">cos</button>
-                                <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="csc">csc</button>
-                                <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="tan">tan</button>
-                                <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="cot">cot</button>
-                            </div>
-                        </div>
-
-                        <div class="functions__wrap dropdown" data-dropdown>
-                            <button class="functions__others button functionality-btn dropdown__button others-funcs" data-dropdown-button>
-                                Functions
-                                <span class="dropdown__caret caret"></span>
-                            </button>
-
-                            <div class="others-funcs__wrap dropdown__menu dropdown-content ">
-                                <button class="action-buttons__button action-button button unary-operator" value="abs">|x|</button>
-                                <button class="others-funcs__btn button binary-operator" value="random(x, y)">rand(x, y)</button>
-                                <button class="others-funcs__btn button unary-operator" value="floor">⌊x⌋</button>
-                                <button class="others-funcs__btn button" value="dms">→dms</button>
-                                <button class="others-funcs__btn button unary-operator" value="ceil">⌈x⌉</button>
-                                <button class="others-funcs__btn button" value="deg">→deg</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="action-buttons__button action-button button funcs-switcher science-values" value="2nd">2nd</button>
-                        <button class="action-buttons__button action-button button unary-operator constant" value="pi">π</button>
-                        <button class="action-buttons__button action-button button unary-operator constant" value="e">e</button>
-                        <button class="action-buttons__button action-button button clear-funcs" value="C">C</button>
-                        <button class="action-buttons__button action-button button clear-funcs" value="backspace">⌫</button>
-                        <button class="action-buttons__button action-button button unary-operator" data-second-value="x^3" data-inner-code="<span>x</span><sup>3</sup>" value="x^2">
-                            <span>x</span><sup>2</sup>
-                        </button>
-                        <button class="action-buttons__button action-button button unary-operator" value="1/x">
-                            <sup>1</sup><span>/</span><sub>x</sub>
-                        </button>
-                        <button class="action-buttons__button action-button button unary-operator science-values" value="abs">|x|</button>
-                        <button class="action-buttons__button action-button button unary-operator science-values" value="exp">exp</button>
-                        <button class="action-buttons__button action-button button binary-operator science-values" value="x mod y">mod</button>
-                        <button class="action-buttons__button action-button button unary-operator" value="sqrt" data-second-value="x^1/3" data-inner-code="<sup>3</sup><span>√x</span>">²√x</button>
-                        <button class="action-buttons__button num-btn button science-values" value="(">(</button>
-                        <button class="action-buttons__button num-btn button science-values" value=")">)</button>
-                        <button class="action-buttons__button action-button button unary-operator science-values" value="n!">n!</button>
-                        <button class="action-buttons__button action-button button binary-operator big-sign" value="/">÷</button>
-                        <button class="action-buttons__button button binary-operator science-values" value="x^y" data-second-value="x^1/y" data-inner-code="<sup>y</sup><span>√x</span>">
-                            <span>x</span><sup>y</sup>
-                        </button>
-                        <button class="action-buttons__button main-btn num-btn button" value="7">7</button>
-                        <button class="action-buttons__button main-btn num-btn button" value="8">8</button>
-                        <button class="action-buttons__button main-btn num-btn button" value="9">9</button>
-                        <button class="action-buttons__button action-button button binary-operator big-sign" value="*">x</button>
-                        <button class="action-buttons__button button unary-operator science-values" value="10^x" data-second-value="2^x" data-inner-code="<span>2</span><sup>x</sup>">
-                            <span>10</span><sup>x</sup>
-                        </button>
-                        <button class="action-buttons__button main-btn num-btn button" value="4">4</button>
-                        <button class="action-buttons__button main-btn num-btn button" value="5">5</button>
-                        <button class="action-buttons__button main-btn num-btn button" value="6">6</button>
-                        <button class="action-buttons__button action-button button binary-operator big-sign" value="-">-</button>
-                        <button class="action-buttons__button button unary-operator science-values" value="log10" data-second-value="log(x, y)" data-inner-code="<span>log</span><sub>y</sub><span>x</span>">log</button>
-                        <button class="action-buttons__button main-btn num-btn button" value="1">1</button>
-                        <button class="action-buttons__button main-btn num-btn button" value="2">2</button>
-                        <button class="action-buttons__button main-btn num-btn button" value="3">3</button>
-                        <button class="action-buttons__button action-button button binary-operator big-sign" value="+">+</button>
-                        <button class="action-buttons__button button unary-operator science-values" value="log(x, e)" data-second-value="e^x" data-inner-code="<span>e</span><sup>x</sup>">ln</button>
-                        <button class="action-buttons__button main-btn button aux-ops" value="+-">
-                            <sup class="superscript">+</sup><span class="middle">/</span><sub class="subscript">-</sub>
-                        </button>
-                        <button class="action-buttons__button main-btn num-btn button" value="0">0</button>
-                        <button class="action-buttons__button main-btn num-btn button big-sign" value=".">.</button>
-                        <button class="action-buttons__button equal-sign button big-sign" value="=">=</button>
-                    </div>
-                </section>
-
-                <section class="calculator__history-section history-section">
-                    <div class="history-section__active-part-switcher history-buttons">
-                        <button class="history-buttons__history button" value="history">
-                            History
-                        </button>
-
-                        <button class="history-buttons__memory button" value="memory">
-                            Memory
-                        </button>
-                    </div>
-                    <div class="history-section__active-part active-part">
+                    <div class="nav__body">
+                        <a href="#" class="nav__link">About</a>
                         
-                    </div>
-
-                    <div class="history-section__clear-button-wrap">
-                        <button class="history-section__clear-button button">
-                            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" fill="currentColor" height="24px"><path d="M 10 2 L 9 3 L 4 3 L 4 5 L 5 5 L 5 20 C 5 20.522222 5.1913289 21.05461 5.5683594 21.431641 C 5.9453899 21.808671 6.4777778 22 7 22 L 17 22 C 17.522222 22 18.05461 21.808671 18.431641 21.431641 C 18.808671 21.05461 19 20.522222 19 20 L 19 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 7 5 L 17 5 L 17 20 L 7 20 L 7 5 z M 9 7 L 9 18 L 11 18 L 11 7 L 9 7 z M 13 7 L 13 18 L 15 18 L 15 7 L 13 7 z"/>
+                        <a rel="noopener noreferrer" target="_blank" href="https://github.com/Lirmortoch" class="nav__link">GitHub</a>
+                    
+                        <button class="header__theme-switcher">
+                            <?xml version="1.0" ?>
+                            <svg class="switch-img" fill="white" stroke="white" height="24" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <defs>
+                                    <linearGradient id="linear-gradient-1" gradientTransform="rotate(90)">
+                                        <stop offset="0" stop-color="#e4ba5b" />
+                                        <stop offset="0.92" stop-color="#b71d1a" />
+                                    </linearGradient>
+                                    <linearGradient id="linear-gradient-2" gradientUnits="userSpaceOnUse" gradientTransform="rotate(90)">
+                                        <stop offset="0" stop-color="#fcf9f6" />
+                                        <stop offset="0.09090909090909091" stop-color="#e1d4cf" />
+                                        <stop offset="0.18181818181818182" stop-color="#c7aeae" />
+                                        <stop offset="0.2727272727272727" stop-color="#aa8b96" />
+                                        <stop offset="0.36363636363636365" stop-color="#886b82" />
+                                        <stop offset="0.45454545454545453" stop-color="#5e4f71" />
+                                        <stop offset="0.5454545454545454" stop-color="#4c426a" />
+                                        <stop offset="0.6363636363636364" stop-color="#573f6b" />
+                                        <stop offset="0.7272727272727273" stop-color="#623a6a" />
+                                        <stop offset="0.8181818181818182" stop-color="#6e3567" />
+                                        <stop offset="0.9090909090909091" stop-color="#7a2f60" />
+                                        <stop offset="1" stop-color="#842857" />
+                                    </linearGradient>
+                                    <mask id="switcher-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+                                        <circle cx="12" cy="12" r="5"/><line x1="12" x2="12" y1="1" y2="3"/><line x1="12" x2="12" y1="21" y2="23"/><line x1="4.22" x2="5.64" y1="4.22" y2="5.64"/><line x1="18.36" x2="19.78" y1="18.36" y2="19.78"/><line x1="1" x2="3" y1="12" y2="12"/><line x1="21" x2="23" y1="12" y2="12"/><line x1="4.22" x2="5.64" y1="19.78" y2="18.36"/><line x1="18.36" x2="19.78" y1="5.64" y2="4.22"/>
+                                    </mask>
+                                </defs>
+                                <g mask="url(#switcher-mask)">
+                                    <rect id="first-layer" x="0" y="0" width="24" height="24" />
+                                    <rect id="switcher-gradient" x="0" y="0" width="24" height="24" />
+                                </g>
                             </svg>
                         </button>
                     </div>
-                </section>
-            </section>
-        </main>
-    </div>
+                </nav>
+            </header>
 
-    <script defer src="dist/index_bundle.js" type="module"></script>
-</body>
+            <main class="main">
+                <section class="calculator">
+                    <div class="dropdown mode-switcher" data-dropdown>
+                        <button class="mode-switcher__button button current-calc-mode dropdown__button" value="standard" data-dropdown-button>
+                            Standard
+
+                            <span class="dropdown__caret caret"></span>
+                        </button> 
+        
+                        <button class="mode-switcher__menu button dropdown__menu dropdown-content" value="scientific">
+                            Scientific
+                        </button>
+                    </div>
+
+                    <button class="calculator__button-show-history button">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <rect width="24" height="24" fill="none"></rect> <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></circle> <path d="M12 6V12L16.5 16.5" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path> </g>
+                        </svg>
+                    </button>
+                    
+                    <section class="calculator__action-section action-section">
+                        <div class="calculator__input input">
+                            <div class="input__prev-part">
+                                <span class="active-part__expression expression"></span>
+                            </div>
+                            <input class="input__main-part" type="text" name="calc__input" id="calc__input" step="any" pattern="" placeholder="0" autocomplete="off">
+                        </div>
+                        
+                        <div class="calculator__upper-buttons upper-buttons">
+                            <div class="upper-buttons__grid">
+                                <button class="upper-buttons__angle-value button  science-functions science-values angle-switcher" value="rad">Rad</button>
+                                <button class="upper-buttons__f-e button  science-functions science-values" value="f-e">F-e</button> 
+                                <button class="upper-buttons__clearAll button  memory-control" value="memory-clear">mc</button>
+                                <button class="upper-buttons__recall button  memory-control" value="memory-recall">mr</button>
+                                <button class="upper-buttons__add button  memory-control" value="memory-add">m+</button>
+                                <button class="upper-buttons__subtract button  memory-control" value="memory-subtract">m-</button>
+                                <button class="upper-buttons__store button  memory-control" value="memory-store">ms</button>
+                            </div>
+                        </div>
+
+                        <div class="calculator__functions functions science-values">
+                            <div class="functions__wrap dropdown" data-dropdown>
+                                <button class="functions__trigonometry button functionality-btn dropdown__button" data-dropdown-button>
+                                    Trigonometry
+                                    <span class="dropdown__caret caret"></span>
+                                </button>
+
+                                <div class="others-funcs__wrap trigonometry dropdown__menu dropdown-content">
+                                    <button class="others-funcs__btn button others-funcs__btn a-func" value="2nd">2nd</button>
+                                    <button class="others-funcs__btn button others-funcs__btn hyperbolic" value="hyp">hyp</button>
+                                    <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="sin">sin</button>
+                                    <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="sec">sec</button>
+                                    <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="cos">cos</button>
+                                    <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="csc">csc</button>
+                                    <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="tan">tan</button>
+                                    <button class="others-funcs__btn button trigonometry-funcs unary-operator" value="cot">cot</button>
+                                </div>
+                            </div>
+
+                            <div class="functions__wrap dropdown" data-dropdown>
+                                <button class="functions__others button functionality-btn dropdown__button others-funcs" data-dropdown-button>
+                                    Functions
+                                    <span class="dropdown__caret caret"></span>
+                                </button>
+
+                                <div class="others-funcs__wrap dropdown__menu dropdown-content ">
+                                    <button class="action-buttons__button action-button button unary-operator" value="abs">|x|</button>
+                                    <button class="others-funcs__btn button binary-operator" value="random(x, y)">rand(x, y)</button>
+                                    <button class="others-funcs__btn button unary-operator" value="floor">⌊x⌋</button>
+                                    <button class="others-funcs__btn button" value="dms">→dms</button>
+                                    <button class="others-funcs__btn button unary-operator" value="ceil">⌈x⌉</button>
+                                    <button class="others-funcs__btn button" value="deg">→deg</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="action-buttons__button action-button button funcs-switcher science-values" value="2nd">2nd</button>
+                            <button class="action-buttons__button action-button button unary-operator constant" value="pi">π</button>
+                            <button class="action-buttons__button action-button button unary-operator constant" value="e">e</button>
+                            <button class="action-buttons__button action-button button clear-funcs" value="C">C</button>
+                            <button class="action-buttons__button action-button button clear-funcs" value="backspace">⌫</button>
+                            <button class="action-buttons__button action-button button unary-operator" data-second-value="x^3" data-inner-code="<span>x</span><sup>3</sup>" value="x^2">
+                                <span>x</span><sup>2</sup>
+                            </button>
+                            <button class="action-buttons__button action-button button unary-operator" value="1/x">
+                                <sup>1</sup><span>/</span><sub>x</sub>
+                            </button>
+                            <button class="action-buttons__button action-button button unary-operator science-values" value="abs">|x|</button>
+                            <button class="action-buttons__button action-button button unary-operator science-values" value="exp">exp</button>
+                            <button class="action-buttons__button action-button button binary-operator science-values" value="x mod y">mod</button>
+                            <button class="action-buttons__button action-button button unary-operator" value="sqrt" data-second-value="x^1/3" data-inner-code="<sup>3</sup><span>√x</span>">²√x</button>
+                            <button class="action-buttons__button num-btn button science-values" value="(">(</button>
+                            <button class="action-buttons__button num-btn button science-values" value=")">)</button>
+                            <button class="action-buttons__button action-button button unary-operator science-values" value="n!">n!</button>
+                            <button class="action-buttons__button action-button button binary-operator big-sign" value="/">÷</button>
+                            <button class="action-buttons__button button binary-operator science-values" value="x^y" data-second-value="x^1/y" data-inner-code="<sup>y</sup><span>√x</span>">
+                                <span>x</span><sup>y</sup>
+                            </button>
+                            <button class="action-buttons__button main-btn num-btn button" value="7">7</button>
+                            <button class="action-buttons__button main-btn num-btn button" value="8">8</button>
+                            <button class="action-buttons__button main-btn num-btn button" value="9">9</button>
+                            <button class="action-buttons__button action-button button binary-operator big-sign" value="*">x</button>
+                            <button class="action-buttons__button button unary-operator science-values" value="10^x" data-second-value="2^x" data-inner-code="<span>2</span><sup>x</sup>">
+                                <span>10</span><sup>x</sup>
+                            </button>
+                            <button class="action-buttons__button main-btn num-btn button" value="4">4</button>
+                            <button class="action-buttons__button main-btn num-btn button" value="5">5</button>
+                            <button class="action-buttons__button main-btn num-btn button" value="6">6</button>
+                            <button class="action-buttons__button action-button button binary-operator big-sign" value="-">-</button>
+                            <button class="action-buttons__button button unary-operator science-values" value="log10" data-second-value="log(x, y)" data-inner-code="<span>log</span><sub>y</sub><span>x</span>">log</button>
+                            <button class="action-buttons__button main-btn num-btn button" value="1">1</button>
+                            <button class="action-buttons__button main-btn num-btn button" value="2">2</button>
+                            <button class="action-buttons__button main-btn num-btn button" value="3">3</button>
+                            <button class="action-buttons__button action-button button binary-operator big-sign" value="+">+</button>
+                            <button class="action-buttons__button button unary-operator science-values" value="log(x, e)" data-second-value="e^x" data-inner-code="<span>e</span><sup>x</sup>">ln</button>
+                            <button class="action-buttons__button main-btn button aux-ops" value="+-">
+                                <sup class="superscript">+</sup><span class="middle">/</span><sub class="subscript">-</sub>
+                            </button>
+                            <button class="action-buttons__button main-btn num-btn button" value="0">0</button>
+                            <button class="action-buttons__button main-btn num-btn button big-sign" value=".">.</button>
+                            <button class="action-buttons__button equal-sign button big-sign" value="=">=</button>
+                        </div>
+                    </section>
+
+                    <section class="calculator__history-section history-section">
+                        <div class="history-section__active-part-switcher history-buttons">
+                            <button class="history-buttons__history button" value="history">
+                                History
+                            </button>
+
+                            <button class="history-buttons__memory button" value="memory">
+                                Memory
+                            </button>
+                        </div>
+                        <div class="history-section__active-part active-part">
+                            
+                        </div>
+
+                        <div class="history-section__clear-button-wrap">
+                            <button class="history-section__clear-button button">
+                                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 24 24" width="24px" fill="currentColor" height="24px"><path d="M 10 2 L 9 3 L 4 3 L 4 5 L 5 5 L 5 20 C 5 20.522222 5.1913289 21.05461 5.5683594 21.431641 C 5.9453899 21.808671 6.4777778 22 7 22 L 17 22 C 17.522222 22 18.05461 21.808671 18.431641 21.431641 C 18.808671 21.05461 19 20.522222 19 20 L 19 5 L 20 5 L 20 3 L 15 3 L 14 2 L 10 2 z M 7 5 L 17 5 L 17 20 L 7 20 L 7 5 z M 9 7 L 9 18 L 11 18 L 11 7 L 9 7 z M 13 7 L 13 18 L 15 18 L 15 7 L 13 7 z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </section>
+                </section>
+            </main>
+        </div>
+
+        <script defer src="dist/index_bundle.js" type="module"></script>
+    </body>
 </html>

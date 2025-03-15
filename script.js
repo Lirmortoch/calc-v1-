@@ -400,7 +400,15 @@ function unaryOperators(e) {
     let number = inputMainPart.value;
 
     // Можно улучшить внешний вид выражения в прев парт 
-    if (/x/.test(e.target.value)) {
+    // Улучшить regExp для операторов с x'ом
+    if (e.target.value === 'exp') {
+        if (inputMainPart.textContent.includes('exp')) return;
+
+        inputMainPart.value = `${number},e+0`;
+
+        return;
+    }
+    else if (/x/.test(e.target.value)) {
         mathExpr = `${e.target.value.replace(/x/, number)}`;
     }
     else if (e.target.classList.contains('trigonometry-funcs')) {
