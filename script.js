@@ -128,31 +128,52 @@ if (localStorage.getItem('history-mode') !== null) turnOnHistoryMode(localStorag
 document.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
+function swapXs() {
+    const xPowTwo = actionButtons.querySelector('[value="x^2"]');
+    const oneDivideX = actionButtons.querySelector('[value="1/x"]');
+
+    xPowTwo.innerHTML = '<sup>1</sup><span>/</span><sub>x</sub>';
+    xPowTwo.value = '1/x';
+    oneDivideX.innerHTML = '<span>x</span><sup>2</sup>';
+    oneDivideX.value = 'x^2';
+}
+
+function changeSwitchModeButtons(btn1, btn2, calcMode, prevCalcMode, isRotate = false) {
+    btn1.innerHTML = toRegularCase(calcMode) + `<span class="dropdown__caret caret ${isRotate ? 'caret__rotate' : ''}"></span>`;
+    btn1.value = calcMode;
+
+    btn2.innerText = toRegularCase(prevCalcMode);
+    btn2.value = prevCalcMode;
+
+    localStorage.setItem('calc-mode', calcMode);
+}
+
 function onScienceMode() {
     calcMode = 'scientific';
     calculator.classList.add(calcMode);
 
-    const modeBtn = actionButtons.querySelector('[value=%]');
-    const clearElementBtn = actionButtons.querySelector('[value=CE]');
-    const oneDivideX = actionButtons.querySelector('[value=1/x]');
+    const modeBtn = actionButtons.querySelector('[value="%"]');
+    const clearElementBtn = actionButtons.querySelector('[value="CE"]');
+
+    if (modeBtn === null) return;
 
     modeBtn.textContent = 'π';
     modeBtn.value = 'pi';
 
     clearElementBtn.textContent = 'e';
-    clearElementBtn.value = eBtn.textContent;
+    clearElementBtn.value = clearElementBtn.textContent;
 
-    oneDivideX.innerHTML = '<span>x</span><sup>2</sup>';
-    oneDivideX.value = 'x^2';
+    swapXs();
 }
 
 function offScienceMode() {
     calcMode = 'standard';
     calculator.classList.remove('scientific');
 
-    const piBtn = actionButtons.querySelector('[value=pi]');
-    const eBtn = actionButtons.querySelector('[value=e]');
-    const xPowTwo = actionButtons.querySelector('[value=x^2]');
+    const piBtn = actionButtons.querySelector('[value="pi"]');
+    const eBtn = actionButtons.querySelector('[value="e"]');
+
+    if (piBtn === null) return;
 
     piBtn.textContent = '%';
     piBtn.value = piBtn.textContent;
@@ -160,32 +181,31 @@ function offScienceMode() {
     eBtn.textContent = 'CE';
     eBtn.value = eBtn.textContent;
 
-    xPowTwo.innerHTML = '<sup>1</sup><span>/</span><sub>x</sub>';
-    xPowTwo.value = '1/x';
+    swapXs();
 }
 
-function turnOnScienceMode() {
+function turnScienceMode() {
     const btn = body.querySelector('.current-calc-mode');
     const target = body.querySelector('.mode-switcher__menu');
+    let prevCalcMode = '';
 
-    onScienceMode();
+    if (calcMode === 'scientific') {
+        onScienceMode();
+        prevCalcMode = 'standard';
+    }
+    else {
+        offScienceMode();
+        prevCalcMode = 'scientific';
+    }
 
-    btn.innerHTML = toRegularCase(calcMode) + '<span class="dropdown__caret caret"></span>';
-    btn.value = calcMode;
-
-    target.innerText = toRegularCase('standard');
-    target.value = 'standard';
-
-    localStorage.setItem('calc-mode', calcMode);
+    changeSwitchModeButtons(btn, target, calcMode, prevCalcMode);
 }
 
-// УЛУЧШЕНИЕ: минимизировать код, убрать из localStorage переменную prevCalcMode
 function switchCalcMode(e) {
     if (e.target.tagName !== 'BUTTON' || e.target.classList.contains('current-calc-mode') || !e.target.parentElement.classList.contains('mode-switcher')) return;
 
     const btn = body.querySelector('.current-calc-mode');
-
-    localStorage.setItem('prev-calc-mode', calcMode);
+    const prevCalcMode = calcMode;
 
     if (e.target.value === 'scientific') {
         onScienceMode();
@@ -194,18 +214,10 @@ function switchCalcMode(e) {
         offScienceMode(); 
     }
 
-    const prevCalcMode = localStorage.getItem('prev-calc-mode');
-
-    btn.innerHTML = toRegularCase(calcMode) + '<span class="dropdown__caret caret caret__rotate"></span>';
-    btn.value = calcMode;
-
-    e.target.innerText = toRegularCase(prevCalcMode);
-    e.target.value = prevCalcMode;
-
-    localStorage.setItem('calc-mode', calcMode);
+    changeSwitchModeButtons(btn, e.target, calcMode, prevCalcMode, true);
 }
 
-if (calcMode === 'scientific') turnOnScienceMode();
+turnScienceMode();
 
 document.addEventListener('click', switchCalcMode);
 
@@ -751,3 +763,11 @@ function switchAngleUnit(e) {
 document.addEventListener('click', switchAngleUnit);
 
 inputMainPart.addEventListener('keydown', (e) => e.preventDefault());
+
+function activeExpMode(e) {
+    if (e.target.value !== 'f-e') return;
+
+    e.target.classList.toggle('active-mode')
+}
+
+document.addEventListener('click', activeExpMode);

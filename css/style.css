@@ -522,7 +522,8 @@ input[type=number] {
     position: relative;
 }
 
-.current-history-mode::after {
+/* Улучшение Сделать один active-mode класс */
+.current-history-mode::after, .active-mode::after {
     display: block;
     content: '';
     width: 25px;
@@ -530,6 +531,17 @@ input[type=number] {
     margin: 10px auto 0;
     border-radius: 200px;
     background-color: var(--current-history-item);
+}
+.active-mode {
+    position: relative;
+}
+.active-mode::after {
+    position: absolute;
+
+    top: calc(100% - 5px);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
 }
 
 .history-buttons__memory {
