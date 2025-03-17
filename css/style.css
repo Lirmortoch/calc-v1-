@@ -831,6 +831,17 @@ input[type=number] {
         cursor: pointer;
         background-color: transparent;
     }
+    .nav__icon.active-mobile span {
+        transform: scale(0) translate(0px, -50%);
+    }
+    .nav__icon.active-mobile::before {
+        top: 50%;
+        transform: rotate(-45deg) translate(0px, -50%);
+    }
+    .nav__icon.active-mobile::after {
+        bottom: 50%;
+        transform: rotate(45deg) translate(0px, 50%);
+    }
     .nav__icon::before, .nav__icon::after, .nav__icon span {
         position: absolute;
         left: 0;
