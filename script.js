@@ -223,7 +223,7 @@ document.addEventListener('click', switchCalcMode);
 
 /* Functions for dropdowns */
 function keepOpenDropMenu(e) {
-    const isDropDownButton = e.target.matches('[data-dropdown-button]');
+    const isDropDownButton = e.target.matches('[data-dropdown-button], [data-dropdown-button] > *');
 
     if (!isDropDownButton && e.target.closest('[data-dropdown]') !== null) return;
 
@@ -402,7 +402,7 @@ function unaryOperators(e) {
     // Можно улучшить внешний вид выражения в прев парт 
     // Улучшить regExp для операторов с x'ом
     if (e.target.value === 'exp') {
-        if (inputMainPart.textContent.includes('exp')) return;
+        if (inputMainPart.textContent.includes('exp') || number === '') return;
 
         inputMainPart.value = `${number},e+0`;
 
