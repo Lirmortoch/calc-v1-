@@ -346,7 +346,6 @@ function printNumber(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
 
     if (e.target.value === '.') { 
-        console.log(validatorRegExp.test(inputMainPart.textContent));
         if (inputMainPart.value.length === 0) return;
     }
 
@@ -396,8 +395,10 @@ document.addEventListener('click', clearOperators);
 function unaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('unary-operator')) return;
 
+    const mode = calculator.className.match(/\w+(?=-mode)/gm)?.join('');
+
     let temp, mathExpr;
-    let number = inputMainPart.value;
+    const number = format(Number(inputMainPart.value), {notation: mode});
 
     // Можно улучшить внешний вид выражения в прев парт 
     // Улучшить regExp для операторов с x'ом
@@ -426,7 +427,7 @@ function unaryOperators(e) {
     // РЕФАКТОРИНГ 1
     temp = evaluate(mathExpr);
     inputPrevPart.textContent = mathExpr;
-    inputMainPart.value = format(temp, {precision: 14});
+    inputMainPart.value = format(temp, {notation: mode});
     inputPrevPart.classList.add('full-expr');
 
     if (inputPrevPart.classList.contains('full-expr')) addElementInHistory(mathExpr);
@@ -437,8 +438,10 @@ document.addEventListener('click', unaryOperators);
 function auxiliaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('aux-ops')) return;
 
+    const mode = calculator.className.match(/\w+(?=-mode)/gm)?.join('');
+    
     let temp;
-    let number = inputMainPart.value;
+    const number = format(Number(inputMainPart.value), {notation: mode});
 
     if (e.target.value === '+-') {
         inputPrevPart.textContent = `negate(${number})`
@@ -454,8 +457,9 @@ document.addEventListener('click', auxiliaryOperators);
 function binaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
     
+    const mode = calculator.className.match(/\w+(?=-mode)/gm)?.join('');
     let temp, mathExpr, prevNumber;
-    let number = inputMainPart.value;
+    const number = format(Number(inputMainPart.value), {notation: mode});
 
     if (/[xy]/.test(e.target.value)) {
         if (inputPrevPart.textContent.length === 0 || inputPrevPart.textContent.includes('=') && inputMainPart.value !== '') {
@@ -465,7 +469,7 @@ function binaryOperators(e) {
         else if (inputPrevPart.textContent.length !== 0) {
             prevNumber = inputPrevPart.textContent[inputPrevPart.textContent.search(/\d+/)];
             mathExpr = inputPrevPart.textContent.replace(/y/, inputMainPart.value);
-            temp = format(evaluate(mathExpr), {precision: 14});
+            temp = format(evaluate(mathExpr), {notation: mode});
             inputPrevPart.textContent = mathExpr;
         }
     }
@@ -476,7 +480,7 @@ function binaryOperators(e) {
         else if (inputPrevPart.textContent.length !== 0) {
             prevNumber = inputPrevPart.textContent.split(' ')[0];
             mathExpr = `${inputPrevPart.textContent}${number}`;
-            temp = format(evaluate(mathExpr), {precision: 14});
+            temp = format(evaluate(mathExpr), {notation: mode});
         }
 
         if (prevNumber === number && !inputPrevPart.classList.contains('inputted-same-number')) {
@@ -505,17 +509,18 @@ function binaryOperators(e) {
 function equal(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
 
+    const mode = calculator.className.match(/\w+(?=-mode)/gm)?.join('');
     let temp, mathExpr;
 
     if (inputMainPart.value.length !== 0 && !inputPrevPart.textContent.includes('=')) {
         if (/y/.test(inputPrevPart.textContent)) {
-            mathExpr = inputPrevPart.textContent.replace(/y/, inputMainPart.value);
+            mathExpr = inputPrevPart.textContent.replace(/y/, format(Number(inputMainPart.value), {notation: mode}));
         }
         else {
-            mathExpr = inputPrevPart.textContent + inputMainPart.value;
+            mathExpr = inputPrevPart.textContent + format(Number(inputMainPart.value), {notation: mode});
         }
 
-        temp = evaluate(mathExpr);
+        temp = format(evaluate(mathExpr), {notation: mode});
 
         inputMainPart.value = temp;
         inputPrevPart.textContent = mathExpr + ' = ';
@@ -658,14 +663,17 @@ document.addEventListener('click', openHistory);
 function memoryAdd(e) {
     if (e.target.value !== 'memory-add') return;
 
+    const mode = calculator.className.match(/\w+(?=-mode)/gm)?.join('');
+    const number = format(Number(inputMainPart.value), {notation: mode});
+
     if (memory.length > 0 && memory[0] !== '') {
         const tempMemoryItem = document.querySelector('.active-part__memory-item.result');
 
-        tempMemoryItem.textContent = evaluate(`${tempMemoryItem.textContent} + ${inputMainPart.value}`);
+        tempMemoryItem.textContent = evaluate(`${tempMemoryItem.textContent} + ${number}`);
 
         memory[memory.length - 1] = `<div class='active-part__item memory-elem'>${tempMemoryItem.closest('.memory-elem').innerHTML}</div>`;
     }
-    else memoryStore(inputMainPart.value);
+    else memoryStore(number);
 
     localStorage.setItem('memory', memory.join(' | '));
 }
@@ -710,14 +718,17 @@ function memoryStoreClick(e) {
 function memorySubtract(e) {
     if (e.target.value !== 'memory-subtract') return;
 
+    const mode = calculator.className.match(/\w+(?=-mode)/gm)?.join('');
+    const number = format(Number(inputMainPart.value), {notation: mode});
+
     if (memory.length > 0 && memory[0] !== '') {
         const tempMemoryItem = document.querySelector('.active-part__memory-item.result');
 
-        tempMemoryItem.textContent = evaluate(`${tempMemoryItem.textContent} - ${inputMainPart.value}`);
+        tempMemoryItem.textContent = evaluate(`${tempMemoryItem.textContent} - ${number}`);
         
         memory[memory.length - 1] = `<div class='active-part__item memory-elem'>${tempMemoryItem.closest('.memory-elem').innerHTML}</div>`;
     }
-    else memoryStore(-inputMainPart.value);
+    else memoryStore(-number);
 
     localStorage.setItem('memory', memory.join(' | '));
 }
@@ -772,10 +783,12 @@ document.addEventListener('click', switchAngleUnit);
 
 inputMainPart.addEventListener('keydown', (e) => e.preventDefault());
 
+// УЛУЧШЕНИЕ: может можно сделать modeSwitcher более универсальным?
 function activeExpMode(e) {
-    if (e.target.value !== 'f-e') return;
+    if (!e.target.classList.contains('mode-changer')) return;
 
-    e.target.classList.toggle('active-mode')
+    e.target.classList.toggle('active-mode');
+    calculator.classList.toggle(`${e.target.value}-mode`);
 }
 
 document.addEventListener('click', activeExpMode);
