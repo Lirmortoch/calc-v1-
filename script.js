@@ -95,7 +95,6 @@ function switchHistoryMode(e) {
         prevBtn.classList.remove('current-history-mode');
     }
 
-
     e.target.classList.add('current-history-mode');
     localStorage.setItem('history-mode', e.target.value);
     historyBlock.classList.add(`${e.target.value}-mode`);
@@ -299,7 +298,6 @@ function clickOperatorsSwitcher(e) {
     switchScienceOperators();
 }
 
-// УЛУЧШЕНИЕ: объединить в одну?
 function switchAFuncs(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('a-func')) return;
 
@@ -354,7 +352,6 @@ function printNumber(e) {
         clearInput('C');
     }
 
-    // РЕФАКТОРИНГ 2: ввод цифр - проверка main and prev part
     if (!inputPrevPart.classList.contains('binary-operator-clicked')) {
         inputMainPart.value += e.target.value;
     }
@@ -601,8 +598,6 @@ function restoreHistoryElem(e) {
     }
 }
 
-/* УЛУЧШЕНИЕ 1: Историю можно сделать как два блока div. каждый появляется при нажатии переключателя, но тогда придётся добавлять ещё один блок и делать для него стили. Всё это улучшит визуальную составляющую и взаимодействие с юзером */
-
 function showEmptyBlock(historyMode) {
     historyBlock.textContent = historyMode === 'history' ? 'There\'s no history yet' : "There's nothing saved in memory";
     historyBlock.style.padding = '10px'
@@ -646,8 +641,6 @@ function clearHistoryClick(e) {
 
 document.addEventListener('click', clearHistoryClick);
 
-/* РЕФАКТОРИНГ 3: сделать один скрипт для дропдаунов и менюшек. Добавить dataset атрибут для кнопок и блоков, затем сделать скрипт который будет открывать менюшку и закрывать остальные */
-/* УЛУЧШЕНИЕ: Добавить обёртку для блока, чтобы не было прозрачного пространства между кнопкой очистки блока и самим блоком */
 function openHistory(e) {
     const closestElem = e.target.closest('.calculator__button-show-history');
 
@@ -786,7 +779,6 @@ document.addEventListener('click', switchAngleUnit);
 
 inputMainPart.addEventListener('keydown', (e) => e.preventDefault());
 
-// УЛУЧШЕНИЕ: может можно сделать modeSwitcher более универсальным?
 function activeExpMode(e) {
     if (!e.target.classList.contains('mode-changer')) return;
 
