@@ -369,16 +369,18 @@ function printNumber(e) {
 
 document.addEventListener('click', printNumber);
 
-function clearInput(value) {
-    if (value === 'C') {
+function clearInput(target) {
+    if (target.value === 'C') {
         inputMainPart.value = null;
         inputPrevPart.textContent = '';
         inputPrevPart.className = 'active-part__expression expression';
     }
-    else if (value === 'CE') {
+    else if (target.value === 'CE') {
         inputMainPart.value = null;
+        target.value = 'C';
+        target.textContent = 'C';
     }
-    else if (value === 'backspace') {
+    else if (target.value === 'backspace') {
         let temp = inputMainPart.value.slice(0, -1);
         inputMainPart.value = temp;
     }
@@ -387,11 +389,12 @@ function clearInput(value) {
 function clearOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('clear-funcs')) return;
 
-    clearInput(e.target.value)
+    clearInput(e.target)
 }
 
 document.addEventListener('click', clearOperators);
 
+// Можно уменьшить количество операций + сделать функцию equal переиспользуемой
 function unaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('unary-operator')) return;
 
@@ -792,3 +795,17 @@ function activeExpMode(e) {
 }
 
 document.addEventListener('click', activeExpMode);
+
+function changeClearButton(e) {
+    if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('num-btn')) return;
+
+    const clearBtn = document.querySelector('.clear-funcs[value="C"]');
+
+    if (clearBtn === null) return;
+    else if (inputMainPart.value.length > 0 && clearBtn.value === 'C') {
+        clearBtn.textContent = 'CE';
+        clearBtn.value = 'CE';
+    }
+}
+
+document.addEventListener('click', changeClearButton); 
