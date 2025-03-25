@@ -348,8 +348,17 @@ function printNumber(e) {
     }
 
     if (inputPrevPart.classList.contains('full-expr')) {
+        const clear = document.querySelector('.clear-funcs');
+
+        clear.value = 'C';
+        clear.textContent = 'C';
+
+        clearInput(clear);
+
+        inputMainPart.value = e.target.value;
         inputPrevPart.className = 'active-part__expression expression';
-        clearInput('C');
+
+        return;
     }
 
     if (!inputPrevPart.classList.contains('binary-operator-clicked')) {
@@ -391,17 +400,14 @@ function clearOperators(e) {
 
 document.addEventListener('click', clearOperators);
 
-// Можно уменьшить количество операций + сделать функцию equal переиспользуемой
 function unaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('unary-operator')) return;
 
     const mode = calculator.className.match(/\w+(?=-mode)/gm)?.join('');
 
-    let temp, mathExpr;
+    let mathExpr;
     const number = format(Number(inputMainPart.value), {notation: mode});
-
-    // Можно улучшить внешний вид выражения в прев парт 
-    // Улучшить regExp для операторов с x'ом
+    
     if (e.target.value === 'exp') {
         if (inputMainPart.textContent.includes('exp') || number === '') return;
 
@@ -424,10 +430,8 @@ function unaryOperators(e) {
         mathExpr = `${e.target.value}(${number})`;
     }
 
-    // РЕФАКТОРИНГ 1
-    temp = evaluate(mathExpr);
     inputPrevPart.textContent = mathExpr;
-    inputMainPart.value = format(temp, {notation: mode});
+    inputMainPart.value = format(evaluate(mathExpr), {notation: mode});
     inputPrevPart.classList.add('full-expr');
 
     if (inputPrevPart.classList.contains('full-expr')) addElementInHistory(mathExpr);
@@ -493,8 +497,6 @@ function binaryOperators(e) {
         inputPrevPart.textContent = `${temp} ${e.target.value} `;
     }
 
-    // РЕФАКТОРИНГ 1
-    // Можно сделать функцию для кнопки ровно переиспользуемой?
     inputPrevPart.classList.add('binary-operator-clicked');
     inputPrevPart.classList.remove('full-expr');
 
@@ -505,12 +507,12 @@ function binaryOperators(e) {
     if (mathExpr !== undefined) addElementInHistory(mathExpr);
 }
 
-// РЕФАКТОРИНГ 1: equalClick and equal; уменьшить количество ветвлений?
+// РЕФАКТОРИНГ 1: уменьшить количество ветвлений?
 function equal(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
 
     const mode = calculator.className.match(/\w+(?=-mode)/gm)?.join('');
-    let temp, mathExpr;
+    let mathExpr;
 
     if (inputMainPart.value.length !== 0 && !inputPrevPart.textContent.includes('=')) {
         if (/y/.test(inputPrevPart.textContent)) {
@@ -520,9 +522,7 @@ function equal(e) {
             mathExpr = inputPrevPart.textContent + format(Number(inputMainPart.value), {notation: mode});
         }
 
-        temp = format(evaluate(mathExpr), {notation: mode});
-
-        inputMainPart.value = temp;
+        inputMainPart.value = format(evaluate(mathExpr), {notation: mode});
         inputPrevPart.textContent = mathExpr + ' = ';
 
         inputPrevPart.classList.add('full-expr');
