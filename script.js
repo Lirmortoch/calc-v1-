@@ -35,11 +35,7 @@ let currentTheme = localStorage.getItem('theme') || 'main';
 let calcMode = localStorage.getItem('calc-mode') || 'standard';
 
 const validatorRegExp = /^[\.\s\+\/*\^%=]|[a-z\[\]\{\\}\$;,\\]+|[\.\-+=\/]{2,}|(?<=\.\d+)\.|(?<![\d\.])0\d+/gmi;
-// const mathExpressionRegExp = /^(\d+\.\d+|\d+)(\s|)[+\/\-\*\^](\s|)(\d+\.\d+|\d+)(\s|)(=|)|\w+\(\s(\d+\.\d+|\d+)\s\)/gmi;
-// РЕФАКТОРИНГ 8: меняет знак числа - переделать
 const replaceBinaryOpsRegEx = /(?<=\s)[\+\-\*\/](?=\s)/gm;
-
-//inputMainPart.pattern = validatorRegExp.toString(10).replace(/^\/|\/[a-z]+$/gmi, '');
 
 /* Functions */
 let toRegularCase = str => str[0].toUpperCase() + str.slice(1);
@@ -457,7 +453,6 @@ function auxiliaryOperators(e) {
 
 document.addEventListener('click', auxiliaryOperators);
 
-// РЕФАКТОРИНГ 7: ПЕРЕДЕЛАТЬ (Уменьшить количество ветвлений)
 function binaryOperators(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('binary-operator')) return;
     
@@ -507,7 +502,6 @@ function binaryOperators(e) {
     if (mathExpr !== undefined) addElementInHistory(mathExpr);
 }
 
-// РЕФАКТОРИНГ 1: уменьшить количество ветвлений?
 function equal(e) {
     if (e.target.tagName !== 'BUTTON' || !e.target.classList.contains('equal-sign')) return;
 
@@ -573,7 +567,6 @@ function openCloseMobileMenu(e) {
 document.addEventListener('click', openCloseMobileMenu);
 
 // History and memory functionality
-/* УЛУЧШЕНИЕ? Сделать класс Calc со всеми переменными + сделать объект, который содержит все переменные? (хотя это не нужно, просто использовать this[value]?) */
 function addElementInHistory(mathExpr) {
     if (historyBlock.textContent.includes('There\'s no') && historyBlock.classList.contains('history-mode')) historyBlock.textContent = '';
 
@@ -655,7 +648,6 @@ function openHistory(e) {
 
 document.addEventListener('click', openHistory);
 
-// РЕФАКТОРИНГ 6: Где-то в коде в memory пушиться пустая строка. Надо найти и убрать
 function memoryAdd(e) {
     if (e.target.value !== 'memory-add') return;
 
@@ -689,8 +681,6 @@ function memoryAdd(e) {
     localStorage.setItem('memory', memory.join(' | '));
 } */
 
-// РЕФАКТОРИНГ 4: одна функция добавления в историю и память. Убрать нестрогое сравнение?
-// УЛУЧШЕНИЕ: один класс Calc со всеми нужными приватными переменными и доступ через this[value]. Подсказка над кнопками с операциями (память)
 function memoryStore(value) {
     if (value == false) return;
 
@@ -735,7 +725,6 @@ function memoryReCall(e) {
     inputMainPart.value = document.querySelector('.active-part__memory-item.result').textContent;
 }
 
-// РЕФАКТОРИНГ 6: привести к норм виду. Лишние ветвления. Сделать функцию clearHistory более юзабельной (в функцию кидать текущий мод и внутри проверять его, чтобы не удалить элементы из другого блока)?
 function memoryClear(e) {
     if (e.target.value !== 'memory-clear') return;
 
