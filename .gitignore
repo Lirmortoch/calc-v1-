@@ -6,7 +6,6 @@ img
 fonts
 /.pnp
 .pnp.js
-reset.css
 
 # testing
 /coverage

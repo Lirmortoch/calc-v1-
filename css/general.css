@@ -1,4 +1,5 @@
 /* import fonts */
+@import url('reset.css');
 @import url('fonts.css');
 
 html {
