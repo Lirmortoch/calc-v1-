@@ -1,6 +1,5 @@
 const path = require('path')
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: './script.js',
@@ -15,12 +14,5 @@ module.exports = {
         hot: true,
         port: 8080,
     },
-    // plugins: [
-    //     new HtmlWebpackPlugin({
-    //         title: 'webpack Boilerplate',
-    //         template: path.resolve(__dirname, './index.html'),
-    //         filename: 'index.html', 
-    //     }),
-    // ],
     mode: 'development',
 }
