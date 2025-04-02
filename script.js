@@ -399,7 +399,6 @@ function auxiliaryOperators(e) {
     const number = format(Number(inputMainPart.value), {notation: mode});
 
     if (e.target.value === '+-') {
-        inputPrevPart.textContent = `negate(${number})`
         temp = -number;
     }
 

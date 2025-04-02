@@ -1,3 +1,27 @@
 /* import common (general) styles */
 @import url('../css/general.css');
 
+.main {
+    width: 95%;
+    margin: 3em auto 0;
+}
+
+.about__title {
+    margin: 0px 0px 20px 0px;
+    text-align: center;
+}
+
+.about__text {
+    margin-bottom: min(1.3em, 26px);
+    line-height: 30px;
+}
+.about__text:last-child {
+    margin-bottom: 0px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+section:last-child {
+    margin-bottom: 0px;
+}
