@@ -25,3 +25,41 @@ section {
 section:last-child {
     margin-bottom: 0px;
 }
+
+.animation-block {
+    width: 50px;
+    height: 50px;
+
+    
+    border-radius: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animation-block > .ab-core {
+    background-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2), 
+                0px 0px 20px transparent;
+
+    width: 80%;
+    height: 80%;
+
+    border-radius: 100%;
+}
+
+.animation__red {
+    background-color: rgba(255, 3, 16, 0.96);
+    box-shadow: 0px 0px 50px rgba(255, 3, 16, 1);
+    margin-bottom: 20px;
+}
+.animation__blue {
+    background-color: rgba(21, 84, 250, 0.96);
+    box-shadow: 0px 0px 50px rgba(21, 84, 250, 1);
+    margin-bottom: 40px;
+}
+.animation__purple {
+    background-color: rgba(255, 25, 255, 0.96);
+    box-shadow: 0px 0px 50px rgba(255, 25, 255, 1);
+}
