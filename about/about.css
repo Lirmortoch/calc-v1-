@@ -62,10 +62,10 @@ section:last-child {
         transform: translateX(0px);
     }
     50% {
-        opacity: 0.99;
+        opacity: 1;
     }
     75% {
-        opacity: 0.98;
+        opacity: 0.9;
     }
     100% {  
         transform: translateX(145px);
@@ -76,10 +76,10 @@ section:last-child {
         transform: translateX(0px);
     }
     50% {
-        opacity: 0.99;
+        opacity: 1;
     }
     75% {
-        opacity: 0.98;
+        opacity: 0.9;
     }
     100% {  
         transform: translateX(-145px);
@@ -122,8 +122,8 @@ section:last-child {
     animation: purple 3s cubic-bezier(0.6, -0.28, 0.735, 0.045) 1;
 }
 .about-purple:nth-child(3) {
-    animation: purple 5s cubic-bezier(0.6, -0.28, 0.735, 0.045) 1;
+    animation: purple 6s cubic-bezier(0.6, -0.28, 0.735, 0.045) 1;
 }
 .about-purple:nth-child(5) {
-    animation: purple 9s cubic-bezier(0.6, -0.28, 0.735, 0.045) 1;
+    animation: purple 10s cubic-bezier(0.9, -0.58, 0.735, 1) 1;
 }
