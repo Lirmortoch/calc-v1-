@@ -14,5 +14,5 @@ module.exports = {
         hot: true,
         port: 8080,
     },
-    mode: 'production',
+    mode: 'development',
 }

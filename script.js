@@ -202,11 +202,22 @@ function dropContentOnMiddle(currentDropDown) {
     
     const buttonPosition = button.getBoundingClientRect();
 
-    content.style.left = `${
-        content.offsetWidth / buttonPosition.x < buttonPosition.x 
-            ? Math.round((button.clientWidth / 2) - (content.offsetWidth / 2)) 
-            : 0
-    }px`;
+    // content.style.left = `${
+    //     content.offsetWidth / buttonPosition.x < buttonPosition.x 
+    //         ? !button.textContent.includes('Trigonometry') 
+    //             ? Math.round((button.clientWidth / 2) - (content.offsetWidth / 2)) 
+    //             : 0
+    //         : 0
+    // }px`;
+
+    if (content.offsetWidth / buttonPosition.x < buttonPosition.x && !button.textContent.includes('Trigonometry')) {
+        content.style.left = `${
+            Math.round((button.clientWidth / 2) - (content.offsetWidth / 2)) 
+        }px`;
+    }
+    else {
+        content.style.left = `${0}px`;
+    }
 }
 
 document.addEventListener('click', keepOpenDropMenu);
