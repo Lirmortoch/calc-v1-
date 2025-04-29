@@ -112,6 +112,9 @@ function onScienceMode() {
 
     clearElementBtn.textContent = 'e';
     clearElementBtn.value = clearElementBtn.textContent;
+    clearElementBtn.classList.toggle('unary-operator');
+    clearElementBtn.classList.toggle('clear-funcs');
+    clearElementBtn.classList.toggle('constant');
 
     swapXs();
 }
@@ -130,6 +133,9 @@ function offScienceMode() {
 
     eBtn.textContent = 'CE';
     eBtn.value = eBtn.textContent;
+    eBtn.classList.toggle('unary-operator');
+    eBtn.classList.toggle('clear-funcs');
+    eBtn.classList.toggle('constant');
 
     swapXs();
 }
@@ -314,9 +320,9 @@ function printNumber(e) {
 
         clear.value = 'C';
         clear.textContent = 'C';
-
+        
         clearInput(clear);
-
+    
         inputMainPart.value = e.target.value;
         inputPrevPart.className = 'active-part__expression expression';
 
@@ -345,8 +351,11 @@ function clearInput(target) {
     }
     else if (target.value === 'CE') {
         inputMainPart.value = null;
-        target.value = 'C';
-        target.textContent = 'C';
+        
+        if (calcMode !== 'standard') {
+            target.value = 'C';
+            target.textContent = 'C';
+        }
     }
     else if (target.value === 'backspace') {
         let temp = inputMainPart.value.slice(0, -1);
@@ -732,7 +741,7 @@ function changeClearButton(e) {
     const clearBtn = document.querySelector('.clear-funcs[value="C"]');
 
     if (clearBtn === null) return;
-    else if (inputMainPart.value.length > 0 && clearBtn.value === 'C') {
+    else if (inputMainPart.value.length > 0 && clearBtn.value === 'C' && calcMode !== 'standard') {
         clearBtn.textContent = 'CE';
         clearBtn.value = 'CE';
     }

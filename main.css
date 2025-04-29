@@ -554,8 +554,9 @@ input[type=number] {
 
         right: 100%;
         
-        padding-left: 60%;
+        padding-right: 30%;
         padding-bottom: 46.5%;
+     
 
         background-color: var(--history-block-mobile-back-color);
 
