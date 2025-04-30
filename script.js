@@ -78,7 +78,7 @@ if (localStorage.getItem('history-mode') !== null) turnOnHistoryMode(localStorag
 document.addEventListener('click', switchHistoryMode);
 
 /* Mode switch */
-function swapXs() {
+function swapButtons(clearOrEButton) {
     const xPowTwo = actionButtons.querySelector('[value="x^2"]');
     const oneDivideX = actionButtons.querySelector('[value="1/x"]');
 
@@ -86,6 +86,12 @@ function swapXs() {
     xPowTwo.value = '1/x';
     oneDivideX.innerHTML = '<span>x</span><sup>2</sup>';
     oneDivideX.value = 'x^2';
+
+    clearOrEButton.value = clearOrEButton.textContent;
+
+    clearOrEButton.classList.toggle('unary-operator');
+    clearOrEButton.classList.toggle('clear-funcs');
+    clearOrEButton.classList.toggle('constant');
 }
 
 function changeSwitchModeButtons(btn1, btn2, calcMode, prevCalcMode, isRotate = false) {
@@ -111,12 +117,8 @@ function onScienceMode() {
     modeBtn.value = 'pi';
 
     clearElementBtn.textContent = 'e';
-    clearElementBtn.value = clearElementBtn.textContent;
-    clearElementBtn.classList.toggle('unary-operator');
-    clearElementBtn.classList.toggle('clear-funcs');
-    clearElementBtn.classList.toggle('constant');
 
-    swapXs();
+    swapButtons(clearElementBtn);
 }
 
 function offScienceMode() {
@@ -132,12 +134,8 @@ function offScienceMode() {
     piBtn.value = piBtn.textContent;
 
     eBtn.textContent = 'CE';
-    eBtn.value = eBtn.textContent;
-    eBtn.classList.toggle('unary-operator');
-    eBtn.classList.toggle('clear-funcs');
-    eBtn.classList.toggle('constant');
-
-    swapXs();
+   
+    swapButtons(eBtn);
 }
 
 function turnScienceMode() {
