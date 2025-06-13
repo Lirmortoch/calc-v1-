@@ -208,7 +208,7 @@ input[type=number] {
 /* Main buttons */
 .action-buttons {
     display: grid;
-    grid-auto-rows: 4.4vmax;
+    grid-auto-rows: 4vmax;
     grid-auto-columns: 315px;
 
     grid-template-columns: repeat(4, 1fr);
