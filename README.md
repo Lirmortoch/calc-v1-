@@ -1,10 +1,6 @@
 # Simple Calc
 
-A simple calculator for everyday mathematical calculations.
-
-## Description
-
-A Windows Calculator clone built using Vanilla JS (HTML and CSS as well), the mathjs library for parsing expressions, and webpack to bundle JavaScript files.
+A Windows Calculator clone built using Vanilla JS/HTML/CSS, the mathjs library for parsing expressions, and webpack to bundle JavaScript files.
 
 The calculator has two modes:
 
