@@ -23,7 +23,9 @@ Install dependencies:
 ```
 npm install
 ```
-Run the development server:
+Create build:
 ```
-npm run dev
+npm run build
 ```
+Run the server (e.g. [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer)).
+
