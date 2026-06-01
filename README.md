@@ -7,6 +7,13 @@ The calculator has two modes:
 * **Regular mode**: simple calculations (multiplication, division, subtraction, addition, etc.)
 * **Scientific mode**: additional functions for more complex calculations
 
+## Stack
+* HTML5
+* CSS3
+* JS (ES6+)
+* Webpack
+* Math.JS
+
 ## Getting Started
 
 ### Dependencies
